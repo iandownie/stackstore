@@ -1,7 +1,7 @@
 'use strict';
 
 // All used modules.
-var babel = require('gulp-babel');
+//var babel = require('gulp-babel');
 var gulp = require('gulp');
 var runSeq = require('run-sequence');
 var plumber = require('gulp-plumber');

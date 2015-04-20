@@ -35,3 +35,4 @@ app.controller('ProductCtrl', function ($scope, productsInfo) {
     $scope.product=productsInfo;
 
 });
+

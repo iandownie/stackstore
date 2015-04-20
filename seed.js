@@ -137,7 +137,7 @@ connectToDb.then(function () {
         if (products.length === 0) {
             return seedProducts();
         } else {
-            console.log(chalk.magenta('Seems to already be product data, exiting!'));
+            console.log(chalk.magenta('Seems to already be products data, exiting!'));
         }
     }).then(function () {
         console.log(chalk.green('Product Seed Successful!'));
@@ -150,7 +150,7 @@ connectToDb.then(function () {
 //         if (users.length === 0) {
 //             return seedProducts();
 //         } else {
-//             console.log(chalk.magenta('Seems to already be product data, exiting!'));
+//             console.log(chalk.magenta('Seems to already be products data, exiting!'));
 //         }
 //     }).then(function () {
 //         console.log(chalk.green('Product Seed Successful!'));
