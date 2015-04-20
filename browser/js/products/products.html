@@ -1,10 +1,15 @@
-<section id="tutorial">
-    <tutorial-section-menu ng-model="currentSection.section" sections="sections"></tutorial-section-menu>
-    <tutorial-section
-            id="{{ section }}"
-            name="{{ section }}"
-            videos="videos[section]"
-            background="{{ colors[$index] }}"
-            ng-repeat="section in sections">
-    </tutorial-section>
+<section id="product">
+    <div class="top-bar">
+    	<div class="left-side">
+    		<a href="#(store)"><img src="#(store owner pic)"></img></a>
+    		<h2>{{store}}</h2>
+    	</div>
+    	<div>{{product.name}}</div>
+    	<div>{{product.description}}</div>
+    	<div>{{product.price}}</div>
+    	<div>{{product.quantity}}</div>
+    	<div>{{product.name}}</div>
+    	<div>{{product.name}}</div>
+    </div>
+
 </section>
