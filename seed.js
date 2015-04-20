@@ -22,11 +22,20 @@ Refer to the q documentation for why and how q.invoke is used.
 var mongoose = require('mongoose');
 var connectToDb = require('./server/db');
 var User = mongoose.model('User');
+var Product = mongoose.model('Product');
+var Store = mongoose.model('Store');
+
 var q = require('q');
 var chalk = require('chalk');
 
 var getCurrentUserData = function () {
     return q.ninvoke(User, 'find', {});
+};
+var getCurrentProductsData = function () {
+    return q.ninvoke(Product, 'find', {});
+};
+var getCurrentStoresData = function () {
+    return q.ninvoke(Store, 'find', {});
 };
 
 var seedUsers = function () {
@@ -46,19 +55,120 @@ var seedUsers = function () {
 
 };
 
+var seedProducts = function () {
+
+    var products = [
+        {
+            name: 'Glass of Red Wine',
+            price: "6.99",
+            description: 'A delicious glass of red wine.',
+            quantity:1
+        },
+        {
+            name: 'Broadsword',
+            price: "199.99",
+            description: 'This shit is sharp.',
+            quantity:1
+        },
+        {
+            name: 'A Glass of Ale',
+            price: "4.99",
+            description: 'This shit is delicous.',
+            quantity:1
+        },
+        {
+            name: 'Axe',
+            price: "99.99",
+            description: 'This shit is sharp.',
+            quantity:1
+        },
+    ];
+
+    return q.invoke(Product, 'create', products);
+
+};
+var seedStores = function () {
+
+    var stores = [
+        {
+            userName: 'ImpishDelights',
+            storeName: "Tyrion's Wine Shop",
+            logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
+        }
+        // {
+        //     userName: 'SnowMan123',
+        //     storeName: "Snow\'s Swords",
+        //     products: ,
+        //     logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
+        // }
+    ];
+
+    return q.invoke(Store, 'create', stores);
+
+};
+
 connectToDb.then(function () {
+    getCurrentStoresData().then(function (stores) {
+        if (stores.length === 0) {
+            return seedStores();
+        } else {
+            console.log(chalk.magenta('Seems to already be store data, exiting!'));
+        }
+    }).then(function () {
+        console.log(chalk.green('Store Seed Successful!'));
+    }).catch(function (err) {
+        console.error(err);
+    });
     getCurrentUserData().then(function (users) {
         if (users.length === 0) {
             return seedUsers();
         } else {
             console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
         }
     }).then(function () {
-        console.log(chalk.green('Seed successful!'));
-        process.kill(0);
+        console.log(chalk.green('User Seed Successful!'));
+        return
     }).catch(function (err) {
         console.error(err);
-        process.kill(1);
+    });
+
+
+    getCurrentProductsData().then(function (products) {
+        if (products.length === 0) {
+            return seedProducts();
+        } else {
+            console.log(chalk.magenta('Seems to already be product data, exiting!'));
+        }
+    }).then(function () {
+        console.log(chalk.green('Product Seed Successful!'));
+    }).catch(function (err) {
+        console.error(err);
     });
 });
+// connectToDb.then(function () {
+//     getCurrentProductData().then(function (products) {
+//         if (users.length === 0) {
+//             return seedProducts();
+//         } else {
+//             console.log(chalk.magenta('Seems to already be product data, exiting!'));
+//         }
+//     }).then(function () {
+//         console.log(chalk.green('Product Seed Successful!'));
+//     }).catch(function (err) {
+//         console.error(err);
+//     });
+// });
+// connectToDb.then(function () {
+//     getCurrentStoreData().then(function (stores) {
+//         if (users.length === 0) {
+//             return seedStore();
+//         } else {
+//             console.log(chalk.magenta('Seems to already be store data, exiting!'));
+//         }
+//     }).then(function () {
+//         console.log(chalk.green('Store Seed Successful!'));
+//     }).catch(function (err) {
+//         console.error(err);
+//         process.kill(1);
+//     });
+// });

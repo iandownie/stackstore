@@ -4,13 +4,13 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     userName:{
-        type: Schema.Types.ObjectId, ref: 'User'
+        type: String
     },
     storeName:{
         type: String, required:true
     },
     products: [{
-        type: Schema.Types.ObjectId, ref: 'Product'
+        type: mongoose.Schema.Types.ObjectId, ref: 'Product'
     }],
     logo: {
         type: String
