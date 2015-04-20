@@ -14,7 +14,10 @@ var schema = new mongoose.Schema({
 	},
 	description:{
 		type: String, required: true
-	}
+	},
+	images:[{
+		type: String
+	}]
 });
 
 mongoose.model('Product', schema);

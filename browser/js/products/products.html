@@ -1,10 +1,40 @@
-<section id="tutorial">
-    <tutorial-section-menu ng-model="currentSection.section" sections="sections"></tutorial-section-menu>
-    <tutorial-section
-            id="{{ section }}"
-            name="{{ section }}"
-            videos="videos[section]"
-            background="{{ colors[$index] }}"
-            ng-repeat="section in sections">
-    </tutorial-section>
+<section id="product">
+    <div class="top-bar">
+    	<div class="left-side">
+    		<a href="#(store)"><img src="#(store owner pic)"></img></a>
+    		<h2>{{store}}</h2>
+    	</div>
+    	<div class="right-side">
+    		for loop of images of other products from this store.
+    	</div>
+    	<div class="main-product-container">
+    		<div class="left-main-col">
+    			<div class="above-img-col">Like this Item?</div>
+    			<img class="primary-img" src={{product.images[0]}}></img>	
+    			<div class="img-list">for loop of product images</div>
+    		</div>
+    		<div class="right-main-col">
+    			<form class="order">
+    				<div>
+		    			<h3 class="product-name">{{product.name}}</h3>
+		    			<h3>{{product.price}}</h3>
+		    			<select>
+		    				<option>1</option>
+		    			</select>
+		    			<h4>Overview</h4>
+		    			<p>{{product.description}}</p>
+		    		</div>
+		    		<button>Add to Cart</button>	
+    			</form>
+    		</div>
+    	</div>
+
+    	<div>{{product.name}}</div>
+    	<div>{{product.description}}</div>
+    	<div>{{product.price}}</div>
+    	<div>{{product.quantity}}</div>
+    	<div>{{product.name}}</div>
+    	<div>{{product.name}}</div>
+    </div>
+
 </section>
