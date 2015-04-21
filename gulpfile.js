@@ -65,6 +65,11 @@ gulp.task('buildCSS', function () {
         .pipe(gulp.dest('./public'))
 });
 
+gulp.task('moveImages', function () {
+    return gulp.src('./browser/images/*')
+
+        .pipe(gulp.dest('./public/images'))
+});
 gulp.task('seedDB', function () {
 
     var users = [

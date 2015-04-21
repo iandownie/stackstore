@@ -1,7 +1,7 @@
 <nav class="navbar navbar-static-top">
     <div class="container justify-around">
         <h1>The Imp's Bazaar</h1>
-        <img src="tyrion-lannister.png"></img>
+        <img src="images/tyrion-lannister.png"></img>
         <div class="nav navbar-nav justify-around">
             <button ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()" ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}
             </button>
