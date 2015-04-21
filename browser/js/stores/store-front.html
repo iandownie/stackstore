@@ -5,5 +5,13 @@ npStore Logo: <img src="{{store.logo}}" />
 <h1>User Name: {{store.userName}}</h1>
 
 <div ng-repeat="product in store.products">
-	{{product.name}}, {{product.price || currency}}</div>
+	{{product.name}}, {{product.price || currency}}
+</div>
 
+<form ng-submit="product.store && newProduct(product)">
+	<input placeholder="name" ng-model="product.name"></input>
+	<input type="number" placeholder="price" ng-model="product.price"></input>
+	<input type="number" placeholder="quantity" ng-model="product.quantity"></input>
+	<input placeholder="description" ng-model="product.description"></input>
+	<button type="submit")>Submit Product</button>
+</form>

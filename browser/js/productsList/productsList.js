@@ -29,19 +29,7 @@ app.factory('ProductsListFactory', function ($http) {
 
 });
 
-app.controller('ProductsListCtrl', function ($scope, $http, productsList) {
+app.controller('ProductsListCtrl', function ($scope, productsList) {
     $scope.productsList = productsList;
-    $scope.product={
-        name: "",
-        price: null,
-        quantity: null,
-        description: ""
-    }
 
-    $scope.newProduct=function(data){
-        console.log("data: ", data)
-        return $http.post('/api/products/', data).then(function(response){
-            console.log(response)
-        })
-    }
 });

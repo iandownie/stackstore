@@ -2,3 +2,14 @@
 <h3>First name: {{user.firstName}}</h3>
 <h3>Last name: {{user.lastName}}</h3>
 <h3>Email: {{user.email}}</h3>
+
+<h1>Create / Manage Store</h1>
+
+<h3>Create Store</h3>
+<form name="createStoreForm" ng-submit="createStore(store)">
+    <label>Store Name</label>
+        <input name="new-store-name" ng-model="store.storeName" type="text" required><br/>
+    <label>Store Logo</label>
+        <input name="new-store-logo" ng-model="store.logo" type="text" required><br/>
+    <button>Create</button>
+</form>

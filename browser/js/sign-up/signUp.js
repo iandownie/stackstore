@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('SignUpController', function ($scope, SignUpFactory) {
+app.controller('SignUpController', function ($state, $scope, SignUpFactory, AuthService) {
 
     $scope.newUser = {
         firstName: null,
@@ -17,7 +17,10 @@ app.controller('SignUpController', function ($scope, SignUpFactory) {
 
     $scope.signUp = function (user) {
         SignUpFactory.registerNewUser(user).then(function(data){
-            console.log('User created', data);
+            AuthService.login({email: user.email, password: user.password})
+                .then(function(){
+                    $state.go('home');
+                })
         })
     }
 
@@ -29,7 +32,6 @@ app.factory('SignUpFactory', function ($http) {
 
         registerNewUser: function (user){
             return $http.post('/api/users/user', user).then(function(response){
-                console.log('made it to the signUpFactory', response)
                 return response;
             });
         }

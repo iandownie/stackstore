@@ -1,11 +1,11 @@
 <section id="storeFront">
-
     <div ng-repeat="store in stores">
         <img src="{{store.logo}}" />
+        
 
         <h1>Store: {{ store.storeName }}</h1>
 
-        <h3>User: {{ store.userName }}</h3>
+        <h3>User: {{ store.user.firstName }} {{ store.user.lastName }}</h3>
 
         <div ng-repeat="product in store.products">{{product.name}}, {{product.price}}</div>
     </div>

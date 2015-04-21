@@ -1,6 +1,5 @@
 'use strict';
 app.config(function ($stateProvider) {
-
     $stateProvider.state('stores', {
         url: '/stores',
         controller: 'StoresController',
@@ -23,25 +22,40 @@ app.config(function ($stateProvider) {
 app.controller('StoresController', function ($scope, StoresFactory) {
     StoresFactory.loadAllStores()
         .then(function (stores){
-            console.log('STORES!!!!', stores);
             $scope.stores = stores;
         })
         .catch(function (err){
-            console.log('SHIT');
         });
 
 });
 
-app.controller('StoreFrontController', function ($scope, StoresFactory, getStoreById) {
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById) {
     $scope.store = getStoreById;
+
+    $scope.product = {
+        name: "",
+        price: null,
+        quantity: null,
+        description: "",
+        store: null
+    }
+
+    AuthService.getLoggedInUser().then(function (user) {
+        $scope.user = user;
+        $scope.product.store = $scope.user.store;
+
+    });
+    $scope.newProduct =function(data){
+        StoresFactory.newProduct(data).then(function (response){
+            $state.go('storeFront', {id: $scope.store._id }, {reload: true})
+        })
+    }
 
 });
 
 app.factory('StoresFactory', function ($http) {
-
     return {
         loadAllStores: function () {
-
             return $http.get('/api/stores/getAllStores')
                 .then(function(response){
                     return response.data;
@@ -52,6 +66,12 @@ app.factory('StoresFactory', function ($http) {
                 .then(function(response){
                     return response.data
                 });
+        },
+        newProduct: function(data){
+            return $http.post('/api/products/', data)
+                .then(function(response){
+                    return response.data
+                })
         }
     };
 });
