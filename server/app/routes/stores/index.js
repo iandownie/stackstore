@@ -23,6 +23,12 @@ router.get('/:id', function (req, res) {
             res.send(store);
         })
 });
+router.delete('/:id', function (req, res) {
+    Store.findByIdAndRemove(req.params.id, function(err, data){
+        if(err) return next(err);
+        res.json(data)
+    })
+});
 
 router.post('/store', function (req, res){
 

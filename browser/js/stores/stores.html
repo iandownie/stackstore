@@ -7,6 +7,8 @@
 
         <h3>User: {{ store.user.firstName }} {{ store.user.lastName }}</h3>
 
+        <a ng-click="goToStore(store._id)" > Click Here </a>
+
         <div ng-repeat="product in store.products">{{product.name}}, {{product.price}}</div>
     </div>
 </section>
