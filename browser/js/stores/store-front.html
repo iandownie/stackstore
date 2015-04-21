@@ -1,0 +1,12 @@
+<h1>HELLO FROM STORE-FRONT</h1>
+
+
+Store Logo: <img src="{{store.logo}}" />
+
+<h1>Store Name: {{store.storeName}}</h1>
+
+<h1>User Name: {{store.userName}}</h1>
+
+<div ng-repeat="product in store.products">
+	{{product.name}}, {{product.price || currency}}</div>
+

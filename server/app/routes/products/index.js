@@ -1,4 +1,5 @@
 'use strict';
+
 var mongoose = require('mongoose');
 var Product = mongoose.model("Product");
 
