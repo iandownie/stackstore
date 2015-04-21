@@ -7,11 +7,17 @@ npStore Logo: <img src="{{store.logo}}" />
 <div ng-repeat="product in store.products">
 	{{product.name}}, {{product.price || currency}}
 </div>
-
-<form ng-submit="product.store && newProduct(product)">
-	<input placeholder="name" ng-model="product.name"></input>
-	<input type="number" placeholder="price" ng-model="product.price"></input>
-	<input type="number" placeholder="quantity" ng-model="product.quantity"></input>
-	<input placeholder="description" ng-model="product.description"></input>
+<error ng-show="newProduct.productname.$error.maxlength">Name is too long!</error>
+<error ng-show="newProduct.productname.$touched && newProduct.productname.$error.required">Name is required!</error>
+<error ng-show="newProduct.productdescription.$touched && newProduct.productdescription.$error.required">Description is required!</error>
+<error ng-show="newProduct.productprice.$error.min">Price must not be over 0</error>
+<error ng-show="newProduct.productprice.$touched && newProduct.productprice.$error.required">Price is required!</error>
+<error ng-show="newProduct.productquantity.$error.min">Quantity must not be negative</error>
+<error ng-show="newProduct.productdescription.$error.maxlength">Description is too long!</error>
+<form ng-submit="newProduct.$valid && newProduct(product)" name="newProduct">
+	<input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
+	<input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0.01"></input>
+	<input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
+	<input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
 	<button type="submit")>Submit Product</button>
 </form>
