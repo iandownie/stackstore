@@ -17,14 +17,12 @@
     			<form class="order">
     				<div>
 		    			<h3 class="product-name">{{product.name}}</h3>
-		    			<h3>{{product.price}}</h3>
-		    			<select>
-		    				<option>1</option>
-		    			</select>
+		    			<h3>{{product.price}} </h3>
+		    			<input type="number" ng-model="quant"></input>
 		    			<h4>Overview</h4>
 		    			<p>{{product.description}}</p>
 		    		</div>
-		    		<button>Add to Cart</button>	
+		    		<button ng-click="addCart(product, quant)">Add to Cart</button>	
     			</form>
     		</div>
     	</div>
