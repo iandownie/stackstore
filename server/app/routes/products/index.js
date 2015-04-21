@@ -15,7 +15,7 @@ router.get('/', function(req, res){
 });
 
 router.post('/', function(req, res){
-	//creating a product
+	
 	console.log(req.body);
 });
 
