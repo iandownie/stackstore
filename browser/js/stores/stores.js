@@ -1,15 +1,15 @@
 'use strict';
 app.config(function ($stateProvider) {
 
-    // Register our *about* state.
     $stateProvider.state('stores', {
         url: '/stores',
         controller: 'StoresController',
         templateUrl: 'js/stores/stores.html'
     });
+
     $stateProvider.state('storeFront', {
         url: '/stores/:id',
-        controller: 'StoresController',
+        controller: 'StoreFrontController',
         templateUrl: 'js/stores/store-front.html',
         resolve: {
             getStoreById: function($stateParams, StoresFactory){
@@ -20,8 +20,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('StoresController', function ($scope, StoresFactory, getStoreById) {
-    $scope.store = getStoreById;
+app.controller('StoresController', function ($scope, StoresFactory) {
     StoresFactory.loadAllStores()
         .then(function (stores){
             console.log('STORES!!!!', stores);
@@ -30,6 +29,11 @@ app.controller('StoresController', function ($scope, StoresFactory, getStoreById
         .catch(function (err){
             console.log('SHIT');
         });
+
+});
+
+app.controller('StoreFrontController', function ($scope, StoresFactory, getStoreById) {
+    $scope.store = getStoreById;
 
 });
 
