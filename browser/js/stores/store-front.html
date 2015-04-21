@@ -4,14 +4,14 @@
 
 <h1>User Name: {{store.user.firstName}} {{store.user.lastName}}</h1>
 
-<div ng-repeat="product in store.products">
-	<div>
-		<label>Product: </label> {{product.name}}<br/>
-		<label>Price: </label> {{product.price || currency}}<br/>
-		<label>Quantity: </label> {{product.quantity}}<br/>
-		<label>Description: </label> {{product.description}}<br/>
-	</div>
-</div>
+<!--<div ng-repeat="product in store.products">-->
+	<!--<div>-->
+		<!--<label>Product: </label> {{product.name}}<br/>-->
+		<!--<label>Price: </label> {{product.price || currency}}<br/>-->
+		<!--<label>Quantity: </label> {{product.quantity}}<br/>-->
+		<!--<label>Description: </label> {{product.description}}<br/>-->
+	<!--</div>-->
+<!--</div>-->
 
 
 <h3>Add New Item</h3>
@@ -23,3 +23,51 @@
 	<button type="submit")>Submit Product</button><br/>
 </form>
 <br/>
+
+<table class="table table-bordered table-striped">
+
+	<thead>
+	<tr>
+		<td>
+			<a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+				Name
+				<span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+		<td>
+			<a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">
+				Price
+				<span ng-show="sortType == 'price' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'price' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+		<td>
+			<a href="#" ng-click="sortType = 'quantity'; sortReverse = !sortReverse">
+				Quantity
+				<span ng-show="sortType == 'quantity' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'quantity' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+		<td>
+			<a href="#" ng-click="sortType = 'description'; sortReverse = !sortReverse">
+				Desciption
+				<span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+	</tr>
+	</thead>
+
+	<tbody>
+	<tr ng-repeat="product in store.products | orderBy:sortType:sortReverse | filter:searchFish">
+		<td>{{ product.name }}</td>
+		<td>{{ product.price }}</td>
+		<td>{{ product.quantity }}</td>
+		<td>{{ product.description }}</td>
+	</tr>
+	</tbody>
+
+</table>
+
+</div>
