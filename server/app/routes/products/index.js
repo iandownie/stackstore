@@ -36,6 +36,14 @@ router.delete('/:id', function(req, res, next){
 	});
 });
 
+router.put('/:id', function(req, res, next){
+	Product.findByIdAndUpdate(req.params.id, req.body, function(err, data){
+		if(err) return next(err);
+		res.json(data);
+	});
+});
+
+
 router.put('/:id', function(req, res){
 
 });
