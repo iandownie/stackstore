@@ -28,7 +28,7 @@ app.factory('SignUpFactory', function ($http) {
     return {
 
         registerNewUser: function (user){
-            return $http.post('/api/users/createUser', user).then(function(response){
+            return $http.post('/api/users/user', user).then(function(response){
                 console.log('made it to the signUpFactory', response)
                 return response;
             });
