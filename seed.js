@@ -99,13 +99,13 @@ var seedStores = function (productsArray) {
             storeName: "Tyrion's Wine Shop",
             logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png',
             products : productsArray
-        }
-        // {
-        //     userName: 'SnowMan123',
-        //     storeName: "Snow\'s Swords",
-        //     products: ,
-        //     logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
-        // }
+        },
+         {
+             userName: 'SnowMan123',
+             storeName: "Snow\'s Swords",
+             products: productsArray,
+             logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
+         }
     ];
 
     return q.invoke(Store, 'create', stores);
