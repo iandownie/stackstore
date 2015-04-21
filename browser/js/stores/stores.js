@@ -18,7 +18,7 @@ app.controller('StoresController', function ($scope, StoresFactory) {
         })
         .catch(function (err){
             console.log('SHIT');
-        })
+        });
 
 });
 
@@ -30,8 +30,8 @@ app.factory('StoresFactory', function ($http) {
             return $http.get('/api/stores/getStores')
                 .then(function(response){
                     return response.data;
-                })
+                });
         }
 
-    }
+    };
 });

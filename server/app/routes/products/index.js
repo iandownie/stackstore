@@ -6,9 +6,9 @@ var router = require('express').Router();
 
 
 router.get('/:id', function (req, res) {
-    Product.findOne(req.params.id, function(err, data){
+    Product.findById(req.params.id, function(err, data){
         res.json(data);
-    })
+    });
 
 });
 
