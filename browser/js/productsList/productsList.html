@@ -1,4 +1,11 @@
 <section id="productsList">
+ 	<form ng-submit="newProduct(product)">
+	    <input placeholder="name" ng-model="product.name"></input>
+	    <input placeholder="price" ng-model="product.price"></input>
+	    <input placeholder="quantity" ng-model="product.quantity"></input>
+	    <input placeholder="description" ng-model="product.description"></input>
+	  	<button type="submit")>Submit Product</button>
+ 	</form>
     <div>
     	<pre>{{productsList | json}}</pre>
     </div>
