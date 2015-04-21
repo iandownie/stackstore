@@ -21,6 +21,11 @@ app.factory('ProductFactory', function ($http) {
                 return response.data;
             });
         },
+        editProduct: function(product){
+            return $http.put('api/products/' + product._id, product).then(function(response){
+                return response.data;
+            });
+        },
         deleteProduct: function(productID){
             return $http.delete('api/products/' + productID).then(function(response){
                 return response.data;
@@ -31,8 +36,15 @@ app.factory('ProductFactory', function ($http) {
 });
 
 app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFactory) {
+    $scope.visible=false;
 
     $scope.product = productsInfo;
+
+    $scope.editProduct=function(product){
+        ProductFactory.editProduct(product).then(function(){
+            $state.go('products', {id:product._id},{reload:true})
+        })
+    };
     $scope.deleteProduct = function(productID){
         ProductFactory.deleteProduct(productID).then(function(){
             $state.go('stores');

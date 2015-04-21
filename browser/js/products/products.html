@@ -28,12 +28,18 @@
     			</form>
     		</div>
     	</div>
-
+        <button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+            <div ng-show="visible">
+                <form ng-submit="editProduct(product)">
+                    <input  ng-model="product.name"></input>
+                    <input  type="number" ng-model="product.quantity"></input>
+                    <input  ng-model="product.description"></input>
+                    <input  type="float" ng-model="product.price"></input>
+                    <button class="btn btn-primary " type="submit">Save Changes</button>
+                </form>
+                <button class="btn-primary btn" >Add or Remove Pictures</button>
+            </div>
         <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button>
-    	<div>{{product.name}}</div>
-    	<div>{{product.description}}</div>
-    	<div>{{product.price}}</div>
-    	<div>{{product.quantity}}</div>
     </div>
 
 </section>
