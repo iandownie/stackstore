@@ -87,13 +87,14 @@ var seedProducts = function () {
     return q.invoke(Product, 'create', products);
 
 };
-var seedStores = function () {
+var seedStores = function (productsArray) {
 
     var stores = [
         {
             userName: 'ImpishDelights',
             storeName: "Tyrion's Wine Shop",
-            logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
+            logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png',
+            products : productsArray
         }
         // {
         //     userName: 'SnowMan123',
@@ -108,17 +109,6 @@ var seedStores = function () {
 };
 
 connectToDb.then(function () {
-    getCurrentStoresData().then(function (stores) {
-        if (stores.length === 0) {
-            return seedStores();
-        } else {
-            console.log(chalk.magenta('Seems to already be store data, exiting!'));
-        }
-    }).then(function () {
-        console.log(chalk.green('Store Seed Successful!'));
-    }).catch(function (err) {
-        console.error(err);
-    });
     getCurrentUserData().then(function (users) {
         if (users.length === 0) {
             return seedUsers();
@@ -127,24 +117,48 @@ connectToDb.then(function () {
         }
     }).then(function () {
         console.log(chalk.green('User Seed Successful!'));
-        return
     }).catch(function (err) {
         console.error(err);
     });
-
 
     getCurrentProductsData().then(function (products) {
         if (products.length === 0) {
             return seedProducts();
         } else {
             console.log(chalk.magenta('Seems to already be products data, exiting!'));
+            return products;
         }
-    }).then(function () {
+    }).then(function (products) {
         console.log(chalk.green('Product Seed Successful!'));
+
+        getCurrentStoresData().then(function (stores) {
+            if (stores.length === 0) {
+                //randomly generates an array of ObjectIds of products for a store
+                var productIDs = products.map(function(product){
+                    return product._id;
+                }).filter(function(productId){
+                    if (Math.random() > 0.6){
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+                //passes array of ObjectIds of products to be seeded into the stores
+                return seedStores(productIDs);
+            } else {
+                console.log(chalk.magenta('Seems to already be store data, exiting!'));
+            }
+        }).then(function () {
+            console.log(chalk.green('Store Seed Successful!'));
+        }).catch(function (err) {
+            throw new Error(err);
+        });
     }).catch(function (err) {
         console.error(err);
     });
 });
+
+
 // connectToDb.then(function () {
 //     getCurrentProductData().then(function (products) {
 //         if (users.length === 0) {
