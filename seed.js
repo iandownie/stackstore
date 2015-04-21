@@ -62,25 +62,29 @@ var seedProducts = function () {
             name: 'Glass of Red Wine',
             price: "6.99",
             description: 'A delicious glass of red wine.',
-            quantity:1
+            quantity:1,
+            images: ['https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSCxsaik5Lrz-ZYYBru8s5dOMuFVn3o2XmtIqMZJ8cIgUGhChGafa-Vo6Km48fJ0arl-PQsvw&usqp=CAE', 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRPIJ9BOFZNm88UacFxlm-ImoWfyJ6iiiFAEKdllaiMYHdnIcB7&usqp=CAE']
         },
         {
             name: 'Broadsword',
             price: "199.99",
             description: 'This shit is sharp.',
-            quantity:1
+            quantity:1,
+            images: []
         },
         {
             name: 'A Glass of Ale',
             price: "4.99",
             description: 'This shit is delicous.',
-            quantity:1
+            quantity:1,
+            images: ['http://iveneverdonethat.com/indt2012/files/75AleCoverShot.jpg','http://www.bonappetit.com/wp-content/uploads/2012/12/bacon-brown-ale-uncommon-brewers-646.jpg', 'http://www.bevlaw.com/bevlog/wp-content/uploads/2011/12/bacon.jpg']
         },
         {
             name: 'Axe',
             price: "99.99",
             description: 'This shit is sharp.',
-            quantity:1
+            quantity:1,
+            images : ['https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQ8NE9Q7JGTgt2EMoKjxN4062FXtR0RsxQ2yHFeqY4DcuJbqfI&usqp=CAE']
         },
     ];
 
