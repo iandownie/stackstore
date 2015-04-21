@@ -7,10 +7,21 @@ app.config(function ($stateProvider) {
         controller: 'StoresController',
         templateUrl: 'js/stores/stores.html'
     });
+    $stateProvider.state('storeFront', {
+        url: '/stores/:id',
+        controller: 'StoresController',
+        templateUrl: 'js/stores/store-front.html',
+        resolve: {
+            getStoreById: function($stateParams, StoresFactory){
+                return StoresFactory.loadStoreFront($stateParams.id)
+            }
+        }
+    });
 
 });
 
-app.controller('StoresController', function ($scope, StoresFactory) {
+app.controller('StoresController', function ($scope, StoresFactory, getStoreById) {
+    $scope.store = getStoreById;
     StoresFactory.loadAllStores()
         .then(function (stores){
             console.log('STORES!!!!', stores);
@@ -31,7 +42,12 @@ app.factory('StoresFactory', function ($http) {
                 .then(function(response){
                     return response.data;
                 });
+        },
+        loadStoreFront: function(id){
+            return $http.get('/api/stores/' + id)
+                .then(function(response){
+                    return response.data
+                });
         }
-
     };
 });
