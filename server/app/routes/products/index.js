@@ -8,15 +8,18 @@ var router = require('express').Router();
 
 router.get('/', function(req, res){
 	//get all products
-	Product.find().limit(2).exec(function(err, dataArr){
+	Product.find().limit(10).exec(function(err, dataArr){
 		if(err) return next(err);
 		res.json(dataArr);
 	});
 });
 
 router.post('/', function(req, res){
-	
-	console.log(req.body);
+console.log(req.body)
+	Product.create(req.body).then(function(data){
+		res.json(data)
+	})
+
 });
 
 router.get('/:id', function (req, res) {
