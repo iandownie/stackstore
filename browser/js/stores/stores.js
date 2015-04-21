@@ -19,19 +19,23 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('StoresController', function ($scope, StoresFactory) {
+app.controller('StoresController', function ($state, $scope, StoresFactory) {
     StoresFactory.loadAllStores()
         .then(function (stores){
             $scope.stores = stores;
         })
         .catch(function (err){
         });
+        $scope.goToStore = function(link){
+            console.log("clicked a tag")
+            $state.go("storeFront", {id: link})
+        }
 
 });
 
 app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById) {
     $scope.store = getStoreById;
-
+   // StoresFactory.loadAllStores()
     $scope.product = {
         name: "",
         price: null,

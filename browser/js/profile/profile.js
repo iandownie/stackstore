@@ -19,7 +19,6 @@ app.controller('ProfileController', function ($scope, AuthService, ProfileFactor
     };
 
     AuthService.getLoggedInUser().then(function (user) {
-        console.log(user)
         $scope.user = user;
         $scope.store.userId = $scope.user._id;
     });
