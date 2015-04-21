@@ -12,6 +12,10 @@ var schema = new mongoose.Schema({
 	quantity:{
 		type: Number, required: true
 	},
+	store: {
+	    type:  mongoose.Schema.Types.ObjectId, ref: 'Store',
+	    required: true
+	},
 	description:{
 		type: String, required: true
 	},
