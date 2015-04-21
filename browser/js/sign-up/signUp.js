@@ -6,6 +6,34 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('SignUpController', function ($scope) {
+app.controller('SignUpController', function ($scope, SignUpFactory) {
+
+    $scope.newUser = {
+        firstName: null,
+        lastName: null,
+        email: null,
+        password: null
+    };
+
+    $scope.signUp = function (user) {
+        SignUpFactory.registerNewUser(user).then(function(data){
+            console.log('User created', data);
+        })
+    }
+
+});
+
+app.factory('SignUpFactory', function ($http) {
+
+    return {
+
+        registerNewUser: function (user){
+            return $http.post('/api/users/createUser', user).then(function(response){
+                console.log('made it to the signUpFactory', response)
+                return response;
+            });
+        }
+
+    }
 
 });

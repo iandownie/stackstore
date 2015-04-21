@@ -1,1 +1,14 @@
-REGISTER HTML
+<h1>Sign-up Page</h1>
+<form name="sign-up-form" ng-submit="signUp(newUser)">
+
+    <label>First Name:</label>
+        <input name="first-name" type="text" ng-model="newUser.firstName" required><br/>
+    <label>Last Name:</label>
+        <input name="last-name" type="text" ng-model="newUser.lastName" required><br/>
+    <label>Email:</label>
+        <input name="email" type="text" ng-model="newUser.email" required><br/>
+    <label>Password:</label>
+        <input name="password" type="password" ng-model="newUser.password" required><br/>
+    <button>Submit</button>
+
+</form>
