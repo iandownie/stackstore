@@ -1,17 +1,25 @@
-npStore Logo: <img src="{{store.logo}}" />
+<img src="{{store.logo}}" />
 
 <h1>Store Name: {{store.storeName}}</h1>
 
-<h1>User Name: {{store.userName}}</h1>
+<h1>User Name: {{store.user.firstName}} {{store.user.lastName}}</h1>
 
 <div ng-repeat="product in store.products">
-	{{product.name}}, {{product.price || currency}}
+	<div>
+		<label>Product: </label> {{product.name}}<br/>
+		<label>Price: </label> {{product.price || currency}}<br/>
+		<label>Quantity: </label> {{product.quantity}}<br/>
+		<label>Description: </label> {{product.description}}<br/>
+	</div>
 </div>
 
+
+<h3>Add New Item</h3>
 <form ng-submit="product.store && newProduct(product)">
-	<input placeholder="name" ng-model="product.name"></input>
-	<input type="number" placeholder="price" ng-model="product.price"></input>
-	<input type="number" placeholder="quantity" ng-model="product.quantity"></input>
-	<input placeholder="description" ng-model="product.description"></input>
-	<button type="submit")>Submit Product</button>
+	<input placeholder="name" ng-model="product.name"></input><br/>
+	<input type="number" placeholder="price" ng-model="product.price"></input><br/>
+	<input type="number" placeholder="quantity" ng-model="product.quantity"></input><br/>
+	<input placeholder="description" ng-model="product.description"></input><br/>
+	<button type="submit")>Submit Product</button><br/>
 </form>
+<br/>

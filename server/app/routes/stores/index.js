@@ -18,6 +18,7 @@ router.get('/getAllStores', function (req, res) {
 router.get('/:id', function (req, res) {
     Store.findById(req.params.id)
         .populate('products')
+        .populate('user')
         .exec(function (err, store){
             if (err) console.error(err);
             res.send(store);
