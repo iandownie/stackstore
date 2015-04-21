@@ -11,6 +11,9 @@ var schema = new mongoose.Schema({
     password: {
         type: String
     },
+    store: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Store'
+    },
     salt: {
         type: String
     },
