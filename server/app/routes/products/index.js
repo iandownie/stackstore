@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose');
 var Product = mongoose.model("Product");
+var Store = mongoose.model("Store");
+
 
 var router = require('express').Router();
 
@@ -15,8 +17,14 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function(req, res){
-	Product.create(req.body).then(function(data){
-		res.json(data);
+	Product.create(req.body).then(function(product){
+		Store.findByIdAndUpdate(req.body.store, {
+			$push: 
+				{ products:  product._id }
+			})
+			.then(function(store){
+				res.json(store);
+		})
 	});
 
 });
