@@ -35,8 +35,10 @@ app.factory('ProductFactory', function ($http) {
 
 });
 
-app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFactory) {
+app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFactory, CartFactory) {
     $scope.visible=false;
+
+    $scope.quant=1;
 
     $scope.product = productsInfo;
 
@@ -51,6 +53,10 @@ app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFac
         }).catch(function(err){
             throw new Error(err);
         });
+    };
+
+    $scope.addCart = function(product, quant){
+        CartFactory.addCart(product, quant);
     };
 });
 
