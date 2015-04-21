@@ -65,6 +65,11 @@ gulp.task('buildCSS', function () {
         .pipe(gulp.dest('./public'))
 });
 
+gulp.task('moveImages', function () {
+    return gulp.src('./browser/images/*')
+
+        .pipe(gulp.dest('./public/images'))
+});
 gulp.task('seedDB', function () {
 
     var users = [
@@ -135,6 +140,7 @@ gulp.task('default', function () {
     gulp.watch('browser/scss/**', function () {
         runSeq('buildCSS', 'reloadCSS');
     });
+    gulp.watch('browser/images/*', ['moveImages']);
 
     gulp.watch('server/**/*.js', ['lintJS']);
     gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);

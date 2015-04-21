@@ -11,10 +11,10 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('StoresController', function ($scope, StoresFactory) {
-    StoresFactory.loadStore()
-        .then(function (store){
-            console.log('STORE!!!!', store);
-            $scope.store = store[0];
+    StoresFactory.loadAllStores()
+        .then(function (stores){
+            console.log('STORES!!!!', stores);
+            $scope.stores = stores;
         })
         .catch(function (err){
             console.log('SHIT');
@@ -25,9 +25,9 @@ app.controller('StoresController', function ($scope, StoresFactory) {
 app.factory('StoresFactory', function ($http) {
 
     return {
-        loadStore: function () {
+        loadAllStores: function () {
 
-            return $http.get('/api/stores/getStores')
+            return $http.get('/api/stores/getAllStores')
                 .then(function(response){
                     return response.data;
                 });
