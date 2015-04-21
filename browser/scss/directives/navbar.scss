@@ -1,55 +1,144 @@
 navbar {
 
-  h1 {
-    color:orange;
-    font-size: 40px;
-  }
-
   display: block;
-  background: #a1a1a1;
+  width: 100%;
+  float: left;
+  height: 110px;
+  display: block;
+  background: rgba(255, 0, 0, 0.39);
+  nav{
+    div.container {
+      height: 110px;
+      display: -webkit-flex;
+      -webkit-justify-content: space-around;
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      float: left;
+      input{
+        margin: 12px 0;
+        width: 245px;
+        background: rgba(255, 255, 0, 0);
+        padding: 8px 17px 8px 19px;
+        border: ridge 10px #8a0000;
+        -moz-border-radius-topleft: 75px;
+        -moz-border-radius-topright: 0px;
+        -moz-border-radius-bottomleft: 0px;
+        -moz-border-radius-bottomright: 75px;
+        -webkit-border-top-left-radius: 75px;
+        -webkit-border-top-right-radius: 0px;
+        -webkit-border-bottom-left-radius: 0px;
+        -webkit-border-bottom-right-radius: 75px;
+        border-top-left-radius: 75px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 75px;
+        font-size: 15px;
+      }
+      input::-webkit-input-placeholder {
+        color: black;
+        text-shadow: yellow 1px 0px 5px;
+      }
+      input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+           color: black;
+           text-shadow: yellow 1px 0px 5px;
+      }
+      input::-moz-placeholder { /* Mozilla Firefox 19+ */
+           color: black;
+           opacity: 1;
+           text-shadow: yellow 1px 0px 5px;
+      }
+      input:-ms-input-placeholder { /* Internet Explorer 10+ */
+           color: black;
+           opacity: 1;
+        text-shadow: yellow 1px 0px 5px;
+      }
+      img{
+        width: 139px;
+      }
+      h1 {
+        text-shadow:-4px 4px 4px #000000;
+        float: left;
+        color:yellow;
+        font-size: 40px;
+      }
+      fullstack-logo {
+        padding-top: 10px;
+        margin-right: 20px;
+        width: 30px;
+      }
+      div.nav {
+        display: -webkit-flex;
+        -webkit-justify-content: space-around;
+        display: flex;
+        justify-content: space-around;
+        width:305px;
+        button {
+          text-shadow: -1px 1px 3px #fff200;
+          padding:0;
+          font-size: 15px;
+          font-weight: 700;
+          -moz-box-shadow: -4px 3px 14px #000000;
+          -webkit-box-shadow: -4px 3px 14px #000000;
+          box-shadow: -4px 3px 14px #000000;
+          background: url(lion-icon.png);
+          border-radius: 100%;
+          background-position: -20px -4px;
+          background-size: 117px;
+          height: 110px;
+          width: 82px;
+          min-width: 82px;
+          border: solid 2px #000000;
+          &:hover {
+            -moz-box-shadow: -4px 3px 14px #ffff00;
+            -webkit-box-shadow: -4px 3px 14px #ffff00;
+            box-shadow: -4px 3px 14px #ffff00;
+            }
+          a {
+            font-size: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            &.active {
+              color: #f30046;
+            }
+            
+            &:focus {
+              color: #f30046;
+              background: transparent;
+            }
+          }
+        }
+      } 
 
-  fullstack-logo {
-    padding-top: 10px;
-    margin-right: 20px;
-    width: 30px;
-  }
+      .login-button {
+          background: rgba(255, 255, 0, 0.52);
+          padding: 8px 17px 8px 30px;
+          border: ridge 10px #8a0000;
+          -moz-border-radius-topleft: 75px;
+          -moz-border-radius-topright: 0px;
+          -moz-border-radius-bottomleft: 0px;
+          -moz-border-radius-bottomright: 75px;
+          -webkit-border-top-left-radius: 75px;
+          -webkit-border-top-right-radius: 0px;
+          -webkit-border-bottom-left-radius: 0px;
+          -webkit-border-bottom-right-radius: 75px;
+          border-top-left-radius: 75px;
+          border-top-right-radius: 0px;
+          border-bottom-left-radius: 0px;
+          border-bottom-right-radius: 75px;
+      }
 
-  a {
-    color: white;
-    &:hover {
-      color: white;
+      .welcome {
+        float: right;
+        margin-top: 12px;
+        span {
+          color: white;
+        }
+        a {
+          color: #f30046;
+          cursor: pointer;
+        }
+      }
     }
   }
-
-  .nav > li > a {
-    cursor: pointer;
-    &.active {
-      color: #f30046;
-    }
-    &:hover {
-      transition: color 0.2s;
-    }
-    &:focus {
-      color: #f30046;
-      background: transparent;
-    }
-  }
-
-  .login-button {
-    float: right;
-    margin-top: 8px;
-  }
-
-  .welcome {
-    float: right;
-    margin-top: 12px;
-    span {
-      color: white;
-    }
-    a {
-      color: #f30046;
-      cursor: pointer;
-    }
-  }
-
 }

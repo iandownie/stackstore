@@ -1,7 +1,14 @@
 * {
   box-sizing: border-box;
 }
-
+body{
+  background: url(tyrion_lannister_background.jpg);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  margin: 0;
+  background-position: center 1px;
+  }
 @mixin clearfix {
   &:after {
     content: "";
