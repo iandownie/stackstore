@@ -42,7 +42,10 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         quantity: null,
         description: "",
         store: null
-    }
+    };
+
+    $scope.sortType     = 'name'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
 
     AuthService.getLoggedInUser().then(function (user) {
         $scope.user = user;
