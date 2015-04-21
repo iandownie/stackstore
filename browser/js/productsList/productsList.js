@@ -9,7 +9,6 @@ app.config(function ($stateProvider) {
         controller: 'ProductsListCtrl',
         resolve: {
             productsList:function(ProductsListFactory){
-                console.log('what');
                 return ProductsListFactory.getAll();
             }
         }
@@ -23,7 +22,6 @@ app.factory('ProductsListFactory', function ($http) {
     return {
         getAll: function () {
             return $http.get('/api/products/').then(function (response) {
-                console.log('hello');
                 return response.data;
             });
         }
