@@ -11,11 +11,25 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProfileController', function ($scope, AuthService) {
+app.controller('ProfileController', function ($scope, AuthService, ProfileFactory) {
+
+    $scope.store = {
+        storeName: null,
+        logo: null
+    };
 
     AuthService.getLoggedInUser().then(function (user) {
+        console.log(user)
         $scope.user = user;
+        $scope.store.userId = $scope.user._id;
     });
+
+    $scope.createStore = function (store){
+        ProfileFactory.makeStore(store).then(function(store){
+            $scope.store = store;
+        })
+    }
+
 
 });
 
@@ -23,10 +37,10 @@ app.factory('ProfileFactory', function ($http) {
 
     return {
 
-        getUser: function(){
-            $http.get('/user', function (err, foundUser){
-                console.log('found user in GetUser: ', foundUser)
-                return foundUser;
+        makeStore: function (store) {
+            return $http.post('/api/stores/store', store)
+                .then(function(response){
+                    return response;
             })
         }
 

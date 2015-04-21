@@ -23,11 +23,10 @@ app.config(function ($stateProvider) {
 app.controller('StoresController', function ($scope, StoresFactory) {
     StoresFactory.loadAllStores()
         .then(function (stores){
-            console.log('STORES!!!!', stores);
             $scope.stores = stores;
         })
         .catch(function (err){
-            console.log('SHIT');
+            console.log('Yikes');
         });
 
 });
