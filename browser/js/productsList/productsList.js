@@ -1,6 +1,8 @@
 'use strict';
 app.config(function ($stateProvider) {
 
+
+
     $stateProvider.state('productsList', {
         url: '/products',
         templateUrl: 'js/productsList/productsList.html',
@@ -29,6 +31,19 @@ app.factory('ProductsListFactory', function ($http) {
 
 });
 
-app.controller('ProductsListCtrl', function ($scope, productsList) {
+app.controller('ProductsListCtrl', function ($scope, $http, productsList) {
     $scope.productsList = productsList;
+    $scope.product={
+        name: "",
+        price: null,
+        quantity: null,
+        description: ""
+    }
+
+    $scope.newProduct=function(data){
+        console.log("data: ", data)
+        return $http.post('/api/products/', data).then(function(response){
+            console.log(response)
+        })
+    }
 });

@@ -9,6 +9,9 @@ body{
   position: fixed;
   margin: 0;
   background-position: center 1px;
+  input{
+  	color:black;
+  }
   }
 @mixin clearfix {
   &:after {

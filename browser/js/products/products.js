@@ -10,9 +10,7 @@ app.config(function ($stateProvider) {
                 return ProductFactory.getProduct($stateParams.id);
             }
         }
-
     });
-
 });
 
 app.factory('ProductFactory', function ($http) {
@@ -28,6 +26,10 @@ app.factory('ProductFactory', function ($http) {
 });
 
 app.controller('ProductCtrl', function ($scope, productsInfo) {
+
     $scope.product = productsInfo;
 });
+
+
+
 
