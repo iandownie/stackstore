@@ -6,10 +6,13 @@
 <h1>Create / Manage Store</h1>
 
 <h3>Create Store</h3>
-<form name="createStoreForm" ng-submit="createStore(store)">
+<error ng-show="createStoreForm.newstorename.$touched && createStoreForm.newstorename.$error.required">Store name is required!</error>
+<error ng-show="createStoreForm.newstorename.$error.maxlength">First name is required!</error>
+<error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
+<form name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
     <label>Store Name</label>
-        <input name="new-store-name" ng-model="store.storeName" type="text" required><br/>
+        <input name="newstorename" ng-maxlength="20" ng-model="store.storeName" type="text" required><br/>
     <label>Store Logo</label>
-        <input name="new-store-logo" ng-model="store.logo" type="text" required><br/>
+        <input name="newstorelogo" ng-model="store.logo" type="text" required><br/>
     <button>Create</button>
 </form>
