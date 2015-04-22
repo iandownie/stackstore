@@ -24,7 +24,7 @@ router.post('/', function(req, res){
 			})
 			.then(function(store){
 				res.json(store);
-		})
+		});
 	});
 
 });
@@ -49,11 +49,6 @@ router.put('/:id', function(req, res, next){
 		if(err) return next(err);
 		res.json(data);
 	});
-});
-
-
-router.put('/:id', function(req, res){
-
 });
 
 module.exports = router;
