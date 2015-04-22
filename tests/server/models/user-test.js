@@ -96,7 +96,6 @@ describe('User model', function () {
 
         });
 
-        describe('on creation', function () {
         xdescribe('on creation', function () {
 
             var encryptSpy;
@@ -116,7 +115,6 @@ describe('User model', function () {
                 saltSpy.restore();
             });
 
-            it('should call User.encryptPassword with the given password and generated salt', function (done) {
             xit('should call User.encryptPassword with the given password and generated salt', function (done) {
                 createUser().then(function () {
                     var generatedSalt = saltSpy.getCall(0).returnValue;
@@ -125,7 +123,6 @@ describe('User model', function () {
                 });
             });
 
-            it('should set user.salt to the generated salt', function (done) {
             xit('should set user.salt to the generated salt', function (done) {
                createUser().then(function (user) {
                    var generatedSalt = saltSpy.getCall(0).returnValue;
@@ -134,7 +131,6 @@ describe('User model', function () {
                });
             });
 
-            it('should set user.password to the encrypted password', function () {
             xit('should set user.password to the encrypted password', function () {
                 createUser().then(function (user) {
                     var createdPassword = encryptSpy.getCall(0).returnValue;

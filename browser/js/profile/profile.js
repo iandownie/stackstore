@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
 app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory) {
 
     $scope.store = {
-        storeName: null,
+        name: null,
         logo: null
     };
 
