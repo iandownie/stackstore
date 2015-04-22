@@ -10,6 +10,7 @@ var router = require('express').Router();
 
 router.get('/', function(req, res, next){
 	//get all products
+	console.log(req.query);
 	Product.find().limit(10).populate('store').exec(function(err, dataArr){
 		if(err) return next(err);
 		res.json(dataArr);
@@ -19,7 +20,7 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res){
 	Product.create(req.body).then(function(product){
 		Store.findByIdAndUpdate(req.body.store, {
-			$push: 
+			$push:
 				{ products:  product._id }
 			})
 			.then(function(store){
