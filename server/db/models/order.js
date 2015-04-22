@@ -21,7 +21,6 @@ var schema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
-    shippingAddress: {type: String, required:true},
     status : {
     	type: String, 
     	required: true, 
@@ -30,7 +29,13 @@ var schema = new mongoose.Schema({
 
 });
 
-mongoose.model('Order', schema);
+var Order = mongoose.model('Order', schema);
+
+Order.schema.path('status').validate(function (value) {
+  return /Created|Processing|Cancelled|Completed/i.test(value);
+}, 'Invalid Order Status');
+
+module.exports = Order;
 
 /* 
 

@@ -12,7 +12,7 @@ router.get('/getAllStores', function (req, res) {
         .exec(function (err, foundStores){
             if (err) console.error(err);
             res.send(foundStores);
-    })
+    });
 });
 
 router.get('/:id', function (req, res) {
@@ -22,13 +22,13 @@ router.get('/:id', function (req, res) {
         .exec(function (err, store){
             if (err) console.error(err);
             res.send(store);
-        })
+        });
 });
-router.delete('/:id', function (req, res) {
+router.delete('/:id', function (req, res, next) {
     Store.findByIdAndRemove(req.params.id, function(err, data){
         if(err) return next(err);
-        res.json(data)
-    })
+        res.json(data);
+    });
 });
 
 router.post('/store', function (req, res){
@@ -42,8 +42,8 @@ router.post('/store', function (req, res){
                 newStore.user = user._id;
                 newStore.save(function(){
                     res.send(newStore);
-                })
-            })
+                });
+            });
         });
-    })
-})
+    });
+});
