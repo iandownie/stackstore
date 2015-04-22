@@ -8,17 +8,22 @@ var router = require('express').Router();
 
 router.post('/', function(req, res, next){
 	//create an order
-	console.log(req);
-
+	Order.create(req.body, function(err, data){
+		if(err) return next(err);
+		res.json(data);
+	});
 });
 
 router.get('/:id', function(req, res, next){
 	//see an order
-	Order.findById(req.params.id).populate('user').exec(function(err,data){
-		if (err) return next(err);
-		console.log(data);
-		res.json(data);
-	});
+	Order.findById(req.params.id)
+			.populate('user')
+			.populate('product')
+			.exec(function(err,data){
+				if (err) return next(err);
+				console.log(data);
+				res.json(data);
+			});
 });
 
 router.delete('/:id', function(req, res, next){
