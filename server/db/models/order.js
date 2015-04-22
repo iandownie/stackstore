@@ -17,9 +17,7 @@ var lineItemSchema = new mongoose.Schema({
 });
 
 var schema = new mongoose.Schema({
-	products: [{
-        type: lineItemSchema
-    }],
+	products: [lineItemSchema],
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
