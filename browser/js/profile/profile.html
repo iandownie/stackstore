@@ -11,7 +11,7 @@
 <error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
 <form name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
     <label>Store Name</label>
-        <input name="newstorename" ng-maxlength="20" ng-model="store.storeName" type="text" required><br/>
+        <input name="new-store-name" ng-model="store.name" type="text" required><br/>
     <label>Store Logo</label>
         <input name="newstorelogo" ng-model="store.logo" type="text" required><br/>
     <button>Create</button>
