@@ -5,6 +5,7 @@
 <h3>Store: {{user.store}}</h3>
 
 
+<<<<<<< HEAD
 <h1 ng-show="user.store">Manage Store</h1>
 <div ng-show="!user.store">
 <h3>Create Store</h3>
@@ -19,3 +20,16 @@
     <button>Create</button>
 </form>
 </div>
+=======
+	<h3>Create Store</h3>
+	<error ng-show="createStoreForm.newstorename.$touched && createStoreForm.newstorename.$error.required">Store name is required!</error>
+	<error ng-show="createStoreForm.newstorename.$error.maxlength">First name is required!</error>
+	<error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
+	<form name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
+	    <label>Store Name</label>
+	        <input name="new-store-name" ng-model="store.name" type="text" required><br/>
+	    <label>Store Logo</label>
+	        <input name="newstorelogo" ng-model="store.logo" type="text" required><br/>
+	    <button>Create</button>
+	</form>
+>>>>>>> master

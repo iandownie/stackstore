@@ -3,10 +3,7 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    userName:{
-        type: String
-    },
-    storeName:{
+    name:{
         type: String, required:true
     },
     products: [{

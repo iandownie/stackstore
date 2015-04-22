@@ -4,11 +4,15 @@
         
 
         <h1>Store: {{ store.storeName }}</h1>
+        <h1>Store: {{ store.name }}</h1>
 
         <h3>User: {{ store.user.firstName }} {{ store.user.lastName }}</h3>
 
         <a ng-click="goToStore(store._id)" > Click Here </a>
 
         <div ng-repeat="product in store.products">{{product.name}}, {{product.price}}</div>
+        <div ng-repeat="product in store.products">{{product.name}}, {{product.price}}
+
+        </div>
     </div>
 </section>
