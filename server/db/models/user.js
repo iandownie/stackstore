@@ -1,4 +1,43 @@
 'use strict';
+
+/* 
+
+1. Unauthenticated Users
+
+>>> Account Management <<<
+
+Create an Account
+Login with Facebook and/or Google
+
+2. Authenticated Users
+
+>>> Account Management <<<
+
+View Past Order List
+View Order Detail
+Current Order Status
+Items with Quantity and Subtotal
+Link to the original Product Detail Page
+Date/Time Order was created
+Product Reviews
+Leave a Review (with a 5-star rating) for a Product
+
+3. Admin Users
+
+>>> User Management <<<
+
+Admin Users can promote other User accounts to also having Admin status
+Change the password of any user
+
+4. Data Validations
+
+>>> USERS <<<
+
+Users must have a valid email address
+Users email must be unique
+
+*/
+
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 

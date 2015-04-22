@@ -27,9 +27,8 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
         .catch(function (err){
         });
         $scope.goToStore = function(link){
-            console.log("clicked a tag")
-            $state.go("storeFront", {id: link})
-        }
+            $state.go("storeFront", {id: link});
+        };
 
 });
 
@@ -54,9 +53,9 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     });
     $scope.newProduct =function(data){
         StoresFactory.newProduct(data).then(function (response){
-            $state.go('storeFront', {id: $scope.store._id }, {reload: true})
-        })
-    }
+            $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+        });
+    };
 
 });
 
@@ -71,14 +70,14 @@ app.factory('StoresFactory', function ($http) {
         loadStoreFront: function(id){
             return $http.get('/api/stores/' + id)
                 .then(function(response){
-                    return response.data
+                    return response.data;
                 });
         },
         newProduct: function(data){
             return $http.post('/api/products/', data)
                 .then(function(response){
-                    return response.data
-                })
+                    return response.data;
+                });
         }
     };
 });
