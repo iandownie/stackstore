@@ -17,12 +17,6 @@ app.config(function ($stateProvider) {
 
 });
 
-// app.factory("ProductsStoresFactory", function(){
-//     return{
-
-//     }
-// }
-
 app.factory('ProductsListFactory', function ($http) {
 
     return {

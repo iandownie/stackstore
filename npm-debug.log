@@ -33,4 +33,4 @@
 19 error You can get their info via:
 19 error     npm owner ls FullstackGeneratedApp
 19 error There is likely additional logging output above.
-20 verbose exit [ 1, true ]
+20 verbose exit [ 1, true ]git st

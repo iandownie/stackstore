@@ -12,5 +12,5 @@ app.factory('CartFactory', function ($http) {
 		getCart: function(){
 			return cart;
 		}
-	}
+	};
 });
