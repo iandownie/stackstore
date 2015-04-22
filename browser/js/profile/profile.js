@@ -11,12 +11,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProfileController', function ($scope, AuthService, ProfileFactory) {
+app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory) {
 
     $scope.store = {
         storeName: null,
         logo: null
     };
+
 
     AuthService.getLoggedInUser().then(function (user) {
         $scope.user = user;
@@ -26,6 +27,7 @@ app.controller('ProfileController', function ($scope, AuthService, ProfileFactor
     $scope.createStore = function (store){
         ProfileFactory.makeStore(store).then(function(store){
             $scope.store = store;
+            $state.go('stores') //I'd like to make this go directly to the store just made //
         })
     }
 
