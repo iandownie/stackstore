@@ -3,8 +3,9 @@
 <h3>Last name: {{user.lastName}}</h3>
 <h3>Email: {{user.email}}</h3>
 <h3>Store: {{user.store}}</h3>
-<h3>{{store.storeName}}</h3>
-
+<h3>user.store: {{user.store}}</h3>
+<h3>store: {{store}}</h3>
+<h3>user: {{user}}</h3>
 <button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
 <form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store)">
 <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
