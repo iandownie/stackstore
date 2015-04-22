@@ -7,31 +7,20 @@
 <div ng-repeat="product in store.products">
 	{{product.name}}, {{product.price || currency}}
 </div>
-<error ng-show="newProduct.productname.$error.maxlength">Name is too long!</error>
-<error ng-show="newProduct.productname.$touched && newProduct.productname.$error.required">Name is required!</error>
-<error ng-show="newProduct.productdescription.$touched && newProduct.productdescription.$error.required">Description is required!</error>
-<error ng-show="newProduct.productprice.$error.min">Price must not be over 0</error>
-<error ng-show="newProduct.productprice.$touched && newProduct.productprice.$error.required">Price is required!</error>
-<error ng-show="newProduct.productquantity.$error.min">Quantity must not be negative</error>
-<error ng-show="newProduct.productdescription.$error.maxlength">Description is too long!</error>
-<form ng-submit="newProduct.$valid && newProduct(product)" name="newProduct">
-	<label>Product: </label>
-	<input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
-	<label>Price: </label>
-	<input name="productprice" type="float" placeholder="price" ng-model="product.price" required min="0.01"></input>
-	<label>Quantity: </label>
-	<input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
-	<label>Description: </label>
-	<textarea name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></textarea>
-	<button type="submit")>Submit Product</button>
-<!--<div ng-repeat="product in store.products">-->
-	<!--<div>-->
-		<!--<label>Product: </label> {{product.name}}<br/>-->
-		<!--<label>Price: </label> {{product.price || currency}}<br/>-->
-		<!--<label>Quantity: </label> {{product.quantity}}<br/>-->
-		<!--<label>Description: </label> {{product.description}}<br/>-->
-	<!--</div>-->
-<!--</div>-->
+<h3>Add New Item</h3>
+<error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
+<error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
+<error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
+<error ng-show="productNew.productprice.$error.min">Price must be over 0</error>
+<error ng-show="productNew.productprice.$touched && productNew.productprice.$error.required">Price is required!</error>
+<error ng-show="productNew.productquantity.$error.min">Quantity must not be negative</error>
+<error ng-show="productNew.productdescription.$error.maxlength">Description is too long!</error>
+<form ng-submit="productNew.$valid && product.store && newProduct(product)" name="productNew">
+    <input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
+    <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
+    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
+    <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
+    <button>Submit Product</button>
 </form>
 <br/>
 

@@ -12,6 +12,12 @@ body{
   input{
   	color:black;
   }
+  textarea{
+   color: black;
+  }
+  td{
+  background: black;
+  }
   }
 @mixin clearfix {
   &:after {

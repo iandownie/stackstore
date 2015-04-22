@@ -17,6 +17,12 @@ app.config(function ($stateProvider) {
 
 });
 
+// app.factory("ProductsStoresFactory", function(){
+//     return{
+
+//     }
+// }
+
 app.factory('ProductsListFactory', function ($http) {
 
     return {
@@ -31,5 +37,5 @@ app.factory('ProductsListFactory', function ($http) {
 
 app.controller('ProductsListCtrl', function ($scope, productsList) {
     $scope.productsList = productsList;
-
+    // $scope.productsStores=ProductsStoresFactory
 });
