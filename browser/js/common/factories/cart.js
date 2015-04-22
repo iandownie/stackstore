@@ -11,5 +11,5 @@ app.factory('CartFactory', function ($http) {
 			}
 			console.log(cart);
 		}
-	}
+	};
 });

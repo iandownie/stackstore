@@ -44,8 +44,8 @@ app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFac
 
     $scope.editProduct=function(product){
         ProductFactory.editProduct(product).then(function(){
-            $state.go('products', {id:product._id},{reload:true})
-        })
+            $state.go('products', {id:product._id},{reload:true});
+        });
     };
     $scope.deleteProduct = function(productID){
         ProductFactory.deleteProduct(productID).then(function(){
