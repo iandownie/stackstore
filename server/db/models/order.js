@@ -1,5 +1,39 @@
 'use strict';
 
+var mongoose = require('mongoose');
+
+var lineItemSchema = new mongoose.Schema({
+    product: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Product'
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min : 1
+    },
+    paidUnitPrice : {
+        type: Number
+    }
+});
+
+var schema = new mongoose.Schema({
+	products: [{
+        type: lineItemSchema
+    }],
+    user: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
+    },
+    shippingAddress: {type: String, required:true},
+    status : {
+    	type: String, 
+    	required: true, 
+    	default: 'Created'
+    }
+
+});
+
+mongoose.model('Order', schema);
+
 /* 
 
 1. Unauthenticated Users
@@ -42,23 +76,3 @@ Orders must contain Line Items that capture the price, current product ID and qu
 If a user makes an order, that order should keep the price of the item at when they checked out even if Admins change the price of the product later
 
 */
-
-var mongoose = require('mongoose');
-
-var schema = new mongoose.Schema({
-	products: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
-    }],
-    user: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'User'
-    },
-    shippingAddress: {type: String, required:true},
-    status : {
-    	type: String, 
-    	required: true, 
-    	default: 'Created'
-    }
-
-});
-
-mongoose.model('Order', schema);

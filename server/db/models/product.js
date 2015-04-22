@@ -1,5 +1,41 @@
 'use strict';
 
+
+
+var mongoose = require('mongoose');
+
+var schema = new mongoose.Schema({
+	name:{
+		type: String, 
+		required:true, 
+		unique: true
+	},
+	price:{
+		type: Number, required:true
+	},
+	quantity:{
+		type: Number, required: true
+	},
+	store: {
+	    type:  mongoose.Schema.Types.ObjectId, ref: 'Store',
+	    required: true
+	},
+	description:{
+		type: String, required: true
+	},
+	categories:[{
+		type: String, required: true
+	}],
+	reviews : [{
+		type: mongoose.Schema.Types.ObjectId, ref: 'Review'
+	}],
+	images:[{
+		type: String
+	}]
+});
+
+mongoose.model('Product', schema);
+
 /* 
 
 1. Unauthenticated Users
@@ -44,37 +80,3 @@ The title must be unique
 If there is no photo, there must be a placeholder photo used
 
 */
-
-var mongoose = require('mongoose');
-
-var schema = new mongoose.Schema({
-	name:{
-		type: String, 
-		required:true, 
-		unique: true
-	},
-	price:{
-		type: Number, required:true
-	},
-	quantity:{
-		type: Number, required: true
-	},
-	store: {
-	    type:  mongoose.Schema.Types.ObjectId, ref: 'Store',
-	    required: true
-	},
-	description:{
-		type: String, required: true
-	},
-	categories:[{
-		type: String, required: true
-	}],
-	reviews : [{
-		type: mongoose.Schema.Types.ObjectId, ref: 'Review'
-	}],
-	images:[{
-		type: String
-	}]
-});
-
-mongoose.model('Product', schema);

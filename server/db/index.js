@@ -16,7 +16,6 @@ require('./models/store');
 require('./models/product');
 require('./models/order');
 require('./models/review');
-require('./models/line-item');
 
 
 var startDbPromise = new Q(function (resolve, reject) {
