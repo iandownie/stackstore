@@ -11,12 +11,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProfileController', function ($scope, AuthService, ProfileFactory) {
+app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory) {
 
     $scope.store = {
         name: null,
         logo: null
     };
+
 
     AuthService.getLoggedInUser().then(function (user) {
         $scope.user = user;
@@ -26,23 +27,22 @@ app.controller('ProfileController', function ($scope, AuthService, ProfileFactor
     $scope.createStore = function (store){
         ProfileFactory.makeStore(store).then(function(store){
             $scope.store = store;
-        })
-    }
-
+            $state.go('stores') ;//I'd like to make this go directly to the store just made //
+        });
+    };
 
 });
 
 app.factory('ProfileFactory', function ($http) {
 
     return {
-
         makeStore: function (store) {
             return $http.post('/api/stores/store', store)
                 .then(function(response){
                     return response;
-            })
+            });
         }
 
-    }
+    };
 
 });

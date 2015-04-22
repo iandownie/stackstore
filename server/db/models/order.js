@@ -21,16 +21,27 @@ var schema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
-    shippingAddress: {type: String, required:true},
+    shippingAddress: {
+        street: {type: String, required: true},
+        city: {type: String, required: true},
+        state: {type: String, required: true},
+        zip: {type: Number, required: true}
+    },
     status : {
-    	type: String, 
-    	required: true, 
+    	type: String,
+    	required: true,
     	default: 'Created'
     }
 
 });
 
-mongoose.model('Order', schema);
+var Order = mongoose.model('Order', schema);
+
+Order.schema.path('status').validate(function (value) {
+  return /Created|Processing|Cancelled|Completed/i.test(value);
+}, 'Invalid Order Status');
+
+module.exports = Order;
 
 /* 
 

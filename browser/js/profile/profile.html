@@ -2,17 +2,34 @@
 <h3>First name: {{user.firstName}}</h3>
 <h3>Last name: {{user.lastName}}</h3>
 <h3>Email: {{user.email}}</h3>
+<h3>Store: {{user.store}}</h3>
+<h3>{{store.storeName}}</h3>
 
-<h1>Create / Manage Store</h1>
+<button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
+<form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store)">
+<error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
+<error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
+<error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
+<form  name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store)">
+    <label>Store Name</label>
+        <input name="editname" ng-maxlength="20" ng-model="store.storeName" type="text" required><br/>
+    <label>Store Logo</label>
+        <input name="editlogo" ng-model="store.logo" type="text" required><br/>
+    <button ng-click="edit=!edit">Save changes</button>
+</form>
 
-	<h3>Create Store</h3>
-	<error ng-show="createStoreForm.newstorename.$touched && createStoreForm.newstorename.$error.required">Store name is required!</error>
-	<error ng-show="createStoreForm.newstorename.$error.maxlength">First name is required!</error>
-	<error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
-	<form name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
-	    <label>Store Name</label>
-	        <input name="new-store-name" ng-model="store.name" type="text" required><br/>
-	    <label>Store Logo</label>
-	        <input name="newstorelogo" ng-model="store.logo" type="text" required><br/>
-	    <button>Create</button>
-	</form>
+
+<div ng-show="!user.store">
+<h3>Create Store</h3>
+<error ng-show="createStoreForm.newstorename.$touched && createStoreForm.newstorename.$error.required">Store name is required!</error>
+<error ng-show="createStoreForm.newstorename.$error.maxlength">First name is required!</error>
+<error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
+<form  name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
+    <label>Store Name</label>
+        <input name="newstorename" ng-maxlength="20" ng-model="store.storeName" type="text" required><br/>
+    <label>Store Logo</label>
+        <input name="newstorelogo" ng-model="store.logo" type="text" required><br/>
+    <button>Create</button>
+</form>
+</div>
+
