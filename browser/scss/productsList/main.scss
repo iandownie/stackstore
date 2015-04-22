@@ -1,0 +1,29 @@
+#productsList {
+	padding:20px;
+	min-height:1000px;
+	min-width:100%;
+	background-color:white;
+	color:black;
+	.feature_products{
+		height:150px;
+		width:100%;
+		.product_wrap {
+			height:150px;
+			width:100%;
+			.name_image_wrap {
+				height: 100%;
+				float:left;
+				text-align:center;
+				width:150px;
+				margin-right:10px;
+
+			}
+			.control-wrap{
+				float:right;
+				width:50%;
+				height:150px;
+			}
+		}
+	}
+	//image:url(/assets/nice-bg-29f2210e2e753cf95d74a5b258bf5e43.jpg)
+}

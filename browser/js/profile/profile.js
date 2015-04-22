@@ -31,7 +31,6 @@ app.controller('ProfileController', function ($scope, $state, AuthService, Profi
         });
     };
 
-
 });
 
 app.factory('ProfileFactory', function ($http) {

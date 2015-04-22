@@ -4,14 +4,16 @@
 		<div class="
 		product-boundary">
 			<div class="col-1-3">
-				<h1 class="productName">{{product.name}}</h1>
+				<a href="/products/{{product._id}}">
+					<h1 class="productName">{{product.name}}</h1>
+				</a>
 				<h3>Description:</h3>
 				<h4 class="productDescription">{{product.description}}</h4>
-				<a href="/stores/{{product.store}}"><h3>Visit this product's store.</h3></a>
+				<a href="/stores/{{product.store}}"><h3>Brought to you by {{product.store.storeName}}</h3></a>
 			</div>
 			<div class="col-3-3">
 				<h2 class="productPrice">${{product.price}}</h2>
-				<img src={{product.images[0]}}><a href="/"+{{product._id}}></a></img>
+				<a href="/products/{{product._id}}"><img src={{product.images[0]}}></img></a>
 				<button>Add to Cart</button>
 				<h3>Reviews:</h3>
 				<div ng-repeat="review in product.reviews">
