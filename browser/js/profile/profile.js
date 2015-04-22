@@ -29,8 +29,13 @@ app.controller('ProfileController', function ($scope, $state, AuthService, Profi
             $scope.store = store;
             $state.go('stores') ;//I'd like to make this go directly to the store just made //
         });
-    };
-
+    },
+    $scope.editStore = function (store, storeID){
+        ProfileFactory.changeStore(store, storeID).then(function(store){
+            $scope.store = store;
+            $state.go('stores') ;
+        })
+    }
 });
 
 app.factory('ProfileFactory', function ($http) {
@@ -41,8 +46,14 @@ app.factory('ProfileFactory', function ($http) {
                 .then(function(response){
                     return response;
             });
+        },
+        changeStore: function(store, storeID){
+            console.log(store)
+            console.log(storeID)
+            return $http.put('api/stores/' + storeID, store).then(function(response){
+                return response.data;
+            });
         }
-
     };
 
 });

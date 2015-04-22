@@ -7,7 +7,7 @@
 <h3>store: {{store}}</h3>
 <h3>user: {{user}}</h3>
 <button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
-<form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store)">
+<form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store, user.store)">
 <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
 <error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
 <error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
