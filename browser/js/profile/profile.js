@@ -30,6 +30,13 @@ app.controller('ProfileController', function ($scope, $state, AuthService, Profi
             $state.go('stores') //I'd like to make this go directly to the store just made //
         })
     }
+    
+    $scope.createStore = function (store){
+        ProfileFactory.makeStore(store).then(function(store){
+            $scope.store = store;
+            $state.go('stores') //I'd like to make this go directly to the store just made //
+        })
+    }
 
 
 });
