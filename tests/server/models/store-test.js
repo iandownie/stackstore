@@ -25,12 +25,12 @@ describe('Store model', function(){
 	});	
 
 	describe('on creation...', function(){
-		var createStore = function () {
-		    return User.create({ email: '', password: 'potus' });
-		};
-		it('the store must belong to a user', function () {
-		    createStore().then
-		    expect(Store).user.to.not.equal(null);
-		});	
+
+		it('can be created with valid data', function (done) {
+		var store = new Store({name: "My Store", user: "2814709872398471"});
+			console.log(store)
+			expect(store.name).to.equal("My Store");
+			expect(store.user).to.equal("2814709872398471");
+		});
 	})
 })
