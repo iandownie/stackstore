@@ -4,7 +4,6 @@
 
 <h1>User Name: {{store.user.firstName}} {{store.user.lastName}}</h1>
 
-<<<<<<< HEAD
 <div ng-repeat="product in store.products">
 	{{product.name}}, {{product.price || currency}}
 </div>
@@ -16,12 +15,15 @@
 <error ng-show="newProduct.productquantity.$error.min">Quantity must not be negative</error>
 <error ng-show="newProduct.productdescription.$error.maxlength">Description is too long!</error>
 <form ng-submit="newProduct.$valid && newProduct(product)" name="newProduct">
+	<label>Product: </label>
 	<input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
-	<input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0.01"></input>
+	<label>Price: </label>
+	<input name="productprice" type="float" placeholder="price" ng-model="product.price" required min="0.01"></input>
+	<label>Quantity: </label>
 	<input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
-	<input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
+	<label>Description: </label>
+	<textarea name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></textarea>
 	<button type="submit")>Submit Product</button>
-=======
 <!--<div ng-repeat="product in store.products">-->
 	<!--<div>-->
 		<!--<label>Product: </label> {{product.name}}<br/>-->
@@ -30,16 +32,6 @@
 		<!--<label>Description: </label> {{product.description}}<br/>-->
 	<!--</div>-->
 <!--</div>-->
-
-
-<h3>Add New Item</h3>
-<form ng-submit="product.store && newProduct(product)">
-	<input placeholder="name" ng-model="product.name"></input><br/>
-	<input type="number" placeholder="price" ng-model="product.price"></input><br/>
-	<input type="number" placeholder="quantity" ng-model="product.quantity"></input><br/>
-	<input placeholder="description" ng-model="product.description"></input><br/>
-	<button type="submit")>Submit Product</button><br/>
->>>>>>> origin/master
 </form>
 <br/>
 
