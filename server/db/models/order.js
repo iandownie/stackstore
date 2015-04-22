@@ -28,14 +28,20 @@ var schema = new mongoose.Schema({
         zip: {type: Number, required: true}
     },
     status : {
-    	type: String, 
-    	required: true, 
+    	type: String,
+    	required: true,
     	default: 'Created'
     }
 
 });
 
-mongoose.model('Order', schema);
+var Order = mongoose.model('Order', schema);
+
+Order.schema.path('status').validate(function (value) {
+  return /Created|Processing|Cancelled|Completed/i.test(value);
+}, 'Invalid Order Status');
+
+module.exports = Order;
 
 /* 
 

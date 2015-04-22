@@ -27,31 +27,22 @@ app.controller('ProfileController', function ($scope, $state, AuthService, Profi
     $scope.createStore = function (store){
         ProfileFactory.makeStore(store).then(function(store){
             $scope.store = store;
-            $state.go('stores') //I'd like to make this go directly to the store just made //
-        })
-    }
-    
-    $scope.createStore = function (store){
-        ProfileFactory.makeStore(store).then(function(store){
-            $scope.store = store;
-            $state.go('stores') //I'd like to make this go directly to the store just made //
-        })
-    }
-
+            $state.go('stores') ;//I'd like to make this go directly to the store just made //
+        });
+    };
 
 });
 
 app.factory('ProfileFactory', function ($http) {
 
     return {
-
         makeStore: function (store) {
             return $http.post('/api/stores/store', store)
                 .then(function(response){
                     return response;
-            })
+            });
         }
 
-    }
+    };
 
 });

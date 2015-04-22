@@ -20,22 +20,21 @@ app.controller('SignUpController', function ($state, $scope, SignUpFactory, Auth
             AuthService.login({email: user.email, password: user.password})
                 .then(function(){
                     $state.go('home');
-                })
-        })
-    }
+                });
+        });
+    };
 
 });
 
 app.factory('SignUpFactory', function ($http) {
 
     return {
-
         registerNewUser: function (user){
             return $http.post('/api/users/user', user).then(function(response){
                 return response;
             });
         }
 
-    }
+    };
 
 });
