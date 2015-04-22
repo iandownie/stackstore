@@ -1,11 +1,19 @@
+.hack-spacer {
+  height:1px;
+  width:100%;
+  background: rgb(255, 0, 0);
+  margin-bottom:110px;
+}
 navbar {
 
   display: block;
+  position:fixed;
+    top:0px;
   width: 100%;
   float: left;
   height: 110px;
   display: block;
-  background: rgba(255, 0, 0, 0.39);
+  background: rgb(255, 0, 0);
   nav{
     div.container {
       height: 110px;
