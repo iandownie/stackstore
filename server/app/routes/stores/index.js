@@ -5,24 +5,28 @@ module.exports = router;
 var Store = mongoose.model('Store');
 var User = mongoose.model('User');
 
-router.get('/getAllStores', function (req, res) {
-    Store.find({})
-        .populate('products')
-        .populate('user')
-        .exec(function (err, foundStores){
-            if (err) console.error(err);
-            res.send(foundStores);
-    });
+// router.get('/', function (req, res) {
+//     Store.find({})
+//         .populate('products')
+//         .populate('user')
+//         .exec(function (err, foundStores){
+//             if (err) console.error(err);
+//             res.send(foundStores);
+//     });
+// });
+
+router.get('/', function (req, res) {
+    Store.findAndPopulate()
+        .then(function(stores){
+            res.send(stores);
+        })
 });
 
 router.get('/:id', function (req, res) {
-    Store.findById(req.params.id)
-        .populate('products')
-        .populate('user')
-        .exec(function (err, store){
-            if (err) console.error(err);
-            res.send(store);
-        });
+    Store.findByIdAndPopulate(req.params.id)
+        .then(function(stores){
+            res.send(stores);
+        })
 });
 router.delete('/:id', function (req, res, next) {
     Store.findByIdAndRemove(req.params.id, function(err, data){
@@ -31,7 +35,7 @@ router.delete('/:id', function (req, res, next) {
     });
 });
 
-router.post('/store', function (req, res){
+router.post('/', function (req, res){
 
     Store.create(req.body, function(err, newStore){
         if (err) console.error (err);

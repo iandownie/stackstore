@@ -62,7 +62,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
 app.factory('StoresFactory', function ($http) {
     return {
         loadAllStores: function () {
-            return $http.get('/api/stores/getAllStores')
+            return $http.get('/api/stores/')
                 .then(function(response){
                     return response.data;
                 });

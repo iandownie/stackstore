@@ -37,7 +37,7 @@ app.factory('ProfileFactory', function ($http) {
 
     return {
         makeStore: function (store) {
-            return $http.post('/api/stores/store', store)
+            return $http.post('/api/stores/', store)
                 .then(function(response){
                     return response;
             });

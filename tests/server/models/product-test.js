@@ -8,7 +8,7 @@ require('../../../server/db/models/product');
 
 var Product = mongoose.model('Product');
 
-describe('User model', function () {
+describe('Product model', function () {
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
