@@ -29,7 +29,10 @@ app.factory('ProductsListFactory', function ($http) {
 
 });
 
-app.controller('ProductsListCtrl', function ($scope, productsList) {
+app.controller('ProductsListCtrl', function ($state, $scope, productsList) {
     $scope.productsList = productsList;
+    $scope.linkToProduct = function(product){
+        $state.go("products", {id: product})
+    }
     // $scope.productsStores=ProductsStoresFactory
 });
