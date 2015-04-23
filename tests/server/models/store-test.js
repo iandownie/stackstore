@@ -6,17 +6,19 @@ var expect = require('chai').expect;
 var mongoose = require('mongoose');
 
 require('../../../server/db/models/store');
+require('../../../server/db/models/user');
+
 
 var Store = mongoose.model('Store');
+var User = mongoose.model('User');
+
 
 describe('Store model', function(){
-	it('should exist', function () {
-	    expect(Store).to.be.a('function');
-	});	
 
 	beforeEach('Establish DB connection', function (done) {
 	    if (mongoose.connection.db) return done();
 	    mongoose.connect(dbURI, done);
+
 	});
 
 	afterEach('Clear test database', function (done) {
@@ -28,12 +30,30 @@ describe('Store model', function(){
 	});	
 
 	describe('on creation...', function(){
-
+		var createStore = function () {
+		    return Store.create({ storeName: 'My Store' });
+		};
+		var createUser = function () {
+		    return User.create({ email: 'obama@gmail.com', password: 'potus' });
+		};
+		it('must belong to a user', function (done){
+			var store = new Store({ storeName: 'My Store' });
+			store.save(function(err){
+				expect(err.message).to.equal('Store validation failed');
+				done();
+			});
+			
+		})
 		it('can be created with valid data', function (done) {
-		var store = new Store({name: "My Store", user: "2814709872398471"});
-			console.log(store)
-			expect(store.name).to.equal("My Store");
-			expect(store.user).to.equal("2814709872398471");
+			var user = new User({ email: 'obama@gmail.com', password: 'potus' });
+			var store = new Store({ storeName: 'My Store' });
+			user.save(function (err, data){
+				store.user = data._id
+				store.save(function( err, store){
+					expect(store.user).to.equal(data._id)
+					done()
+				})
+			})
 		});
 	})
 })
