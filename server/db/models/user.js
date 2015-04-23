@@ -40,6 +40,7 @@ Users email must be unique
 
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var extend = require('mongoose-schema-extend');
 
 var schema = new mongoose.Schema({
     firstName: String,
@@ -67,8 +68,10 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-    }
-});
+    }   
+}, { collection: 'users', discriminatorKey : '_type' });
+
+
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
@@ -91,14 +94,29 @@ schema.pre('save', function (next) {
     }
 
     next();
-
 });
 
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
-
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
+var AdminSchema = schema.extend({
+    powerful: {type: Boolean, default: true}
+})
+schema.statics.getProperLoginType = function(id){
+        Admin.findById(id, function (err, admin){
+        if (err) {
+            console.error(err);
+            User.findById(id, function (err, user){
+                if (err) console.error(err);
+               return user;
+            });
+        } else {
+            return admin;
+        }
+    });
+};
 mongoose.model('User', schema);
+mongoose.model('Admin', AdminSchema);
