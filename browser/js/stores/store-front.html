@@ -2,11 +2,8 @@
 
 <h1>Store Name: {{store.storeName}}</h1>
 
-<h1>User Name: {{store.user.firstName}} {{store.user.lastName}}</h1>
+<h1>User Name: {{store.userName}}</h1>
 
-<div ng-repeat="product in store.products">
-	{{product.name}}, {{product.price || currency}}
-</div>
 <h3>Add New Item</h3>
 <error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
 <error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
@@ -69,9 +66,6 @@
 	</tbody>
 
 </table>
-    <h3>Store: {{user.store}}</h3>
-<h3>user.store: {{user.store}}</h3>
-<h3>store: {{store}}</h3>
-<h3>user: {{user}}</h3>
+
 
 </div>
