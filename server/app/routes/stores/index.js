@@ -5,16 +5,6 @@ module.exports = router;
 var Store = mongoose.model('Store');
 var User = mongoose.model('User');
 
-// router.get('/', function (req, res) {
-//     Store.find({})
-//         .populate('products')
-//         .populate('user')
-//         .exec(function (err, foundStores){
-//             if (err) console.error(err);
-//             res.send(foundStores);
-//     });
-// });
-
 router.get('/', function (req, res) {
     Store.findAndPopulate()
         .then(function(stores){
