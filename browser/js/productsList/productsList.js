@@ -1,8 +1,6 @@
 'use strict';
 app.config(function ($stateProvider) {
 
-
-
     $stateProvider.state('productsList', {
         url: '/products',
         templateUrl: 'js/productsList/productsList.html',
@@ -10,6 +8,9 @@ app.config(function ($stateProvider) {
         resolve: {
             productsList:function(ProductsListFactory){
                 return ProductsListFactory.getAll();
+            },
+            categoryList: function(CategoryFactory){
+                return CategoryFactory.getCategoryList();
             }
         }
 
@@ -29,10 +30,13 @@ app.factory('ProductsListFactory', function ($http) {
 
 });
 
-app.controller('ProductsListCtrl', function ($state, $scope, productsList) {
+app.controller('ProductsListCtrl', function ($state, $scope, productsList, categoryList, CategoryFactory) {
+    // Holds all the available categories so that you can filter
+    $scope.categoryList = categoryList;
     $scope.productsList = productsList;
+
     $scope.linkToProduct = function(product){
-        $state.go("products", {id: product})
-    }
+        $state.go("products", {id: product});
+    };
     // $scope.productsStores=ProductsStoresFactory
 });
