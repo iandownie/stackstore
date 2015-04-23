@@ -6,35 +6,33 @@ app.config(function ($stateProvider) {
         controller: 'ProfileController',
         data: {
             authenticate: true
+        },
+        resolve: {
+            getUserInfo: function(AuthService){
+                return AuthService.getLoggedInUser()
+                    .then(function (user) {
+                    return user;
+                });
+            }
         }
     });
 
 });
 
-app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory, StoresFactory) {
-    $scope.store = {
+app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
+    $scope.store =  getUserInfo.store || {
         name: null,
         logo: null
     };
+    console.log(getUserInfo);
+    $scope.user = getUserInfo
+    
+    if($scope.user.store){
+        StoresFactory.loadStoreFront($scope.user.store).then(function (store){
+            $scope.store = store
+        });
+    }
 
-
-    AuthService.getLoggedInUser().then(function (user) {
-        $scope.user = user;
-        if(user.store){
-        console.log(user);
-            // if the user has a store, put it scope.
-            StoresFactory.loadStoreFront(user.store).then(function (store){
-            //this loads the users entire object, including hashed passwords salts etc.
-            //not ideal -- check store schema and populate user at line 35
-                $scope.store = store;
-            });
-        
-        } else {
-            // if not, prepare store creation to contain this users id
-            $scope.store.user = $scope.user._id;
-        }
-
-    });
 
     $scope.createStore = function (store){
         ProfileFactory.makeStore(store).then(function(store){

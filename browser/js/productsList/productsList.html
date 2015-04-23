@@ -9,7 +9,7 @@
 			<h4 class="productName" style="color:blue" ng-click="linkToProduct(product._id)" >{{product.name}}</h4>
 			<h5 class="productDescription">{{product.description}}</h5>
 			<h5 class="productPrice"> Seller's Price: ${{product.price}}</h5>
-			<a href="/stores/{{product.store}}">
+			<a href="/stores/{{product.store._id}}">
 				<h5>Visit this product's store.</h5>
 			</a>
 		</div> 
