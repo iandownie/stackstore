@@ -21,7 +21,14 @@ router.get('/', function (req, res) {
             res.send(stores);
         })
 });
-
+router.put('/:id', function (req, res) {
+    Store.findByIdAndUpdate(req.params.id, req.body, function(err, data){
+        console.log(err)
+        console.log("data: ", data)
+        res.json(data);
+    })
+   
+});
 router.get('/:id', function (req, res) {
     Store.findByIdAndPopulate(req.params.id)
         .then(function(stores){

@@ -1,36 +1,41 @@
-<h1>Profile page</h1>
-<h3>First name: {{user.firstName}}</h3>
-<h3>Last name: {{user.lastName}}</h3>
-<h3>Email: {{user.email}}</h3>
-<h3>Store: {{user.store}}</h3>
-<h3>user.store: {{user.store}}</h3>
-<h3>store: {{store}}</h3>
-<h3>user: {{user}}</h3>
-<button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
-<form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store)">
-<error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
-<error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
-<error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
-<form  name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store)">
-    <label>Store Name</label>
-        <input name="editname" ng-maxlength="20" ng-model="store.storeName" type="text" required><br/>
-    <label>Store Logo</label>
-        <input name="editlogo" ng-model="store.logo" type="text" required><br/>
-    <button ng-click="edit=!edit">Save changes</button>
-</form>
+<page-title>
+    <h1>Profile page</h1>
+</page-title>
+<div class="main-container">
+    <div class="non-justify">
+        
+        <h3>First name: {{user.firstName}}</h3>
+        <h3>Last name: {{user.lastName}}</h3>
+        <h3>Email: {{user.email}}</h3>
+        <h3>Store: {{user.store}}</h3>
+        <h3>user.store: {{user.store}}</h3>
+        <h3>store: {{store}}</h3>
+        <h3>user: {{user}}</h3>
+    </div>    
+    <div class="non-justify" id="content-col">
+        <div>
+            <button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
+            <form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store, user.store)">
+                <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
+                <error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
+                <error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
+                <input name="editname" placeholder="Store Name" ng-maxlength="20" ng-model="store.storeName" type="text" required>
+                <input name="editlogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
+                <button ng-click="edit=!edit">Save changes</button>
+            </form>
+        </div>
 
 
-<div ng-show="!user.store">
-<h3>Create Store</h3>
-<error ng-show="createStoreForm.newstorename.$touched && createStoreForm.newstorename.$error.required">Store name is required!</error>
-<error ng-show="createStoreForm.newstorename.$error.maxlength">First name is required!</error>
-<error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
-<form  name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
-    <label>Store Name</label>
-        <input name="newstorename" ng-maxlength="20" ng-model="store.storeName" type="text" required><br/>
-    <label>Store Logo</label>
-        <input name="newstorelogo" ng-model="store.logo" type="text" required><br/>
-    <button>Create</button>
-</form>
+        <div ng-show="!user.store">
+        <h3>Create Store</h3>
+        <error ng-show="createStoreForm.newstorename.$touched && createStoreForm.newstorename.$error.required">Store name is required!</error>
+        <error ng-show="createStoreForm.newstorename.$error.maxlength">First name is required!</error>
+        <error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
+        <form  name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
+            <input name="newstorename" placeholder="Store Name" ng-maxlength="20" ng-model="store.storeName" type="text" required>
+            <input name="newstorelogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
+            <button>Create</button>
+        </form>
+        </div>
+    </div>
 </div>
-

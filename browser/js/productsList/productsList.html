@@ -1,13 +1,15 @@
 <section id="productsList">
+
 	<product ng-repeat="product in productsList">
 
 	<div class="feature_products">
 		<div class="product_wrap">
-		<div class="control-wrap">
-			<button>Add to Cart</button>
-			<h5>Reviews:</h5>
-			<div ng-repeat="product.review in product.reviews">
-				<div>{{product.review}}</div>
+			<div class="control-wrap">
+				<button>Add to Cart</button>
+				<h5>Reviews:</h5>
+				<div ng-repeat="review in product.reviews">
+					<div>{{review}}</div>
+				</div>
 			</div>
 		</div>
 		<div class="name_image_wrap">

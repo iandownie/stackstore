@@ -12,9 +12,12 @@ var lineItemSchema = new mongoose.Schema({
         min : 1
     },
     paidUnitPrice : {
-        type: Number
+        type: Number,
+        required: true,
+        min : 0
     }
 });
+
 
 var schema = new mongoose.Schema({
 	products: [lineItemSchema],
@@ -37,11 +40,12 @@ var schema = new mongoose.Schema({
 
 var Order = mongoose.model('Order', schema);
 
+
 Order.schema.path('status').validate(function (value) {
   return /Created|Processing|Cancelled|Completed/i.test(value);
 }, 'Invalid Order Status');
 
-module.exports = Order;
+
 
 /* 
 

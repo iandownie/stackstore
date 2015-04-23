@@ -1,4 +1,5 @@
 <nav class="navbar navbar-static-top">
+    <div id="drop"></div>
     <div class="container justify-around">
         <h1>The Imp's Bazaar</h1>
         <img src="images/tyrion-lannister.png"></img>
@@ -9,11 +10,13 @@
             <button ng-show="!user" ui-sref="register" class="btn register-button">Register</button>
         </div>
         <img class="gif" src="images/output_tiH1SO.gif"></img>
-        <input placeholder="Search for items or shops" ></input>
-        
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
+        <div class="stacked">
+            <div ng-show="user" class="welcome">
+                <span>Welcome, {{ user.email }}!</span>
+                <a ng-click="logout()">Logout</a>
+            </div>
+            <input placeholder="Search for items or shops" ></input>
         </div>
     </div>
+    
 </nav>
