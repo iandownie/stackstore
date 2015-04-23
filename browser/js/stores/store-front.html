@@ -17,6 +17,8 @@
     <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
     <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
     <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
+    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
+		</select>
     <button>Submit Product</button>
 </form>
 <br/>

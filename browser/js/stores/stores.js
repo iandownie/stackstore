@@ -11,8 +11,13 @@ app.config(function ($stateProvider) {
         controller: 'StoreFrontController',
         templateUrl: 'js/stores/store-front.html',
         resolve: {
-            getStoreById: function($stateParams, StoresFactory){
-                return StoresFactory.loadStoreFront($stateParams.id)
+            getStoreById: function($stateParams, $state, StoresFactory){
+                return StoresFactory.loadStoreFront($stateParams.id).catch(function(err){
+                    $state.go('error');
+                });
+            },
+            categoryList: function(CategoryFactory){
+                return CategoryFactory.getCategoryList();
             }
         }
     });
@@ -32,15 +37,17 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
 
 });
 
-app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById) {
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList) {
     $scope.store = getStoreById;
+    $scope.categoryList = categoryList;
    // StoresFactory.loadAllStores()
     $scope.product = {
         name: "",
         price: null,
         quantity: null,
         description: "",
-        store: null
+        store: null,
+        categories: null
     };
 
     $scope.sortType     = 'name'; // set the default sort type
@@ -48,9 +55,9 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
 
     AuthService.getLoggedInUser().then(function (user) {
         $scope.user = user;
-        $scope.product.store = $scope.user.store;
-
+        $scope.product.store = user.store;
     });
+
     $scope.newProduct =function(data){
         StoresFactory.newProduct(data).then(function (response){
             $state.go('storeFront', {id: $scope.store._id }, {reload: true});
