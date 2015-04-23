@@ -22,6 +22,21 @@ page-title{
 		width: 33%;
 		display: block;
 	}
+	img{
+			width: 200px;
+			height:150px;
+			-webkit-transition:width 2s, height 2s, -webkit-transform 1s;
+    		transition:width 2s, height 2s, transform 1s;	
+		}
+	img.store-img:hover{
+		width: 400px;
+		height:300px;
+		-webkit-transform:rotate(0deg); left:300px;
+    	transform:rotate(0deg); left:300px;
+		-moz-box-shadow: 1px 0px 18px #ffffff;
+		-webkit-box-shadow: 1px 0px 18px #ffffff;
+		box-shadow: 1px 0px 18px #ffffff;
+	}	
 	div#content-col{
 		justify-content: center;
 		display: flex;
