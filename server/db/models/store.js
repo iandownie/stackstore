@@ -49,16 +49,16 @@ schema.statics.findByIdAndCategory = function (id, query){
         .populate(productCategoryQuery)
         .populate(userQuery)
         .exec(function (err, store){
-            if (err) console.error(err);
-            console.log('this is the return of findbyIdandcategory ', id, query, store);
+            if (err) throw new Error(err);
             return store;
         });
 };
 
 schema.statics.createStoreAndAttachUser = function(store){
-    return this.create(store, function(err, newStore){
-        if (err) console.error (err);
-        User.findById(store.user, function (err, user) {
+    var self = this;
+    return User.findById(store.user, function (err, user) {
+    if (user.store) throw new Error("User Has Store.")
+        self.create(store, function(err, newStore){
             if (err) console.error (err);
             user.store = newStore._id;
             user.save(function (){
