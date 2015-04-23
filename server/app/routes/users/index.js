@@ -3,6 +3,21 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 module.exports = router;
 var User = mongoose.model('User');
+var Admin = mongoose.model('Admin');
+
+// router.post('/user', function (req, res, next) {
+//     var admin = {
+//         firstName: 'Admin',
+//         lastName: 'Admin',
+//         email: "Admin.com",
+//         password: 'Admin'
+//     }
+//     Admin.create(admin, function (err, createdUser){
+//         if (err) console.error(err);
+//         console.log('created user: ', createdUser);
+//         res.send(createdUser);
+//     });
+// });
 
 router.post('/user', function (req, res, next) {
     console.log('User create: ', req.body)
@@ -15,9 +30,12 @@ router.post('/user', function (req, res, next) {
 
 router.get('/user', function (req, res, next) {
     console.log('req session: ', req.session);
-    User.findById(req.session._id, function (err, user){
-        if (err) console.error(err);
-        console.log('GET USER - user: ', user);
-        res.send(user);
-    });
+    User.getProperLoginType( req.session._id, function(err, whateverUser){
+        res.send(whateverUser)
+    })
+    // User.findById(req.session._id, function (err, user){
+    //     if (err) console.error(err);
+    //     console.log('GET USER - user: ', user);
+    //     res.send(user);
+    // });
 });

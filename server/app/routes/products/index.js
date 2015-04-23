@@ -33,6 +33,8 @@ router.post('/', function(req, res){
 				{ products:  product._id }
 			})
 			.then(function(store){
+				console.log("Body.store, ", req.body.store)
+				console.log("Store: ", store)
 				res.json(store);
 		});
 	});

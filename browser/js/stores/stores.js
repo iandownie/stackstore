@@ -37,10 +37,13 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
 
 });
 
-app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList) {
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
     $scope.store = getStoreById;
     $scope.categoryList = categoryList;
-   // StoresFactory.loadAllStores()
+
+    //proof of concept of adding categories
+    $scope.categoryName = '';
+
     $scope.product = {
         name: "",
         price: null,
@@ -65,6 +68,18 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         });
     };
 
+    $scope.loadStoreFront = function(storeID, categories){
+        StoresFactory.loadStoreFront(storeID, categories).then(function(data){
+            $scope.store = data;
+        });
+    };
+
+    $scope.addCategory = function(category){
+        CategoryFactory.addCategory(category).then(function(data){
+            $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+        });
+    };
+
 });
 
 app.factory('StoresFactory', function ($http) {
@@ -75,8 +90,11 @@ app.factory('StoresFactory', function ($http) {
                     return response.data;
                 });
         },
-        loadStoreFront: function(id){
-            return $http.get('/api/stores/' + id)
+        loadStoreFront: function(storeID, categories){
+            var config = {
+                params : {categories: categories}
+            };
+            return $http.get('/api/stores/' + storeID, config)
                 .then(function(response){
                     return response.data;
                 });
