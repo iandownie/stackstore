@@ -5,12 +5,12 @@ var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 
-require('../../../server/db/models/store');
-require('../../../server/db/models/user');
+ require('../../../server/db/models/user');
+ require('../../../server/db/models/store');
 
 
-var Store = mongoose.model('Store');
-var User = mongoose.model('User');
+ var Store = mongoose.model('Store');
+ var User = mongoose.model('User');
 
 
 describe('Store model', function(){

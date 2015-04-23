@@ -20,9 +20,10 @@ var schema = new mongoose.Schema({
 
 
 schema.statics.findAndPopulate = function (){
+    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}]
     return this.find({})
         .populate('products')
-        .populate('user')
+        .populate(populateQuery)
         .exec(function (err, store){
             if (err) console.error(err);
             return store;
@@ -30,9 +31,10 @@ schema.statics.findAndPopulate = function (){
 }
 
 schema.statics.findByIdAndPopulate = function (id){
+    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}]
     return this.findById(id)
         .populate('products')
-        .populate('user')
+        .populate(populateQuery)
         .exec(function (err, store){
             if (err) console.error(err);
             return store;
