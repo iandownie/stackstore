@@ -8,6 +8,22 @@ button{
   background: transparent;
   height: 30px;
 }
+option{
+  background: black;
+  height: 27px;
+}
+select[multiple], select[size] {
+  height: 27px;
+  margin: -6px 0;
+  border: 2px inset;
+  border-radius: 0;
+}
+select{
+  width: 150px;
+  height: 40px;
+  -webkit-appearance: menulist;
+  background: black;
+}
 body{
 	color: white;
   background: url(/images/tyrion_lannister_background.jpg);
