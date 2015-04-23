@@ -26,7 +26,7 @@
 
 <h2>Shipping Information</h2>
 
-<form ng-submit="address.$valid && submitOrder(cart)" name="address">
+<form ng-submit="submitOrder(cart)" name="address">
     <input name="street" type="text" placeholder="street" ng-maxlength="15" ng-model="cart.shippingAddress.street" required></input><br/>
     <input name="city" type="text" placeholder="city" ng-model="cart.shippingAddress.city" required></input><br/>
     <input name="state" type="text" placeholder="state" ng-maxlength="2" ng-minlength="2" ng-model="cart.shippingAddress.state"></input><br/>

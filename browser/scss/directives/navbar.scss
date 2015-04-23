@@ -8,12 +8,26 @@ navbar {
 
   display: block;
   position:fixed;
-    top:0px;
+  top:0px;
   width: 100%;
   float: left;
   height: 110px;
   display: block;
-  background: rgb(255, 0, 0);
+  background: #78261E;
+  div#drop{
+    -webkit-animation-timing-function: ease-in;
+    width:5px;
+    height: 5px;
+    border-radius: 100%;
+    background: #78261E;
+    position: absolute;
+    left: 45.5%;
+    top: 105px;
+    animation:drop_animation 1s infinite;
+    -moz-animation:drop_animation 1s infinite;
+    -webkit-animation:drop_animation 1s infinite;
+    -o-animation:drop_animation 1s infinite;
+  }
   nav{
     div.container {
       height: 110px;
@@ -142,7 +156,6 @@ navbar {
       }
 
       .welcome {
-        float: right;
         margin-top: 12px;
         span {
           color: white;
@@ -154,4 +167,30 @@ navbar {
       }
     }
   }
+}
+
+/*** Animation 1 ***/
+
+@keyframes drop_animation
+{
+0%    {transform: rotate(-5deg);top:105px;  -webkit-animation-timing-function: ease-in;}
+100%  {transform: rotate(-5deg);top: 420px;}
+}
+
+@-webkit-keyframes drop_animation
+{
+0%    {transform: rotate(-5deg);top:105px; -webkit-animation-timing-function: ease-in;}
+100%  {transform: rotate(-5deg);top: 420px;}
+}
+
+@-moz-keyframes drop_animation
+{
+0%    {transform: rotate(-5deg);top:105px; -webkit-animation-timing-function: ease-in;}
+100%  {transform: rotate(-5deg);top: 420px;}
+}
+
+@-o-keyframes drop_animation
+{
+0%    {transform: rotate(-5deg);top:105px; -webkit-animation-timing-function: ease-in;}
+100%  {transform: rotate(-5deg);top: 420px;}
 }

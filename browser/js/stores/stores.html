@@ -1,19 +1,15 @@
 <section id="storeFront">
-    <div ng-repeat="store in stores">
-        <img src="{{store.logo}}" />
-
-        
-
-        <h1>Store: {{ store.name }}</h1>
-
-        <h3>User: {{ store.user.firstName }} {{ store.user.lastName }}</h3>
-
-        <a ng-click="goToStore(store._id)" > Click Here </a>
-
-        <div ng-repeat="product in store.products">{{product.name}}, {{product.price}}
-
-        </div>
+    <div ng-repeat="store in stores" class="main-container" id="store">
+    	<div class="left-col">
+    		<a ng-click="goToStore(store._id)" >
+	    	<h1>Store: {{ store.name }}</h1>
+	    	<h3>Owner: {{ store.user.firstName }} {{ store.user.lastName }}</h3>
+	    	</a>
+	    	<div ng-repeat="product in store.products">{{product.name}}, {{product.price}}
+	    	</div>
+	    </div>
+	    <div id="content-col"> 	
+	        <a ng-click="goToStore(store._id)" ><img class="store-img" src="{{store.logo}}" /></a> 
+	    </div>   
     </div>
-
-
 </section>

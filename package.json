@@ -4,6 +4,7 @@
   "description": "A generated project at Fullstack Academy",
   "main": "server/start.js",
   "scripts": {
+    "test": "mocha",
     "start": "node server/start.js",
     "postinstall": "./node_modules/bower/bin/bower install && gulp build"
   },

@@ -24,6 +24,8 @@ var connectToDb = require('./server/db');
 var User = mongoose.model('User');
 var Product = mongoose.model('Product');
 var Store = mongoose.model('Store');
+var Order = mongoose.model('Order');
+var Review = mongoose.model('Review');
 
 var q = require('q');
 var chalk = require('chalk');
@@ -42,12 +44,34 @@ var seedUsers = function () {
 
     var users = [
         {
+            firstName: 'Mocha',
+            lastName: 'Chai',
             email: 'testing@fsa.com',
             password: 'password'
         },
         {
+            firstName: 'Barak',
+            lastName: 'Obama',
             email: 'obama@gmail.com',
             password: 'potus'
+        },
+        {
+            firstName: 'Tony',
+            lastName: 'Tiger',
+            email: 'frostedflakes@kitchen.com',
+            password: 'itsgreat'
+        },
+        {
+            firstName: 'Gaius',
+            lastName: 'Baltar',
+            email: 'cylon@galatica.com',
+            password: 'need2jump'
+        },
+        {
+            firstName: 'Tyrion',
+            lastName: 'Lannister',
+            email: 'halfman@greathouse.com',
+            password: 'bazaar'
         }
     ];
 
@@ -96,13 +120,13 @@ var seedStores = function (productsArray) {
     var stores = [
         {
             userName: 'ImpishDelights',
-            storeName: "Tyrion's Wine Shop",
+            name: "Tyrion's Wine Shop",
             logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png',
             products : productsArray
         },
          {
              userName: 'SnowMan123',
-             storeName: "Snow\'s Swords",
+             name: "Snow\'s Swords",
              products: productsArray,
              logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
          }
