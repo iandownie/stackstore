@@ -19,7 +19,7 @@
                 <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
                 <error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
                 <error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
-                <input name="editname" placeholder="Store Name" ng-maxlength="20" ng-model="store.storeName" type="text" required>
+                <input name="editname" placeholder="Store Name" ng-maxlength="20" ng-model="store.name" type="text" required>
                 <input name="editlogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
                 <button ng-click="edit=!edit">Save changes</button>
             </form>
@@ -32,7 +32,7 @@
         <error ng-show="createStoreForm.newstorename.$error.maxlength">First name is required!</error>
         <error ng-show="createStoreForm.newstorelogo.$touched && createStoreForm.newstorelogo.$error.required">Store logo is required!</error>
         <form  name="createStoreForm" ng-submit="createStoreForm.$valid && createStore(store)">
-            <input name="newstorename" placeholder="Store Name" ng-maxlength="20" ng-model="store.storeName" type="text" required>
+            <input name="newstorename" placeholder="Store Name" ng-maxlength="20" ng-model="store.name" type="text" required>
             <input name="newstorelogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
             <button>Create</button>
         </form>

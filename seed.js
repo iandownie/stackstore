@@ -96,13 +96,13 @@ var seedStores = function (productsArray) {
     var stores = [
         {
             userName: 'ImpishDelights',
-            storeName: "Tyrion's Wine Shop",
+            name: "Tyrion's Wine Shop",
             logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png',
             products : productsArray
         },
          {
              userName: 'SnowMan123',
-             storeName: "Snow\'s Swords",
+             name: "Snow\'s Swords",
              products: productsArray,
              logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
          }

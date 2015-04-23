@@ -14,14 +14,14 @@ app.config(function ($stateProvider) {
 app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory) {
 
     $scope.store = {
-        storeName: null,
+        name: null,
         logo: null
     };
 
 
     AuthService.getLoggedInUser().then(function (user) {
         $scope.user = user;
-        $scope.store.userId = $scope.user._id;
+        $scope.store.user = $scope.user._id;
     });
 
     $scope.createStore = function (store){

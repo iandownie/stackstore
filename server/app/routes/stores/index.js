@@ -42,19 +42,10 @@ router.delete('/:id', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res){
+router.post('/', function (req, res, next){
+    Store.createStoreAndAttachUser(req.body, function (err, newStore){
+        if (err) return next(err);
+        res.send(newStore)
 
-    Store.create(req.body, function(err, newStore){
-        if (err) console.error (err);
-        User.findById(req.body.userId, function (err, user) {
-            if (err) console.error (err);
-            user.store = newStore._id;
-            user.save(function (){
-                newStore.user = user._id;
-                newStore.save(function(){
-                    res.send(newStore);
-                });
-            });
-        });
-    });
+    })
 });
