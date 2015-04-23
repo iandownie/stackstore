@@ -22,12 +22,9 @@ describe('Product model', function () {
     it('should exist', function () {
         expect(Product).to.be.a('function');
     });
-    it("Should have a name key", function () {
-        expect(Product.name).to.exist;
-    });
  
 
-    describe('search products by category', function () {
+describe('search products by category', function () {
 
     });
 
@@ -41,6 +38,9 @@ describe('create/editing/deleting a product', function(){
     });
 
     it('can be created with valid data', function (done) {
+    var createProduct = function () {
+        return Product.create({name: "common product", price: 10.00, quantity: 1, store: "2814709872398471", category: "something", decription: "something else"});
+        };
     var product = new Product({name: "this product", price: 10.00, quantity: 1, store: "2814709872398471"});
         expect(product.name).to.equal("this product");
         expect(product.price).to.equal(10.00);

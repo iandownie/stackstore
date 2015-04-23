@@ -21,12 +21,14 @@ navbar {
     border-radius: 100%;
     background: #78261E;
     position: absolute;
-    left: 45.5%;
-    top: 105px;
-    animation:drop_animation 1s infinite;
-    -moz-animation:drop_animation 1s infinite;
-    -webkit-animation:drop_animation 1s infinite;
-    -o-animation:drop_animation 1s infinite;
+    left: calc(50% - 88px);
+    left: -moz-calc(50% - 88px);
+    left: -webkit-calc(50% - 88px);
+    top: 115px;
+    animation:drop_animation 5s infinite;
+    -moz-animation:drop_animation 5s infinite;
+    -webkit-animation:drop_animation 5s infinite;
+    -o-animation:drop_animation 5s infinite;
   }
   nav{
     div.container {
@@ -173,24 +175,35 @@ navbar {
 
 @keyframes drop_animation
 {
-0%    {transform: rotate(-5deg);top:105px;  -webkit-animation-timing-function: ease-in;}
-100%  {transform: rotate(-5deg);top: 420px;}
+0%    {transform: rotate(-5deg);top:105px; opacity: 1; -webkit-animation-timing-function: ease-in;}
+20%  {transform: rotate(-5deg);top: 420px; opacity: 1;}
+21%  {transform: rotate(-5deg);top: 420px; opacity: 0}
 }
 
 @-webkit-keyframes drop_animation
 {
-0%    {transform: rotate(-5deg);top:105px; -webkit-animation-timing-function: ease-in;}
-100%  {transform: rotate(-5deg);top: 420px;}
+0%    {transform: rotate(-5deg);top:105px; opacity: 0; -webkit-animation-timing-function: ease-in;}
+1%  {transform: rotate(-5deg);top: 110px; opacity: 1; -webkit-animation-timing-function: ease-in;}
+21%  {transform: rotate(-5deg);top: 420px; opacity: 1;}
+22%  {transform: rotate(-5deg);top: 420px; opacity: 0}
+100% {transform: rotate(-5deg);top: 420px; opacity: 0}
 }
 
 @-moz-keyframes drop_animation
 {
-0%    {transform: rotate(-5deg);top:105px; -webkit-animation-timing-function: ease-in;}
-100%  {transform: rotate(-5deg);top: 420px;}
+0%    {transform: rotate(-5deg);top:105px; opacity: 0; -webkit-animation-timing-function: ease-in;}
+1%  {transform: rotate(-5deg);top: 110px; opacity: 1;}
+21%  {transform: rotate(-5deg);top: 420px; opacity: 1;}
+22%  {transform: rotate(-5deg);top: 420px; opacity: 0}
+100% {transform: rotate(-5deg);top: 420px; opacity: 0}
+
 }
 
 @-o-keyframes drop_animation
 {
-0%    {transform: rotate(-5deg);top:105px; -webkit-animation-timing-function: ease-in;}
-100%  {transform: rotate(-5deg);top: 420px;}
+0%    {transform: rotate(-5deg);top:105px; opacity: 0; -webkit-animation-timing-function: ease-in;}
+1%  {transform: rotate(-5deg);top: 110px; opacity: 1;}
+21%  {transform: rotate(-5deg);top: 420px; opacity: 1;}
+22%  {transform: rotate(-5deg);top: 490px; opacity: 0}
+100% {transform: rotate(-5deg);top: 420px; opacity: 0}
 }
