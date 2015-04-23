@@ -1,6 +1,12 @@
 <section id="productsList">
-	<product ng-repeat="product in productsList">
 
+	<form ng-submit='getByCategories(selectedCategories)'>
+		<select multiple ng-model='selectedCategories' ng-options='category._id as category.name for category in categoryList'>
+		</select>
+		<button type='submit'>GET ME THAT GREEN</button>
+	</form>
+
+	<product ng-repeat="product in productsList">
 	<div class="feature_products">
 		<div class="product_wrap">
 			<div class="control-wrap">
@@ -21,6 +27,6 @@
 
 		<a href="/stores/{{product.store}}"><h5>Visit this product's store.</h5></a>
 		</div>
-	</div> 
-	</product>  
+	</div>
+	</product>
 </section>

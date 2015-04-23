@@ -9,7 +9,6 @@ var router = require('express').Router();
 router.get('/', function(req, res, next){
 	//get all the categories
 	Category.find().exec(function(err, dataArr){
-		console.log(dataArr);
 		if(err) return next(err);
 		res.json(dataArr);
 	});
