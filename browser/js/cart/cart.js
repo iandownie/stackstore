@@ -29,7 +29,7 @@ app.controller('CartCtrl', function ($scope, AuthService, $state, CartFactory) {
 
    $scope.submitOrder = function(newOrder){
         CartFactory.submitOrder(newOrder).then(function(data){
-            console.log(data);
+            $state.go('orders', {id: data._id});
         }).catch(function(err){
             console.log(err);
         });
