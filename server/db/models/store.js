@@ -18,30 +18,17 @@ var schema = new mongoose.Schema({
 });
 
 
-schema.statics.findAndPopulate = function (id){
-    if (!id){
-        id = {};
-    } else {
-        id = {_id: id}
-    }
-    console.log('ID!!', id);
-    console.log('THIS!', this);
-
-    return this.find(id)
+schema.statics.findAndPopulate = function (){
+    return this.find({})
         .populate('products')
         .populate('user')
         .exec(function (err, store){
             if (err) console.error(err);
             return store;
         });
-
 }
 
 schema.statics.findByIdAndPopulate = function (id){
-
-    console.log('ID!!', id);
-    console.log('THIS!', this);
-
     return this.findById(id)
         .populate('products')
         .populate('user')
@@ -49,7 +36,6 @@ schema.statics.findByIdAndPopulate = function (id){
             if (err) console.error(err);
             return store;
         });
-
 }
 
 mongoose.model('Store', schema);
