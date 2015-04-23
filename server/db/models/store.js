@@ -24,9 +24,9 @@ schema.statics.findAndPopulate = function (){
     return this.find({})
         .populate('products')
         .populate(populateQuery)
-        .exec(function (err, store){
+        .exec(function (err, stores){
             if (err) console.error(err);
-            return store;
+            return stores;
         });
 }
 
