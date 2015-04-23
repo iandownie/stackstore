@@ -19,6 +19,7 @@
     <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
     <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
 		</select>
+    <input name="productimages" placeholder="images" ng-model="product.images"></input>
     <button>Submit Product</button>
 </form>
 <br/>

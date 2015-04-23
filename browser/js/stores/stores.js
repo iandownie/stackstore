@@ -47,7 +47,8 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         quantity: null,
         description: "",
         store: null,
-        categories: null
+        categories: null,
+        images : null
     };
 
     $scope.sortType     = 'name'; // set the default sort type

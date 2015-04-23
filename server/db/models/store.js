@@ -20,7 +20,7 @@ var schema = new mongoose.Schema({
 
 
 schema.statics.findAndPopulate = function (){
-    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}]
+    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
     return this.find({})
         .populate('products')
         .populate(populateQuery)
@@ -28,10 +28,10 @@ schema.statics.findAndPopulate = function (){
             if (err) console.error(err);
             return store;
         });
-}
+};
 
 schema.statics.findByIdAndPopulate = function (id){
-    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}]
+    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
     return this.findById(id)
         .populate('products')
         .populate(populateQuery)
@@ -39,7 +39,7 @@ schema.statics.findByIdAndPopulate = function (id){
             if (err) console.error(err);
             return store;
         });
-}
+};
 schema.statics.createStoreAndAttachUser = function(store){
     return this.create(store, function(err, newStore){
         if (err) console.error (err);
