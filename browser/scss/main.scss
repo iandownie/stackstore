@@ -1,6 +1,13 @@
 * {
   box-sizing: border-box;
 }
+input{
+  background: transparent;
+}
+button{
+  background: transparent;
+  height: 30px;
+}
 body{
 	color: white;
   background: url(/images/tyrion_lannister_background.jpg);
@@ -12,6 +19,7 @@ body{
   textarea{
    color: black;
   }
+
   td{
   background: black;
   }
