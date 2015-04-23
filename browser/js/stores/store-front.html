@@ -18,11 +18,22 @@
     <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
     <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
     <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
-		</select>
+	</select>
     <input name="productimages" placeholder="images" ng-model="product.images"></input>
-    <button>Submit Product</button>
+    <button class='btn btn-primary'>Submit Product</button>
 </form>
 <br/>
+
+<form ng-submit='categoryName.length > 0 && addCategory(categoryName)'>
+	<input type='text' ng-model='categoryName'>
+	<button class='btn btn-primary'>Create a Category</button>
+</form>
+
+<form ng-submit='loadStoreFront(store._id, categories)'>
+	<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
+	</select>
+	<button class='btn btn-primary'>GET ME PRODUCTS</button>
+</form>
 
 <table class="table table-bordered table-striped">
 

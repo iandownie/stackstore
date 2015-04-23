@@ -30,7 +30,7 @@ schema.statics.findAndPopulate = function (){
         });
 };
 
-schema.statics.findByIdAndPopulate = function (id){
+schema.statics.findByIdAndPopulate = function (id, query){
     var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
     return this.findById(id)
         .populate('products')
@@ -40,6 +40,21 @@ schema.statics.findByIdAndPopulate = function (id){
             return store;
         });
 };
+
+schema.statics.findByIdAndCategory = function (id, query){
+    var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
+    var productCategoryQuery = [{path: 'products',
+                                match: query}];
+    return this.findById(id)
+        .populate(productCategoryQuery)
+        .populate(userQuery)
+        .exec(function (err, store){
+            if (err) console.error(err);
+            console.log('this is the return of findbyIdandcategory ', id, query, store);
+            return store;
+        });
+};
+
 schema.statics.createStoreAndAttachUser = function(store){
     return this.create(store, function(err, newStore){
         if (err) console.error (err);
@@ -54,5 +69,5 @@ schema.statics.createStoreAndAttachUser = function(store){
             });
         });
     });
-}
+};
 mongoose.model('Store', schema);
