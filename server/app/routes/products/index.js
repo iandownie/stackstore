@@ -10,8 +10,17 @@ var router = require('express').Router();
 
 router.get('/', function(req, res, next){
 	//get all products
-	console.log(req.query);
-	Product.find().populate('store').exec(function(err, dataArr){
+	var query = {};
+	if(req.query.hasOwnProperty('categories')){
+		if (typeof req.query.categories === 'string'){
+			//if you click only one option in the select, categories will be a string
+			query = req.query;
+		} else {
+			//if you click multiple options in the selection, categories will be an array
+			query = {categories : {$in : req.query.categories}};
+		}
+	}
+	Product.find(query).populate('store').exec(function(err, dataArr){
 		if(err) return next(err);
 		res.json(dataArr);
 	});

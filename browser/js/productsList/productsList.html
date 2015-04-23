@@ -1,4 +1,9 @@
 <section id="productsList">
+	<form ng-submit='getByCategories(selectedCategories)'>
+		<select multiple ng-model='selectedCategories' ng-options='category._id as category.name for category in categoryList'>
+		</select>
+		<button type='submit'>GET ME THAT GREEN</button>
+	</form>
 	<product ng-repeat="product in productsList" class="main-container" id="bar">
 		<div class="left-col">
 			<h4 class="productName" style="color:blue" ng-click="linkToProduct(product._id)" >{{product.name}}</h4>
