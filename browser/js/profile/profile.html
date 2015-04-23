@@ -13,16 +13,17 @@
         <h3>user: {{user}}</h3>
     </div>    
     <div class="non-justify" id="content-col">
-        <button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
-        <form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store, user.store)">
-        <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
-        <error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
-        <error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
-        <form  name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store)">
-            <input name="editname" placeholder="Store Name" ng-maxlength="20" ng-model="store.storeName" type="text" required>
-            <input name="editlogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
-            <button ng-click="edit=!edit">Save changes</button>
-        </form>
+        <div>
+            <button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
+            <form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store, user.store)">
+                <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
+                <error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
+                <error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
+                <input name="editname" placeholder="Store Name" ng-maxlength="20" ng-model="store.storeName" type="text" required>
+                <input name="editlogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
+                <button ng-click="edit=!edit">Save changes</button>
+            </form>
+        </div>
 
 
         <div ng-show="!user.store">
