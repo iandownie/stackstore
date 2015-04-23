@@ -36,6 +36,7 @@ describe('Store model', function(){
 		var createUser = function () {
 		    return User.create({ email: 'obama@gmail.com', password: 'potus' });
 		};
+
 		it('must belong to a user', function (done){
 			var store = new Store({ name: 'My Store' });
 			store.save(function(err){
@@ -44,6 +45,7 @@ describe('Store model', function(){
 			});
 			
 		})
+
 		it('can be created with valid data', function (done) {
 			var user = new User({ email: 'obama@gmail.com', password: 'potus' });
 			var store = new Store({ name: 'My Store' });
@@ -55,5 +57,31 @@ describe('Store model', function(){
 				})
 			})
 		});
+
+	})
+
+	describe('Store model statics:', function(){
+		var user = new User({ email: 'obama@gmail.com', password: 'potus' });
+		var store = new Store({ name: 'My Store' });
+		user.save(function (err, data){
+			store.user = data._id
+			store.save(function( err, store){
+				done()
+			})
+		})
+
+		it('has a static method to findAndPopulate that returns all stores with populated fields', function (done){
+		    Store.findAndPopulate().then( function (stores){
+		    	console.log(stores);
+		    	// stores.should.equal();
+		    	done();
+		    })
+        })
+			
 	})
 })
+
+
+
+
+
