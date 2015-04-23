@@ -22,7 +22,8 @@ var schema = new mongoose.Schema({
 		type: String, required: true
 	},
 	categories:[{
-		type: String, required: true
+		type: mongoose.Schema.Types.ObjectId, ref: 'Category',
+		required: true
 	}],
 	reviews : [{
 		type: mongoose.Schema.Types.ObjectId, ref: 'Review'
