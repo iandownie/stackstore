@@ -6,8 +6,10 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/products/products.html',
         controller: 'ProductCtrl',
         resolve: {
-            productsInfo:function($stateParams, ProductFactory){
-                return ProductFactory.getProduct($stateParams.id);
+            productsInfo:function($stateParams, $state, ProductFactory){
+                return ProductFactory.getProduct($stateParams.id).catch(function(err){
+                    $state.go('error');
+                });
             }
         }
     });

@@ -11,7 +11,7 @@ var router = require('express').Router();
 router.get('/', function(req, res, next){
 	//get all products
 	console.log(req.query);
-	Product.find().limit(10).populate('store').exec(function(err, dataArr){
+	Product.find().populate('store').exec(function(err, dataArr){
 		if(err) return next(err);
 		res.json(dataArr);
 	});

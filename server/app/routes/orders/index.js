@@ -26,6 +26,14 @@ router.get('/:id', function(req, res, next){
 			});
 });
 
+router.put('/:id', function(req, res, next){
+	//update an order
+	Order.findByIdAndUpdate(req.params.id, req.body, function(err, data){
+		if(err) return next(err);
+		res.json(data);
+	});
+});
+
 router.delete('/:id', function(req, res, next){
 	//delete an order
 	Order.findByIdAndRemove(req.params.id, function(err, data){
