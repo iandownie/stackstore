@@ -15,7 +15,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.factory('OrderFactory', function ($http) {
+app.factory('OrderFactory', function ($http, $scope) {
 
     return {
         getOrder: function (orderID) {
@@ -37,15 +37,16 @@ app.factory('OrderFactory', function ($http) {
 
 });
 
-app.controller('OrderCtrl', function ($scope, $state, orderInfo, OrderFactory) {
-    $scope.order = orderInfo;
+app.controller('OrderCtrl', function ($scope, $state, NavFactory, orderInfo, OrderFactory) {
     console.log(orderInfo);
 
     $scope.deleteOrder = function(orderID){
+        NavFactory.loader=false;
     	OrderFactory.deleteOrder(orderID).then(function(data){
-    		$state.go('productsList');
+            NavFactory.loader=true;
     	}).catch(function(err){
     		console.log(err);
+            NavFactory.loader=true;
     	});
     };
 });

@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartCtrl', function ($scope, AuthService, $state, CartFactory) {
+app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, CartFactory) {
 
     $scope.cart = {
         products: [],
@@ -28,8 +28,10 @@ app.controller('CartCtrl', function ($scope, AuthService, $state, CartFactory) {
    $scope.cart.products = CartFactory.getCart();
 
    $scope.submitOrder = function(newOrder){
+    NavFactory.loader=false;
         CartFactory.submitOrder(newOrder).then(function(data){
             $state.go('orders', {id: data._id});
+            NavFactory.loader=true;
         }).catch(function(err){
             console.log(err);
         });
