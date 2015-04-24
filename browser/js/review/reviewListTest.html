@@ -1,0 +1,12 @@
+<section>
+	<!-- Proof of concept -->
+	<form ng-submit='getUser(userID)'>
+		<input type='text' ng-model='userID'>
+		<button class='btn btn-primary'>Submit a user query</button>
+	</form>
+	<form ng-submit='getProduct(productID)'>
+		<input type='text' ng-model='productID'>
+		<button class='btn btn-primary'>Submit a product query</button>
+	</form>
+	<pre>{{reviewList | json}}</pre>
+</section>
