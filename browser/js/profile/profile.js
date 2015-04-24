@@ -20,12 +20,12 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ProfileController', function ($scope, $state, NavFactory, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
+    $scope.user = getUserInfo;
     $scope.store =  getUserInfo.store || {
         name: null,
-        logo: null
+        logo: null,
+        user: $scope.user._id
     };
-    console.log(getUserInfo);
-    $scope.user = getUserInfo
     
     if($scope.user.store){
         StoresFactory.loadStoreFront($scope.user.store).then(function (store){
