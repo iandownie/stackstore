@@ -2,30 +2,42 @@
 
 var mongoose = require('mongoose');
 var Review = mongoose.model('Review');
+var Promise = require('q');
 
 var router = require('express').Router();
 
+router.get('/', function(req, res, next){
+	var query = {};
+	if(req.query){
+		query = req.query;
+	}
+	Review.getReviewByQuery(query).then(function(data){
+		res.json(data);
+	}).then(null, function(err){
+		return next(err);
+	});
+});
+
 router.post('/', function(req, res, next){
-	//create an order
-	// Review.create(req.body, function(err, data){
-	// 	if(err) return next(err);
-	// 	res.json(data);
-	// });
+	//create a review
+	Review.createReview(req.body).then(function(data){
+		res.json(data);
+	}).catch(function(err){
+		return next(err);
+	});
 });
 
 router.get('/:id', function(req, res, next){
-	//see an order
-	// Review.findById(req.params.id)
-	// 		.populate('user')
-	// 		.populate('product')
-	// 		.exec(function(err,data){
-	// 			if (err) return next(err);
-	// 			res.json(data);
-	// 		});
+	//see a review
+	Review.getReviewById(req.params.id).then(function(data){
+		res.json(data);
+	}).then(null, function(err){
+		return next(err);
+	});
 });
 
 router.put('/:id', function(req, res, next){
-	//update an order
+	//update a review
 	Review.findByIdAndUpdate(req.params.id, req.body, function(err, data){
 		if(err) return next(err);
 		res.json(data);
@@ -33,10 +45,11 @@ router.put('/:id', function(req, res, next){
 });
 
 router.delete('/:id', function(req, res, next){
-	//delete an order
-	Review.findByIdAndRemove(req.params.id, function(err, data){
-		if(err) return next(err);
+	//delete a review
+	Review.deleteReview(req.params.id).then(function(data){
 		res.json(data);
+	}).then(null, function(err){
+		return next(err);
 	});
 });
 
