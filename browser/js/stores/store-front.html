@@ -1,8 +1,9 @@
 <img src="{{store.logo}}" />
 
-<h1>Store Name: {{store.name}}</h1>
+<h1>Store Name: {{currentStore}} // </h1>
 
-<h1>User Name: {{store.userName}}</h1>
+<h1>Current USer Name: {{currentUser}}</h1>
+
 
 <h3>Add New Item</h3>
 <error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>

@@ -24,7 +24,7 @@ describe('Order model', function () {
     });
 
     describe('create an order', function () {
-    	it('can be created with valid data', function (done) {
+    	xit('can be created with valid data', function (done) {
     	var createOrder = function () {
     	    return Order.create({name: "common product", price: 10.00, quantity: 1, store: "2814709872398471", category: "something", decription: "something else"});
     	    };
@@ -33,7 +33,7 @@ describe('Order model', function () {
     	    expect(product.price).to.equal(10.00);
     	    done();
     	});
-    	it('can\'t be created without required data', function (done) {
+    	xit('can\'t be created without required data', function (done) {
     	var myProduct = new Product({store: "2814709872398472"});
     	    myProduct.save(function(err){
     	        var error = err.message

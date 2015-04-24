@@ -26,6 +26,7 @@ app.controller('ProfileController', function ($scope, $state, AuthService, Profi
     };
     console.log(getUserInfo);
     $scope.user = getUserInfo
+    $scope.store.user = getUserInfo._id
     
     if($scope.user.store){
         StoresFactory.loadStoreFront($scope.user.store).then(function (store){

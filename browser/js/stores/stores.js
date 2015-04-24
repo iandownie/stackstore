@@ -38,9 +38,8 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
 });
 
 app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
-    $scope.store = getStoreById;
+    $scope.currentStore = getStoreById;
     $scope.categoryList = categoryList;
-
     //proof of concept of adding categories
     $scope.categoryName = '';
 
@@ -58,7 +57,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.sortReverse  = false;  // set the default sort order
 
     AuthService.getLoggedInUser().then(function (user) {
-        $scope.user = user;
+        $scope.currentUser = user;
         $scope.product.store = user.store;
     });
 
