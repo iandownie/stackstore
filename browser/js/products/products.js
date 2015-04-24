@@ -37,12 +37,18 @@ app.factory('ProductFactory', function ($http) {
 
 });
 
-app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFactory, CartFactory) {
+app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFactory, CartFactory, ReviewFactory) {
     $scope.visible=false;
 
     $scope.quant=1;
 
     $scope.product = productsInfo;
+
+    $scope.review = {
+        rating : 0,
+        title: '',
+        description: ''
+    };
 
     $scope.editProduct=function(product){
         ProductFactory.editProduct(product).then(function(){
@@ -55,6 +61,10 @@ app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFac
         }).catch(function(err){
             throw new Error(err);
         });
+    };
+
+    $scope.createReview = function(productID, review){
+
     };
 
     $scope.addCart = function(product, quant){

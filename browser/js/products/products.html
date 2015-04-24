@@ -39,5 +39,14 @@
             </div>
         <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button>
     </div>
+    <div>
+        <form ng-submit='createReview()'>
+            <input type='number' ng-model='review.rating'>
+            <input type='text' ng-model='review.title'>
+            <textarea ng-model='review.description'></textarea>
+            <button class='btn btn-warning'> LEAVE A REVIEW </button>
+        </form>
+    </div>
+    <pre>{{product.reviews | json}}</pre>
 
 </section>

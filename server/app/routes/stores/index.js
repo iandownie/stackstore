@@ -13,12 +13,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.put('/:id', function (req, res, next) {
-    console.log("in put for new store ")
-    console.log(req)
-
     Store.findByIdAndUpdate(req.params.id, req.body, function(err, data){
         if(err) return next(err);
-        console.log("data: ", data);
         res.json(data);
     });
 
