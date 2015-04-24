@@ -3,6 +3,12 @@
 }
 input{
   background: transparent;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+input.focus,
+input:focus{
+  border: solid 1px #707070;
+  box-shadow: 0 0 11px 3px #fff;
 }
 button{
   background: transparent;
