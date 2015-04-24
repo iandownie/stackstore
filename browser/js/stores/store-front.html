@@ -1,6 +1,6 @@
 <img src="{{store.logo}}" />
 <h1>Store : {{store.user._id}}</h1>
-<h1>User : {{currentUser}}</h1>
+<h1>Current User : {{currentUser._id}} -- Should Not Be ^^ </h1>
 
 <h3 >Add New Item</h3>
 <error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
@@ -74,7 +74,7 @@
 		<td>{{ product.price }}</td>
 		<td>{{ product.quantity }}</td>
 		<td>{{ product.description }}</td>
-		<td ng-show="user._id=store.user._id"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+		<td ng-show="currentUser._id=store.user._id"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
             <div ng-show="visible">
                 <form ng-submit="editProduct(product)">
                     <input  ng-model="product.name"></input>
@@ -86,7 +86,7 @@
                 <button class="btn-primary btn" >Add or Remove Pictures</button>
             </div>
         </td>    
-        <td ng-show="user._id=store.user._id"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
+        <td ng-show="currentUser._id=store.user._id"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
 	</tr>
 	</tbody>
 

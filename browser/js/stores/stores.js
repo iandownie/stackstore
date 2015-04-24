@@ -12,6 +12,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/stores/store-front.html',
         resolve: {
             getStoreById: function($stateParams, $state, StoresFactory){
+                console.log("Ran the resolve of state")
                 return StoresFactory.loadStoreFront($stateParams.id).catch(function(err){
                     $state.go('error');
                 });
@@ -32,9 +33,7 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
         .catch(function (err){
         });
         $scope.goToStore = function(link){
-            $scope.loader=true;
             $state.go("storeFront", {id: link});
-            $scope.loader=false;
         };
 
 });
