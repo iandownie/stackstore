@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('SignUpController', function ($state, $scope, SignUpFactory, AuthService) {
+app.controller('SignUpController', function ($state, $scope, NavFactory, SignUpFactory, AuthService) {
 
     $scope.newUser = {
         firstName: null,
@@ -16,10 +16,12 @@ app.controller('SignUpController', function ($state, $scope, SignUpFactory, Auth
     };
 
     $scope.signUp = function (user) {
+        NavFactory.loader=false;
         SignUpFactory.registerNewUser(user).then(function(data){
             AuthService.login({email: user.email, password: user.password})
                 .then(function(){
                     $state.go('home');
+                    NavFactory.loader=false;
                 });
         });
     };
