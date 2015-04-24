@@ -8,10 +8,15 @@
             <button ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()" ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}
             </button>
             <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+                
+            <button ng-show="user._type === 'Admin'" ng-click="linkToAdmin()">Admin</button>
             <button ng-show="!user" ui-sref="register" class="btn register-button">Register</button>
             <loader ng-hide="loader"></loader>
         </div>
         <div class="stacked">
+
+            
+
             <div ng-show="user" class="welcome">
                 <span>Welcome, {{ user.email }}!</span>
                 <a ng-click="logout()">Logout</a>

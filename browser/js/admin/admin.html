@@ -1,0 +1,11 @@
+<h1>Admin Page</h1>
+<pre ng-repeat="user in users"> 
+	First Name: {{user.firstName}}
+	Last Name: {{user.lastName}} 
+	Email: {{user.email}} 
+	Store: {{user.store}} 
+	Password: {{user.password}}
+	Type: {{user._type || 'User'}}
+	<button ng-click="deleteUser(user)">Delete User</button>
+	<button ng-click="promoteUser(user)">Promote User</button> 
+</pre>
