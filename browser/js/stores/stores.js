@@ -38,10 +38,10 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
 
 });
 
+//app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
 app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreById, categoryList, CategoryFactory) {
-    $scope.store = getStoreById;
+    $scope.currentStore = getStoreById;
     $scope.categoryList = categoryList;
-
     //proof of concept of adding categories
     $scope.categoryName = '';
 

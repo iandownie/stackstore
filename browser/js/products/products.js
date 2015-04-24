@@ -39,12 +39,23 @@ app.factory('ProductFactory', function ($http) {
 
 });
 
-app.controller('ProductCtrl', function ($scope, $state, NavFactory, productsInfo, ProductFactory, CartFactory) {
+app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInfo, ProductFactory, CartFactory, ReviewFactory, NavFactory) {
     $scope.visible=false;
 
     $scope.quant=1;
 
     $scope.product = productsInfo;
+
+    $scope.review = {
+        rating : 0,
+        title: '',
+        description: '',
+        user: null
+    };
+
+    AuthService.getLoggedInUser().then(function (user) {
+        $scope.review.user = user._id;
+    });
 
     $scope.editProduct=function(product){
         NavFactory.loader=false;
@@ -61,6 +72,14 @@ app.controller('ProductCtrl', function ($scope, $state, NavFactory, productsInfo
         }).catch(function(err){
             NavFactory.loader=true;
             throw new Error(err);
+        });
+    };
+
+    $scope.createReview = function(productID, review){
+        review.product = productID;
+        console.log(ReviewFactory);
+        ReviewFactory.createReview(review).then(function(data){
+            console.log('this is new review', data);
         });
     };
 

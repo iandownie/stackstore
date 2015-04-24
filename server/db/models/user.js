@@ -54,6 +54,9 @@ var schema = new mongoose.Schema({
     store: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Store'
     },
+    orders:[{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Order'
+    }],
     salt: {
         type: String
     },
@@ -68,7 +71,7 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-    }   
+    }
 }, { collection: 'users', discriminatorKey : '_type' });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

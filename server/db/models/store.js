@@ -30,17 +30,6 @@ schema.statics.findAndPopulate = function (){
         });
 };
 
-schema.statics.findByIdAndPopulate = function (id, query){
-    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
-    return this.findById(id)
-        .populate('products')
-        .populate(populateQuery)
-        .exec(function (err, store){
-            if (err) console.error(err);
-            return store;
-        });
-};
-
 schema.statics.findByIdAndCategory = function (id, query){
     var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
     var productCategoryQuery = [{path: 'products',
@@ -57,7 +46,7 @@ schema.statics.findByIdAndCategory = function (id, query){
 schema.statics.createStoreAndAttachUser = function(store){
     var self = this;
     return User.findById(store.user, function (err, user) {
-    if (user.store) throw new Error("User Has Store.")
+        if (user.store) throw new Error("User Has Store.");
         self.create(store, function(err, newStore){
             if (err) console.error (err);
             user.store = newStore._id;
