@@ -46,7 +46,7 @@ schema.statics.findByIdAndCategory = function (id, query){
 schema.statics.createStoreAndAttachUser = function(store){
     var self = this;
     return User.findById(store.user, function (err, user) {
-    if (user.store) throw new Error("User Has Store.");
+        if (user.store) throw new Error("User Has Store.");
         self.create(store, function(err, newStore){
             if (err) console.error (err);
             user.store = newStore._id;

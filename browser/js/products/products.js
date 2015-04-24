@@ -7,6 +7,7 @@ app.config(function ($stateProvider) {
         controller: 'ProductCtrl',
         resolve: {
             productsInfo:function($stateParams, $state, ProductFactory){
+
                 return ProductFactory.getProduct($stateParams.id).catch(function(err){
                     $state.go('error');
                 });
@@ -19,6 +20,7 @@ app.factory('ProductFactory', function ($http) {
 
     return {
         getProduct: function (productID) {
+
             return $http.get('/api/products/' + productID).then(function (response) {
                 return response.data;
             });
@@ -37,7 +39,7 @@ app.factory('ProductFactory', function ($http) {
 
 });
 
-app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInfo, ProductFactory, CartFactory, ReviewFactory) {
+app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInfo, ProductFactory, CartFactory, ReviewFactory, NavFactory) {
     $scope.visible=false;
 
     $scope.quant=1;
@@ -56,14 +58,19 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
     });
 
     $scope.editProduct=function(product){
+        NavFactory.loader=false;
         ProductFactory.editProduct(product).then(function(){
             $state.go('products', {id:product._id},{reload:true});
+            NavFactory.loader=true;
         });
     };
     $scope.deleteProduct = function(productID){
+        NavFactory.loader=false;
         ProductFactory.deleteProduct(productID).then(function(){
             $state.go('stores');
+            NavFactory.loader=true;
         }).catch(function(err){
+            NavFactory.loader=true;
             throw new Error(err);
         });
     };
@@ -77,7 +84,9 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
     };
 
     $scope.addCart = function(product, quant){
+        NavFactory.loader=false;
         CartFactory.addCart(product, quant);
+        NavFactory.loader=true;
     };
 });
 

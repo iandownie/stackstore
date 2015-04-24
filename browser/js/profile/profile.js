@@ -19,13 +19,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
+app.controller('ProfileController', function ($scope, $state, NavFactory, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
+    $scope.user = getUserInfo;
     $scope.store =  getUserInfo.store || {
         name: null,
-        logo: null
+        logo: null,
+        user: $scope.user._id
     };
-    console.log(getUserInfo);
-    $scope.user = getUserInfo
     
     if($scope.user.store){
         StoresFactory.loadStoreFront($scope.user.store).then(function (store){
@@ -33,15 +33,19 @@ app.controller('ProfileController', function ($scope, $state, AuthService, Profi
         });
     }
     $scope.createStore = function (store){
+        NavFactory.loader=false;
         ProfileFactory.makeStore(store).then(function(store){
             $scope.store = store;
             $state.go('stores') ;//I'd like to make this go directly to the store just made //
+            NavFactory.loader=true;
         });
     },
     $scope.editStore = function (store, storeID){
+        NavFactory.loader=false;
         ProfileFactory.changeStore(store, storeID).then(function(store){
             $scope.store = store;
             $state.go('stores') ;
+            NavFactory.loader=true;
         })
     }
 });

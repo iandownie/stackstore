@@ -26,6 +26,9 @@
     			</form>
     		</div>
     	</div>
+        product: {{product}}
+        user: {{user}}
+        store: {{store}}
         <button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
             <div ng-show="visible">
                 <form ng-submit="editProduct(product)">
