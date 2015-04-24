@@ -13,7 +13,13 @@ navbar {
   float: left;
   height: 110px;
   display: block;
-  background: #78261E;
+  background: linear-gradient(270deg, #c30b0b, #490606, #c30b0b, #340202);
+background-size: 800% 800%;
+
+    animation:navbarGradient 20s ease infinite;
+    -moz-animation:navbarGradient 20s ease infinite;
+    -webkit-animation:navbarGradient 20s ease infinite;
+    -o-animation:navbarGradient 20s ease infinite;
   div#drop{
     -webkit-animation-timing-function: ease-in;
     width:5px;
@@ -44,7 +50,7 @@ navbar {
         width: 245px;
         background: rgba(255, 255, 0, 0);
         padding: 8px 17px 8px 19px;
-        border: ridge 10px #8a0000;
+        border: double 10px #470303;
         -moz-border-radius-topleft: 75px;
         -moz-border-radius-topright: 0px;
         -moz-border-radius-bottomleft: 0px;
@@ -102,6 +108,12 @@ navbar {
         display: flex;
         justify-content: space-around;
         width:305px;
+        .active{
+        -moz-box-shadow:inset -3px 0px 21px #000000;
+        -webkit-box-shadow:inset -3px 0px 21px #000000;
+        box-shadow:inset -3px 0px 21px #000000;
+        margin: 0 5px;
+        }
         button {
           text-shadow: -1px 1px 3px #fff200;
           padding:0;
@@ -118,10 +130,10 @@ navbar {
           width: 82px;
           min-width: 82px;
           border: solid 2px #000000;
+          -webkit-transition:margin 1s, -webkit-transform 1s;
+          transition:margin 1s, transform 1s;
           &:hover {
-            -moz-box-shadow: -4px 3px 14px #ffff00;
-            -webkit-box-shadow: -4px 3px 14px #ffff00;
-            box-shadow: -4px 3px 14px #ffff00;
+            margin: 0 20px;
             }
           a {
             font-size: 25px;
@@ -175,9 +187,11 @@ navbar {
 
 @keyframes drop_animation
 {
-0%    {transform: rotate(-5deg);top:105px; opacity: 1; -webkit-animation-timing-function: ease-in;}
-20%  {transform: rotate(-5deg);top: 420px; opacity: 1;}
-21%  {transform: rotate(-5deg);top: 420px; opacity: 0}
+0%    {transform: rotate(-5deg);top:105px; opacity: 0; -webkit-animation-timing-function: ease-in;}
+1%  {transform: rotate(-5deg);top: 110px; opacity: 1; -webkit-animation-timing-function: ease-in;}
+21%  {transform: rotate(-5deg);top: 420px; opacity: 1;}
+22%  {transform: rotate(-5deg);top: 420px; opacity: 0}
+100% {transform: rotate(-5deg);top: 420px; opacity: 0}
 }
 
 @-webkit-keyframes drop_animation
@@ -206,4 +220,27 @@ navbar {
 21%  {transform: rotate(-5deg);top: 420px; opacity: 1;}
 22%  {transform: rotate(-5deg);top: 490px; opacity: 0}
 100% {transform: rotate(-5deg);top: 420px; opacity: 0}
+}
+
+/*** Animation 2 ***/
+
+@keyframes navbarGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-webkit-keyframes navbarGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes navbarGradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes navbarGradient { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
