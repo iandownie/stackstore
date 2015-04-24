@@ -16,7 +16,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             ];
 
             scope.user = null;
-
+            scope.linkToAdmin = function(){
+                $state.go("admin")
+            }
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
             };
