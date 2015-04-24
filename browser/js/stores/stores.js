@@ -67,7 +67,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         NavFactory.loader=false;
 
         StoresFactory.newProduct(data).then(function (response){
-            $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+            $state.go('storeFront', {id: $scope.currentStore._id }, {reload: true});
            NavFactory.loader=true;
         });
     };
@@ -75,7 +75,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.loadStoreFront = function(storeID, categories){
         NavFactory.loader=false;
         StoresFactory.loadStoreFront(storeID, categories).then(function(data){
-            $scope.store = data;
+            $scope.currentStore = data;
            NavFactory.loader=true;
         });
     };
@@ -83,7 +83,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.addCategory = function(category){
         NavFactory.loader=false;
         CategoryFactory.addCategory(category).then(function(data){
-            $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+            $state.go('storeFront', {id: $scope.currentStore._id }, {reload: true});
            NavFactory.loader=true;
         });
     };

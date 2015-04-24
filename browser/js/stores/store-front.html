@@ -1,7 +1,6 @@
 <img src="{{store.logo}}" />
 
-<h1>Store Name: {{currentStore}} // </h1>
-<h1>Current USer Name: {{currentUser}}</h1>
+<h1 ng-show="currentUser._id==currentStore.user._id">This is your store, where you can add products to sell or edit their information.</h1>
 
 <h3 >Add New Item</h3>
 <error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
@@ -70,12 +69,12 @@
 	</thead>
 
 	<tbody>
-	<tr ng-repeat="product in store.products | orderBy:sortType:sortReverse | filter:searchFish">
+	<tr ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
 		<td>{{ product.name }}</td>
 		<td>{{ product.price }}</td>
 		<td>{{ product.quantity }}</td>
 		<td>{{ product.description }}</td>
-		<td ng-show="currentUser._id=store.user._id"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+		<td ng-show="currentUser._id==currentStore.user._id"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
             <div ng-show="visible">
                 <form ng-submit="editProduct(product)">
                     <input  ng-model="product.name"></input>
@@ -87,7 +86,7 @@
                 <button class="btn-primary btn" >Add or Remove Pictures</button>
             </div>
         </td>    
-        <td ng-show="currentUser._id=store.user._id"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
+        <td ng-show="currentUser._id==currentStore.user._id"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
 	</tr>
 	</tbody>
 
