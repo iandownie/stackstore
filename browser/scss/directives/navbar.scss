@@ -47,9 +47,9 @@ background-size: 800% 800%;
       float: left;
       input{
         margin: 12px 0;
-        width: 245px;
+        width: 225px;
         background: rgba(255, 255, 0, 0);
-        padding: 8px 17px 8px 19px;
+        padding: 0px 0px 0px 15px;
         border: double 10px #470303;
         -moz-border-radius-topleft: 75px;
         -moz-border-radius-topright: 0px;
@@ -64,6 +64,11 @@ background-size: 800% 800%;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 75px;
         font-size: 15px;
+        transition: width 1s, padding 1s ease;
+      }
+      input:focus{
+        width: 260px;
+        padding: 10px 10px 10px 20px;
       }
       input::-webkit-input-placeholder {
         color: black;
@@ -86,7 +91,8 @@ background-size: 800% 800%;
       img{
         width: 139px;
       }
-      img.gif{
+      loader img{
+        margin-left: -15px;
         height:40px;
         width: 30px;
       }

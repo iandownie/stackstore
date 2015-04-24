@@ -32,8 +32,6 @@ app.controller('ProfileController', function ($scope, $state, AuthService, Profi
             $scope.store = store
         });
     }
-
-
     $scope.createStore = function (store){
         ProfileFactory.makeStore(store).then(function(store){
             $scope.store = store;
