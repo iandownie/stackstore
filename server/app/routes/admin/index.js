@@ -10,3 +10,21 @@ router.get('/', function(req, res, next){
 		res.send(users);
 	})
 })
+
+router.delete('/:id', function(req, res, next){
+	User.findByIdAndRemove(req.params.id, function (err, user){
+		res.send(user);
+	})
+})
+
+router.put('/', function(req, res, next){
+	//console.log(req.body);
+	// Admin.promoteUser(req.body, function(err, admin){
+	// 	res.send(admin);
+	// })
+    User.findByIdAndRemove(req.body._id, function (err, user){
+        Admin.create(req.body, function (err, admin){
+        	res.send(admin);
+        });
+    });
+})
