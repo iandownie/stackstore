@@ -57,7 +57,7 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
         $scope.review.user = user._id;
     });
 
-    $scope.editProduct=function(product){
+    $scope.editProduct = function(product){
         NavFactory.loader=false;
         ProductFactory.editProduct(product).then(function(){
             $state.go('products', {id:product._id},{reload:true});

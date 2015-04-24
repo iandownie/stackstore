@@ -54,7 +54,6 @@ app.controller('ProductsListCtrl', function ($state, $scope, NavFactory, product
     $scope.getByCategories = function(categories){
         NavFactory.loader=false;
         ProductsListFactory.getByCategories(categories).then(function(data){
-            console.log(data);
             $scope.productsList = data;
             NavFactory.loader=true;
         });
