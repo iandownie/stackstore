@@ -32,12 +32,15 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
         .catch(function (err){
         });
         $scope.goToStore = function(link){
+            $scope.loader=true;
             $state.go("storeFront", {id: link});
+            $scope.loader=false;
         };
 
 });
 
-app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
+//app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreById, categoryList, CategoryFactory) {
     $scope.currentStore = getStoreById;
     $scope.categoryList = categoryList;
     //proof of concept of adding categories
@@ -62,20 +65,27 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     });
 
     $scope.newProduct =function(data){
+        NavFactory.loader=false;
+
         StoresFactory.newProduct(data).then(function (response){
             $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+           NavFactory.loader=true;
         });
     };
 
     $scope.loadStoreFront = function(storeID, categories){
+        NavFactory.loader=false;
         StoresFactory.loadStoreFront(storeID, categories).then(function(data){
             $scope.store = data;
+           NavFactory.loader=true;
         });
     };
 
     $scope.addCategory = function(category){
+        NavFactory.loader=false;
         CategoryFactory.addCategory(category).then(function(data){
             $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+           NavFactory.loader=true;
         });
     };
 

@@ -1,11 +1,11 @@
 <img src="{{store.logo}}" />
 
 <h1>Store Name: {{currentStore}} // </h1>
-
 <h1>Current USer Name: {{currentUser}}</h1>
 
 
-<h3>Add New Item</h3>
+
+<h3 >Add New Item</h3>
 <error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
 <error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
 <error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
@@ -77,6 +77,19 @@
 		<td>{{ product.price }}</td>
 		<td>{{ product.quantity }}</td>
 		<td>{{ product.description }}</td>
+		<td ng-show="user._id=store.user._id"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+            <div ng-show="visible">
+                <form ng-submit="editProduct(product)">
+                    <input  ng-model="product.name"></input>
+                    <input  type="number" ng-model="product.quantity"></input>
+                    <input  ng-model="product.description"></input>
+                    <input  type="float" ng-model="product.price"></input>
+                    <button class="btn btn-primary " type="submit">Save Changes</button>
+                </form>
+                <button class="btn-primary btn" >Add or Remove Pictures</button>
+            </div>
+        </td>    
+        <td ng-show="user._id=store.user._id"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
 	</tr>
 	</tbody>
 
