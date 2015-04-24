@@ -57,8 +57,8 @@ app.controller('ProductCtrl', function ($scope, $state, productsInfo, ProductFac
         });
     };
 
-    $scope.addCart = function(product, quant){
-        CartFactory.addCart(product, quant);
+    $scope.addToCart = function(product, quant){
+        CartFactory.addToCart(product, quant);
     };
 });
 

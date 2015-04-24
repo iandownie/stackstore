@@ -1,12 +1,27 @@
 'use strict';
 
-app.factory('CartFactory', function ($http) {
+app.factory('CartFactory', function ($http, localStorageService) {
 
 	var cart = [];
 
 	return{
-		addCart:function(product, quantity){
-			cart.push({product: product, quantity: quantity});
+
+		//addToCart:function(product, quantity){
+		//	cart.push({product: product, quantity: quantity});
+		//},
+
+
+
+		addToCart:function(product, quantity){
+
+			var order = localStorageService.get('order');
+
+			return $http.post('api/line-item', {localStorageId: order, product: product, quantity: quantity})
+				.then( function(newOrder){
+					console.log('New Order!!!!', newOrder.data)
+					localStorageService.set('order', newOrder.data._id);
+					return newOrder;
+				});
 		},
 
 		getCart: function(){

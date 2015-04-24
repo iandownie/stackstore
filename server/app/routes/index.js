@@ -9,7 +9,8 @@ router.use('/members', require('./members'));
 router.use('/orders', require('./orders'));
 router.use('/category', require('./categories'));
 router.use('/admin', require('./admin'));
-
+router.use('/cart', require('./cart'));
+router.use('/line-item', require('./line-item'));
 
 
 

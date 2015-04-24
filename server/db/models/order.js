@@ -1,34 +1,22 @@
 'use strict';
 
 var mongoose = require('mongoose');
-
-var lineItemSchema = new mongoose.Schema({
-    product: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Product'
-    },
-    quantity: {
-        type: Number,
-        required: true,
-        min : 1
-    },
-    paidUnitPrice : {
-        type: Number,
-        required: true,
-        min : 0
-    }
-});
+var deepPopulate = require('mongoose-deep-populate');
 
 
 var schema = new mongoose.Schema({
-	products: [lineItemSchema],
+	products: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
+    }],
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
+    //removed shipping address requirements for order creation
     shippingAddress: {
-        street: {type: String, required: true},
-        city: {type: String, required: true},
-        state: {type: String, required: true},
-        zip: {type: Number, required: true}
+        street: {type: String},
+        city: {type: String},
+        state: {type: String},
+        zip: {type: Number}
     },
     status : {
     	type: String,
@@ -37,6 +25,8 @@ var schema = new mongoose.Schema({
     }
 
 });
+
+schema.plugin(deepPopulate, {} /* more on options below */);
 
 var Order = mongoose.model('Order', schema);
 

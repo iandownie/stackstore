@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt']);
+var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'LocalStorageModule']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -48,4 +48,9 @@ app.run(function ($rootScope, AuthService, $state) {
 
     });
 
+});
+
+app.config(function (localStorageServiceProvider) {
+    localStorageServiceProvider
+        .setPrefix('impsbazaar');
 });
