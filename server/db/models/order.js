@@ -5,9 +5,6 @@ var deepPopulate = require('mongoose-deep-populate');
 
 
 var schema = new mongoose.Schema({
-	products: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
-    }],
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },

@@ -6,21 +6,15 @@ app.factory('CartFactory', function ($http, localStorageService) {
 
 	return{
 
-		//addToCart:function(product, quantity){
-		//	cart.push({product: product, quantity: quantity});
-		//},
-
-
-
 		addToCart:function(product, quantity){
 
 			var order = localStorageService.get('order');
 
-			return $http.post('api/line-item', {localStorageId: order, product: product, quantity: quantity})
-				.then( function(newOrder){
-					console.log('New Order!!!!', newOrder.data)
-					localStorageService.set('order', newOrder.data._id);
-					return newOrder;
+			return $http.post('api/line-item', {order: order, product: product, quantity: quantity})
+				.then( function(lineItem){
+					console.log('New Order!!!!', lineItem.data)
+					if (!order) localStorageService.set('order', lineItem.data.order);
+					return lineItem;
 				});
 		},
 

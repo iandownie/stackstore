@@ -3,8 +3,12 @@
 var mongoose = require('mongoose');
 var Order = mongoose.model("Order");
 var Q = require('q');
+var deepPopulate = require('mongoose-deep-populate');
 
 var schema = new mongoose.Schema({
+    order: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Order'
+    },
     product: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Product'
     },
@@ -20,41 +24,40 @@ var schema = new mongoose.Schema({
     }
 });
 
-var checkIfItemIsAlreadyInOrder = function (order, item) {
-    console.log('checkIfItemIsAlreadyInOrder!!!(Order)!!!!!', order)
-    console.log('checkIfItemIsAlreadyInOrder!!!(item)!!!!!', item)
-
-    if (order.products.indexOf(item) === -1){
-        order.products.push(item);
-    } else {
-        var index = order.products.indexOf(item);
-        order.products[index].quantity += item.quantity;
-    }
-}
-
-schema.statics.setOrCreateOrder = function (newLineItem) {
-    console.log(newLineItem)
-    if (newLineItem.localStorageId) return newLineItem;
-    Order.create({}, function(err, order){
-        if (err) error.log(err);
-        newLineItem.localStorageId = order._id;
-        console.log('SETORCREATEORDER', newLineItem)
-        return newLineItem;
-    })
-};
+schema.plugin(deepPopulate, {} /* more on options below */);
 
 
 schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
-    var orderId = lineItem.localStorageId;
-    console.log('Line ITEM: !', lineItem)
-
-        //Order.findById(orderId, function (err, currentOrder) {
-        //    if (err) console.error(err);
-        //    console.log('CURRENT ORDER!!', currentOrder)
-        //
-        //        //currentOrder.deepPopulate('products.product.store',
-        //
-        //});
+    console.log('!!!!!', lineItem)
+    if (lineItem.order){
+        LineItem.findOne({order: lineItem.order, product: lineItem.product._id}, function(err, match){
+            if(err) throw new Error(err);
+            console.log('Match', match)
+            if(match){
+                LineItem.findByIdAndUpdate(match._id, {$inc : {quantity : lineItem.quantity}},
+                    function(err, data){
+                        LineItem.find({order: lineItem.order}, function (err, allLineItems){
+                            cb(err, allLineItems);
+                        });
+                    })
+            } else {
+                LineItem.create(lineItem, function(err, newLineItem) {
+                    LineItem.find({order: lineItem.order}, function (err, allLineItems){
+                    cb(err, allLineItems);
+                    });
+                });
+            }
+        });
+    } else {
+        return Order.create({}, function (err, newOrder){
+            console.log('NEW ORDERRR', newOrder)
+            if(err) throw new Error(err);
+            lineItem.order = newOrder._id;
+            LineItem.create(lineItem, function(err, newLineItem){
+                 cb(err,newLineItem);
+            })
+        })
+    }
 
 };
 

@@ -11,13 +11,12 @@ var router = require('express').Router();
 
 router.post('/', function(req, res, next){
 
-    var order = LineItem.setOrCreateOrder(req.body);
-    console.log('ROUTE ORDER!!!', order)
-    LineItem.addItemToCurrentOrder(order, function(err, order){
-        console.log('HERE!')
+    LineItem.addItemToCurrentOrder(req.body, function(err, order){
+        console.log('ROUTE ORDER!!!', order)
         if(err) return next(err);
-        res.json(order);
-    })
+        res.send(order);
+
+    });
 
 });
 
