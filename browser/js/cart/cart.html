@@ -1,37 +1,42 @@
-<h1>Shopping Cart</h1>
+<div class="main-container">
+    <h1>Shopping Cart</h1>
+</div>
+<div class="main-container">
+    <div class="left-col">
+        <table ng-show="!cart.products[0]==null" class="table table-bordered">
 
-<table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Total Price</td>
 
-    <thead>
-        <tr>
-            <td>Name</td>
-            <td>Quantity</td>
-            <td>Price</td>
-            <td>Total Price</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in cart.products">
+                    <td>{{ product.product.name }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.product.price }}</td>
+                    <td>{{ product.quantity * product.product.price }}</td>
+                </tr>
+            </tbody>
 
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="product in cart.products">
-            <td>{{ product.product.name }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.product.price }}</td>
-            <td>{{ product.quantity * product.product.price }}</td>
-        </tr>
-    </tbody>
+        </table>
+        <h4 ng-show="cart.products[0]==null">You cart is currently empty</h4>
+    </div>
+    <div class="content-col">
+        <h2>Shipping Information</h2>
 
-</table>
-
-<h4 ng-hide="cart.products">You cart is currently empty</h4>
-
-<h2>Shipping Information</h2>
-
-<form ng-submit="submitOrder(cart)" name="address">
-    <input name="street" type="text" placeholder="street" ng-maxlength="15" ng-model="cart.shippingAddress.street" required></input><br/>
-    <input name="city" type="text" placeholder="city" ng-model="cart.shippingAddress.city" required></input><br/>
-    <input name="state" type="text" placeholder="state" ng-maxlength="2" ng-minlength="2" ng-model="cart.shippingAddress.state"></input><br/>
-    <input name="zip" placeholder="zip" ng-maxlength="5" ng-minlength="5" ng-model="cart.shippingAddress.zip" required></input><br/>
-    <button>Submit Order</button><br/>
-</form>
+        <form ng-submit="submitOrder(cart)" name="address">
+            <input name="street" type="text" placeholder="street" ng-maxlength="15" ng-model="cart.shippingAddress.street" required></input><br/>
+            <input name="city" type="text" placeholder="city" ng-model="cart.shippingAddress.city" required></input><br/>
+            <input name="state" type="text" placeholder="state" ng-maxlength="2" ng-minlength="2" ng-model="cart.shippingAddress.state"></input><br/>
+            <input name="zip" placeholder="zip" ng-maxlength="5" ng-minlength="5" ng-model="cart.shippingAddress.zip" required></input><br/>
+            <button>Submit Order</button><br/>
+        </form>
+    </div>    
+</div>    
 
 

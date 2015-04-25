@@ -1,11 +1,19 @@
-<h1>Admin Page</h1>
-<pre ng-repeat="user in users"> 
-	First Name: {{user.firstName}}
-	Last Name: {{user.lastName}} 
-	Email: {{user.email}} 
-	Store: {{user.store}} 
-	Password: {{user.password}}
-	Type: {{user._type || 'User'}}
-	<button ng-click="deleteUser(user)">Delete User</button>
-	<button ng-click="promoteUser(user)">Promote User</button> 
-</pre>
+<section id="admin">
+	<div class="main-container">
+		<div class="left-col">
+			<div id="bar" ng-repeat="user in users">
+				<h4>First Name: {{user.firstName}}</h4>
+				<h4>Last Name: {{user.lastName}} </h4> 
+				<h4>Email: {{user.email}}</h4> 
+				<h4>Store: {{user.store}}</h4> 
+				<h4>Password: {{user.password}}</h4> 
+				<h4>Type: {{user._type || 'User'}}</h4> 
+				<button ng-click="deleteUser(user)">Delete User</button>
+				<button ng-click="promoteUser(user)">Promote User</button> 
+			</div>
+		</div>
+		<div>
+			<h1 class="content-col">Admin Page</h1>
+		</div>
+	</div>
+</section>

@@ -2,7 +2,7 @@
     <h1>Profile page</h1>
 </page-title>
 <div class="main-container">
-    <div class="non-justify">
+    <div class="one-third">
         
         <h3>First name: {{user.firstName}}</h3>
         <h3>Last name: {{user.lastName}}</h3>
@@ -14,8 +14,8 @@
         <h3>store data: {{store}}</h3>
 
     </div>    
-    <div class="non-justify" id="content-col">
-        <div>
+    <div class="one-third" id="content-col">
+        <div class="one-third">
             <button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
             <form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store, user.store)">
                 <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
