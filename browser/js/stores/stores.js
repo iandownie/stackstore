@@ -8,13 +8,13 @@ app.config(function ($stateProvider) {
     });
 
     $stateProvider.state('storeFront', {
-        url: '/stores/:id',
+        url: '/stores/:url',
         controller: 'StoreFrontController',
         templateUrl: 'js/stores/store-front.html',
         resolve: {
-            getStoreById: function($stateParams, $state, StoresFactory){
-                console.log("Ran the resolve of state")
-                return StoresFactory.loadStoreFront($stateParams.id).catch(function(err){
+            getStoreByUrl: function($stateParams, $state, StoresFactory){
+                console.log("Ran the resolve of state");
+                return StoresFactory.loadStoreFrontByUrl($stateParams.url).catch(function(err){
                     $state.go('error');
                 });
             },
@@ -33,18 +33,17 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
         })
         .catch(function (err){
         });
-        $scope.goToStore = function(link){
-            $state.go("storeFront", {id: link});
-        };
-
 });
 
 //app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
+
 app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreById, categoryList, CategoryFactory, experimentalFactory) {
     $scope.currentStore = getStoreById;
+
     $scope.categoryList = categoryList;
     //proof of concept of adding categories
     $scope.categoryName = '';
+    $scope.currentUser = null;
 
     $scope.product = {
         name: "",
@@ -62,20 +61,25 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     AuthService.getLoggedInUser().then(function (user) {
         $scope.currentUser = user;
         $scope.product.store = user.store;
+
     });
+
+    $scope.isOwner = function(){
+        return StoresFactory.isOwner($scope.currentUser._id, $scope.currentStore.user._id);
+    };
 
     $scope.newProduct =function(data){
         NavFactory.loader=false;
 
         StoresFactory.newProduct(data).then(function (response){
-            $state.go('storeFront', {id: $scope.currentStore._id }, {reload: true});
+            $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
            NavFactory.loader=true;
         });
     };
 
-    $scope.loadStoreFront = function(storeID, categories){
+    $scope.loadStoreFront = function(storeUrl, categories){
         NavFactory.loader=false;
-        StoresFactory.loadStoreFront(storeID, categories).then(function(data){
+        StoresFactory.loadStoreFrontByUrl(storeUrl, categories).then(function(data){
             $scope.currentStore = data;
            NavFactory.loader=true;
         });
@@ -84,7 +88,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.addCategory = function(category){
         NavFactory.loader=false;
         CategoryFactory.addCategory(category).then(function(data){
-            $state.go('storeFront', {id: $scope.currentStore._id }, {reload: true});
+            $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
            NavFactory.loader=true;
         });
     };
@@ -105,11 +109,20 @@ app.factory('StoresFactory', function ($http) {
                     return response.data;
                 });
         },
-        loadStoreFront: function(storeID, categories){
+        loadStoreFrontById: function(storeID){
+            var config = {
+                params : {id : storeID}
+            };
+            return $http.get('/api/stores', config)
+                .then(function(response){
+                    return response.data;
+                });
+        },
+        loadStoreFrontByUrl: function(storeUrl, categories){
             var config = {
                 params : {categories: categories}
             };
-            return $http.get('/api/stores/' + storeID, config)
+            return $http.get('/api/stores/' + storeUrl, config)
                 .then(function(response){
                     return response.data;
                 });
@@ -119,6 +132,9 @@ app.factory('StoresFactory', function ($http) {
                 .then(function(response){
                     return response.data;
                 });
+        },
+        isOwner : function(userID, ownerID){
+            return userID === ownerID;
         }
     };
 });

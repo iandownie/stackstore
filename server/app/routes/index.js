@@ -11,6 +11,10 @@ router.use('/category', require('./categories'));
 router.use('/reviews', require('./reviews'));
 router.use('/admin', require('./admin'));
 router.use('/experiment', require('./experiment'));
+router.use('/cart', require('./cart'));
+router.use('/line-item', require('./line-item'));
+router.use('/search', require('./search'));
+
 
 // Make sure this is after all of
 // the registered routes!

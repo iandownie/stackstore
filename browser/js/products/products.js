@@ -20,9 +20,10 @@ app.factory('ProductFactory', function ($http) {
 
     return {
         getProduct: function (productID) {
-
             return $http.get('/api/products/' + productID).then(function (response) {
-                return response.data;
+                //this is to append reviews as a field in the products object
+                response.data.product.reviews = response.data.reviews;
+                return response.data.product;
             });
         },
         editProduct: function(product){
@@ -77,9 +78,8 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
 
     $scope.createReview = function(productID, review){
         review.product = productID;
-        console.log(ReviewFactory);
         ReviewFactory.createReview(review).then(function(data){
-            console.log('this is new review', data);
+            $state.go('products', {id: $scope.product._id}, {reload: true});
         });
     };
 
@@ -87,6 +87,7 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
         NavFactory.loader=false;
         CartFactory.addCart(product, quant);
         NavFactory.loader=true;
+
     };
 });
 

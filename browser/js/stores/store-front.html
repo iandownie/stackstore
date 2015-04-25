@@ -83,6 +83,7 @@
 				</tr>
 				</thead>
 
+
 				<tbody>
 				<tr ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
 					<td>{{ product.name }}</td>
@@ -126,3 +127,75 @@
 		</div>
 	</div>		
 </section>	
+
+<!-- <form ng-submit='loadStoreFront(store._id, categories)'>
+	<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
+	</select>
+	<button class='btn btn-primary'>GET ME PRODUCTS</button>
+</form>
+
+<table class="table table-bordered table-striped">
+
+	<thead>
+	<tr>
+		<td>
+			<a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+				Name
+				<span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+		<td>
+			<a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">
+				Price
+				<span ng-show="sortType == 'price' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'price' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+		<td>
+			<a href="#" ng-click="sortType = 'quantity'; sortReverse = !sortReverse">
+				Quantity
+				<span ng-show="sortType == 'quantity' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'quantity' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+		<td>
+			<a href="#" ng-click="sortType = 'description'; sortReverse = !sortReverse">
+				Desciption
+				<span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+				<span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+			</a>
+		</td>
+	</tr>
+	</thead>
+
+	<tbody>
+	<tr ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
+		<td>{{ product.name }}</td>
+		<td>{{ product.price }}</td>
+		<td>{{ product.quantity }}</td>
+		<td>{{ product.description }}</td>
+		<td ng-show="currentUser._id==currentStore.user._id"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+            <div ng-show="visible">
+                <form ng-submit="editProduct(product)">
+                    <input  ng-model="product.name"></input>
+                    <input  type="number" ng-model="product.quantity"></input>
+                    <input  ng-model="product.description"></input>
+                    <input  type="float" ng-model="product.price"></input>
+                    <button class="btn btn-primary " type="submit">Save Changes</button>
+                </form>
+                <button class="btn-primary btn" >Add or Remove Pictures</button>
+            </div>
+        </td>    
+        <td ng-show="currentUser._id==currentStore.user._id"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
+	</tr>
+	</tbody>
+
+</table>
+
+User._id: {{user._id}} <br/>
+
+Store.user._id: {{store.user._id}}
+
+</div> -->
+

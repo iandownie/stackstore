@@ -7,6 +7,9 @@ var schema = new mongoose.Schema({
     name:{
         type: String, required: true
     },
+    url:{
+        type: String, unique: true
+    },
     products: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Product'
     }],
@@ -15,9 +18,17 @@ var schema = new mongoose.Schema({
     },
     user:{
         type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true
-    }
+    },
+    orders:[{
+        type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
+    }]
 });
 
+schema.post('save', function(doc, next){
+    //post hook checks if user set up a custom url slug, if not it defaults to document id
+    if(!doc.url) doc.url = doc._id;
+    next();
+});
 
 schema.statics.findAndPopulate = function (){
     var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
@@ -43,6 +54,19 @@ schema.statics.findByIdAndCategory = function (id, query){
         });
 };
 
+schema.statics.findOneAndCategory = function (url, query){
+    var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
+    var productCategoryQuery = [{path: 'products',
+                                match: query}];
+    return this.findOne({url : url})
+        .populate(productCategoryQuery)
+        .populate(userQuery)
+        .exec(function (err, store){
+            if (err) throw new Error(err);
+            return store;
+        });
+};
+
 schema.statics.createStoreAndAttachUser = function(store){
     var self = this;
     return User.findById(store.user, function (err, user) {
@@ -59,4 +83,5 @@ schema.statics.createStoreAndAttachUser = function(store){
         });
     });
 };
+
 mongoose.model('Store', schema);

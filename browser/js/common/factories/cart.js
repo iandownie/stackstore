@@ -1,12 +1,21 @@
 'use strict';
 
-app.factory('CartFactory', function ($http) {
+app.factory('CartFactory', function ($http, localStorageService) {
 
 	var cart = [];
 
 	return{
-		addCart:function(product, quantity){
-			cart.push({product: product, quantity: quantity});
+
+		addToCart:function(product, quantity){
+
+			var order = localStorageService.get('order');
+
+			return $http.post('api/line-item', {order: order, product: product, quantity: quantity})
+				.then( function(lineItem){
+					console.log('New Order!!!!', lineItem.data)
+					if (!order) localStorageService.set('order', lineItem.data.order);
+					return lineItem;
+				});
 		},
 
 		getCart: function(){

@@ -23,7 +23,7 @@
                         <input type="number" ng-model="quant"></input>
                         <p>{{product.quantity}} left</p>
 		    		</span>
-		    		<button ng-click="addCart(product, quant)">Add to Cart</button>	
+		    		<button ng-click="addCart(product, quant)">Add to Cart</button>
     			</form>
                 <button ng-show="{{product.user==user._id}}" ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
             <div ng-show="visible">
