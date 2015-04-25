@@ -28,8 +28,8 @@ app.controller('ProfileController', function ($scope, $state, NavFactory, AuthSe
     };
     
     if($scope.user.store){
-        StoresFactory.loadStoreFront($scope.user.store).then(function (store){
-            $scope.store = store
+        StoresFactory.loadStoreFrontById($scope.user.store).then(function (store){
+            $scope.store = store;
         });
     }
     $scope.createStore = function (store){
@@ -44,10 +44,10 @@ app.controller('ProfileController', function ($scope, $state, NavFactory, AuthSe
         NavFactory.loader=false;
         ProfileFactory.changeStore(store, storeID).then(function(store){
             $scope.store = store;
-            $state.go('stores') ;
+            $state.go('stores');
             NavFactory.loader=true;
-        })
-    }
+        });
+    };
 });
 
 app.factory('ProfileFactory', function ($http) {
@@ -60,8 +60,6 @@ app.factory('ProfileFactory', function ($http) {
             });
         },
         changeStore: function(store, storeID){
-            console.log(store)
-            console.log(storeID)
             return $http.put('api/stores/' + storeID, store).then(function(response){
                 return response.data;
             });
