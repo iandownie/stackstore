@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Order = mongoose.model("Order");
+var Order = mongoose.model('Order');
 
 var router = require('express').Router();
 
@@ -21,7 +21,6 @@ router.get('/:id', function(req, res, next){
 			.populate('product')
 			.exec(function(err,data){
 				if (err) return next(err);
-				console.log(data);
 				res.json(data);
 			});
 });

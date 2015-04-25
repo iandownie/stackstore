@@ -1,18 +1,20 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Store = mongoose.model('Store');
+var Review = mongoose.model('Review');
 
 var schema = new mongoose.Schema({
 	name:{
-		type: String, 
-		required:true, 
+		type: String,
+		required:true,
 		unique: true
 	},
 	price:{
-		type: Number, required:true
+		type: Number, required:true, min: 0
 	},
 	quantity:{
-		type: Number, required: true
+		type: Number, required: true, min: 0
 	},
 	store: {
 	    type:  mongoose.Schema.Types.ObjectId, ref: 'Store',
@@ -25,17 +27,86 @@ var schema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, ref: 'Category',
 		required: true
 	}],
-	reviews : [{
-		type: mongoose.Schema.Types.ObjectId, ref: 'Review'
-	}],
 	images:[{
-		type: String
+		type: String, default: '/images/default-image.png'
 	}]
 });
 
-mongoose.model('Product', schema);
+schema.pre('save', function (next) {
+  // handles if images does not have an image
+  if(!this.images) this.images = ['/images/default-image.png'];
+  next();
+});
 
-/* 
+var storeQuery = [{path: 'store', select: 'name logo'}];
+
+schema.statics.createProduct = function(product){
+	return this.create(product).then(function(productData){
+		return Store.findByIdAndUpdate(product.store, {
+			$push: {
+				products: {
+						$each : [productData._id],
+						$position : 0
+					}
+				}
+			}).exec(function(err, store){
+				if (err) throw new Error(err);
+				return store;
+		});
+	});
+};
+
+schema.statics.deleteProduct = function(productID){
+	return this.findByIdAndRemove(productID, function(err, productData){
+		if (err) throw new Error(err);
+		//delete all reviews that are associated with the product
+		return Review.remove({product : productID}).then(function(reviewData){
+			return productData;
+		}).then(null, function(err){
+			throw err;
+		});
+	});
+};
+
+schema.statics.editProduct = function(productID, product){
+	return this.findByIdAndUpdate(productID, product)
+				.populate(storeQuery)
+				.exec(function(err, data){
+					if(err) throw new Error(err);
+					return data;
+				});
+};
+
+schema.statics.getProductById = function(productID, cb){
+	return this.findById(productID)
+		.populate(storeQuery)
+		.exec(function(err, productData){
+	    	if(err) throw new Error(err);
+	    	Review.getReviewByQuery({product: productData._id})
+					.then(function(reviewData){
+						cb(productData, reviewData);
+					});
+				});
+};
+
+schema.statics.getProductsByQuery = function(query){
+	return this.find(query)
+				.populate(storeQuery)
+				.exec(function(err, dataArr){
+					if(err) throw new Error(err);
+					return dataArr;
+				}
+	);
+};
+
+var Product = mongoose.model('Product', schema);
+
+Product.schema.path('categories').validate(function (value) {
+	if(!value) return false;
+  	return value.length > 0;
+}, 'Must have at least one Category');
+
+/*
 
 1. Unauthenticated Users
 

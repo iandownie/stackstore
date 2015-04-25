@@ -7,6 +7,9 @@ var schema = new mongoose.Schema({
     name:{
         type: String, required: true
     },
+    url:{
+        type: String, unique: true
+    },
     products: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Product'
     }],
@@ -21,6 +24,11 @@ var schema = new mongoose.Schema({
     }]
 });
 
+schema.post('save', function(doc, next){
+    //post hook checks if user set up a custom url slug, if not it defaults to document id
+    if(!doc.url) doc.url = doc._id;
+    next();
+});
 
 schema.statics.findAndPopulate = function (){
     var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
@@ -30,17 +38,6 @@ schema.statics.findAndPopulate = function (){
         .exec(function (err, stores){
             if (err) console.error(err);
             return stores;
-        });
-};
-
-schema.statics.findByIdAndPopulate = function (id, query){
-    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
-    return this.findById(id)
-        .populate('products')
-        .populate(populateQuery)
-        .exec(function (err, store){
-            if (err) console.error(err);
-            return store;
         });
 };
 
@@ -57,10 +54,23 @@ schema.statics.findByIdAndCategory = function (id, query){
         });
 };
 
+schema.statics.findOneAndCategory = function (url, query){
+    var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
+    var productCategoryQuery = [{path: 'products',
+                                match: query}];
+    return this.findOne({url : url})
+        .populate(productCategoryQuery)
+        .populate(userQuery)
+        .exec(function (err, store){
+            if (err) throw new Error(err);
+            return store;
+        });
+};
+
 schema.statics.createStoreAndAttachUser = function(store){
     var self = this;
     return User.findById(store.user, function (err, user) {
-    if (user.store) throw new Error("User Has Store.")
+        if (user.store) throw new Error("User Has Store.");
         self.create(store, function(err, newStore){
             if (err) console.error (err);
             user.store = newStore._id;
@@ -73,4 +83,5 @@ schema.statics.createStoreAndAttachUser = function(store){
         });
     });
 };
+
 mongoose.model('Store', schema);

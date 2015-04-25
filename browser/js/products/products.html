@@ -1,43 +1,88 @@
 <section id="product">
-    <div class="top-bar">
-    	<div class="left-side">
-    		<a href="#(store)"><img src="#(store owner pic)"></img></a>
-    		<h2>{{store}}</h2>
+    <div class="main-container">
+    	<div class="left-col">
+            <h2>{{store}}</h2>
     	</div>
-    	<div class="right-side">
-    		for loop of images of other products from this store.
-    	</div>
-    	<div class="main-product-container">
-    		<div class="left-main-col">
-    			<div class="above-img-col">Like this Item?</div>
-    			<img class="primary-img" src={{product.images[0]}}></img>	
-    			<div class="img-list">for loop of product images</div>
+        <div id="content-col">
+            <a href="/{{store._id}}"><img src={{store.images[0]}}></img></a>
+        </div>
+    </div>    
+    	<div class="main-container">
+    		<div class="left-col">
+    			<h1 class="product-name">{{product.name}} from {{store.name}}</h1>
+    			<img class="primary-img" src={{product.images[0]}}></img>
     		</div>
-    		<div class="right-main-col">
+    		<div id="content-col">
     			<form class="order">
-    				<div>
-		    			<h3 class="product-name">{{product.name}}</h3>
-		    			<h3>{{product.price}} </h3>
-		    			<input type="number" ng-model="quant"></input>
-		    			<h4>Overview</h4>
+    				<span>
+                        <h3>price:</h3>
+		    			<h4>${{product.price}}</h3>
+		    			<h4>Product Description:</h4>
 		    			<p>{{product.description}}</p>
-		    		</div>
-		    		<button ng-click="addToCart(product, quant)">Add to Cart</button>
+                        <p>Number to buy:</p>
+                        <input type="number" ng-model="quant"></input>
+                        <p>{{product.quantity}} left</p>
+		    		</span>
+		    		<button ng-click="addCart(product, quant)">Add to Cart</button>
     			</form>
-    		</div>
-    	</div>
-        <button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+                <button ng-show="{{product.user==user._id}}" ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
             <div ng-show="visible">
                 <form ng-submit="editProduct(product)">
+                    <span>
+                    <label>Product name: </label>
                     <input  ng-model="product.name"></input>
+                    </span>
+                    <span>
+                    <label>Quantity Available: </label>
                     <input  type="number" ng-model="product.quantity"></input>
+                    </span>
+                    <span>
+                    <label>Product Description: </label>
                     <input  ng-model="product.description"></input>
+                    </span>
+                    <span>
+                    <label>Product Price: </label>
                     <input  type="float" ng-model="product.price"></input>
+                    </span>
+                    <span>
+                    <label>Product Images: </label>
+                    </span>
+                    <input type="text" ng-model="product.images"></input>
                     <button class="btn btn-primary " type="submit">Save Changes</button>
                 </form>
-                <button class="btn-primary btn" >Add or Remove Pictures</button>
+                <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>Un-List Product</button>
             </div>
-        <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button>
-    </div>
+    		</div>
 
+    	</div>
+        
+        
+    </div>
+    <div class="main-container">
+        <div class="left-col">
+            <h3>Past Reviews:</h3>
+            {{product.reviews}}
+            <p ng-repeat="review in product.reviews">{{product.review}}</p>
+        </div>
+        <div class="content-col">
+            <span ng-show="{{product.user==user._id}}">
+                <h3>Bought this Item? Then please, leave a</h3><button ng-click="hidde=!hidde">Review</button>
+                <form ng-show="hidde" ng-submit='createReview(product._id, review)'>
+                    <span>
+                        <label>Product Rating:</label>
+                        <input ng-min=0 ng-max=5 type='number' ng-model='review.rating'>
+                    </span>
+                    <span>   
+                        <label>Review Summary:</label> 
+                        <input placeholder="Summary" type='text' ng-model='review.title'>
+                    </span>
+                    <span>
+                        <label>Review:</label>
+                        <textarea placeholder="Write your review here." ng-model='review.description'></textarea>
+                    </span>    
+                    <button> Submit Review </button>
+                </form>
+            </span>
+        </div>    
+    </div>
 </section>

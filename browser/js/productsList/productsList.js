@@ -38,7 +38,7 @@ app.factory('ProductsListFactory', function ($http) {
 
 });
 
-app.controller('ProductsListCtrl', function ($state, $scope, productsList, categoryList, CategoryFactory, ProductsListFactory) {
+app.controller('ProductsListCtrl', function ($state, $scope, NavFactory, productsList, categoryList, CategoryFactory, ProductsListFactory) {
     // Holds all the available categories so that you can filter
     $scope.categoryList = categoryList;
     //Holds productsList
@@ -46,13 +46,16 @@ app.controller('ProductsListCtrl', function ($state, $scope, productsList, categ
     $scope.selectedCategories = null;
 
     $scope.linkToProduct = function(product){
+        NavFactory.loader=false;
         $state.go('products', {id: product});
+        NavFactory.loader=true;
     };
 
     $scope.getByCategories = function(categories){
+        NavFactory.loader=false;
         ProductsListFactory.getByCategories(categories).then(function(data){
-            console.log(data);
             $scope.productsList = data;
+            NavFactory.loader=true;
         });
     };
 });

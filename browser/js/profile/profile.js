@@ -19,31 +19,35 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProfileController', function ($scope, $state, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
+app.controller('ProfileController', function ($scope, $state, NavFactory, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
+    $scope.user = getUserInfo;
     $scope.store =  getUserInfo.store || {
         name: null,
-        logo: null
+        logo: null,
+        user: $scope.user._id
     };
-    console.log(getUserInfo);
-    $scope.user = getUserInfo
     
     if($scope.user.store){
-        StoresFactory.loadStoreFront($scope.user.store).then(function (store){
-            $scope.store = store
+        StoresFactory.loadStoreFrontById($scope.user.store).then(function (store){
+            $scope.store = store;
         });
     }
     $scope.createStore = function (store){
+        NavFactory.loader=false;
         ProfileFactory.makeStore(store).then(function(store){
             $scope.store = store;
             $state.go('stores') ;//I'd like to make this go directly to the store just made //
+            NavFactory.loader=true;
         });
     },
     $scope.editStore = function (store, storeID){
+        NavFactory.loader=false;
         ProfileFactory.changeStore(store, storeID).then(function(store){
             $scope.store = store;
-            $state.go('stores') ;
-        })
-    }
+            $state.go('stores');
+            NavFactory.loader=true;
+        });
+    };
 });
 
 app.factory('ProfileFactory', function ($http) {
@@ -56,8 +60,6 @@ app.factory('ProfileFactory', function ($http) {
             });
         },
         changeStore: function(store, storeID){
-            console.log(store)
-            console.log(storeID)
             return $http.put('api/stores/' + storeID, store).then(function(response){
                 return response.data;
             });
