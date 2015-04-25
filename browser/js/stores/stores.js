@@ -12,6 +12,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/stores/store-front.html',
         resolve: {
             getStoreById: function($stateParams, $state, StoresFactory){
+                console.log("Ran the resolve of state")
                 return StoresFactory.loadStoreFront($stateParams.id).catch(function(err){
                     $state.go('error');
                 });
@@ -32,9 +33,7 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
         .catch(function (err){
         });
         $scope.goToStore = function(link){
-            $scope.loader=true;
             $state.go("storeFront", {id: link});
-            $scope.loader=false;
         };
 
 });
@@ -68,7 +67,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         NavFactory.loader=false;
 
         StoresFactory.newProduct(data).then(function (response){
-            $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+            $state.go('storeFront', {id: $scope.currentStore._id }, {reload: true});
            NavFactory.loader=true;
         });
     };
@@ -76,7 +75,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.loadStoreFront = function(storeID, categories){
         NavFactory.loader=false;
         StoresFactory.loadStoreFront(storeID, categories).then(function(data){
-            $scope.store = data;
+            $scope.currentStore = data;
            NavFactory.loader=true;
         });
     };
@@ -84,7 +83,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.addCategory = function(category){
         NavFactory.loader=false;
         CategoryFactory.addCategory(category).then(function(data){
-            $state.go('storeFront', {id: $scope.store._id }, {reload: true});
+            $state.go('storeFront', {id: $scope.currentStore._id }, {reload: true});
            NavFactory.loader=true;
         });
     };

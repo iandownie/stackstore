@@ -1,6 +1,7 @@
 <section id="productsList">
 	<div class="main-container">
 		<form ng-submit='getByCategories(selectedCategories)'>
+			<h3>Filter Products by Category: </h3>
 			<select multiple ng-model='selectedCategories' ng-options='category._id as category.name for category in categoryList'>
 			</select>
 			<button type='submit'>GET ME THAT GREEN</button>
@@ -8,7 +9,9 @@
 	</div>
 	<product ng-repeat="product in productsList" class="main-container" id="bar">
 		<div class="left-col">
-			<h4 class="productName" style="color:blue" ng-click="linkToProduct(product._id)" >{{product.name}}</h4>
+			<a href="products/{{product._id}}">
+				<h4 class="productName" ng-click="linkToProduct(product._id)" >{{product.name}}</h4>
+			</a>	
 			<h5 class="productDescription">{{product.description}}</h5>
 			<h5 class="productPrice"> Seller's Price: ${{product.price}}</h5>
 			<a href="/stores/{{product.store._id}}">

@@ -1,0 +1,44 @@
+#stores{
+	.left-col{
+		min-width: 438px;
+		max-width: 438px;
+		.hovering{
+			
+			.details{
+				font-size: 10px;
+				font-weight: bold;
+				opacity: 0;
+				transition: transform 1s, opacity 1s, margin-bottom 2s;
+				img{
+					width: 0px;
+					height: auto;
+					transition: width 1s;
+				}
+				p{
+					margin-top: -25px;
+					transition: margin 1s;
+				}
+				p.price{
+					transition: margin-top 1s;
+				}
+			}
+		}
+		.hovering:hover{
+			.details{
+				opacity: 1;
+				margin-bottom: 300px;
+				img{
+					width: 200px;
+				}
+				p{
+					scale:(2, 2);
+					margin: 0;
+				}
+				p.price{
+
+					margin-top: 50px;
+				}
+			}
+		}
+	}	
+}

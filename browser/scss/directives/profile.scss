@@ -8,9 +8,14 @@ page-title{
 	box-shadow:inset 1px 0px 18px #ffffff;
 }
 .main-container * {
-	text-shadow:0px 0px 14px #000000;
+	
 }
 .main-container{
+	text-shadow:0px 0px 14px #0047FF, 
+		1px 1px 14px #0047FF, 
+		3px 3px 14px #0047FF, 
+		-3px -3px 14px #0047FF;
+
 	justify-content: space-around;
 	display: flex;
 	display: -webkit-flex;
@@ -21,15 +26,15 @@ page-title{
 	a:hover{
 		color: rgb(200,200,200);
 	}
-	div{
+	div.one-third {
 		width: 33%;
 		display: block;
 	}
 	img{
-			width: 200px;
-			height:150px;
-			-webkit-transition:width 2s, height 2s, -webkit-transform 1s;
-    		transition:width 2s, height 2s, transform 1s;	
+		width: 200px;
+		height:150px;
+		-webkit-transition:width 2s, height 2s, -webkit-transform 1s;
+		transition:width 2s, height 2s, transform 1s;	
 		}
 	img.store-img:hover{
 		width: 400px;
