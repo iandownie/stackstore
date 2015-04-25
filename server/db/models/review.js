@@ -48,7 +48,6 @@ schema.statics.createReview = function(review){
                     }
                 }
         }).exec(function(err, productData){
-            console.log(reviewData, productData);
             if(err) throw new Error(err);
             else return reviewData;
         });
