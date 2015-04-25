@@ -20,11 +20,10 @@ router.get('/', function(req, res, next){
 
 router.post('/', function(req, res, next){
 	//create a review
-	Review.createReview(req.body).then(function(data){
-		res.json(data);
-	}).catch(function(err){
-		return next(err);
-	});
+	Review.create(req.body, function(err, data){
+        if (err) return next(err);
+        res.json(data);
+    });
 });
 
 router.get('/:id', function(req, res, next){
@@ -45,12 +44,10 @@ router.put('/:id', function(req, res, next){
 });
 
 router.delete('/:id', function(req, res, next){
-	//delete a review
-	Review.deleteReview(req.params.id).then(function(data){
+	Review.findByIdAndRemove(req.params.id, function(err, data){
+		if(err) return next(err);
 		res.json(data);
-	}).then(null, function(err){
-		return next(err);
-	});
+    });
 });
 
 module.exports = router;

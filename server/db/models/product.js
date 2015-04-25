@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 var Store = mongoose.model('Store');
-// var Review = mongoose.model('Review');
+var Review = mongoose.model('Review');
 
 var schema = new mongoose.Schema({
 	name:{
@@ -26,10 +26,6 @@ var schema = new mongoose.Schema({
 	categories:[{
 		type: mongoose.Schema.Types.ObjectId, ref: 'Category',
 		required: true
-	}],
-	//reviews may need to be taken out of product
-	reviews : [{
-		type: mongoose.Schema.Types.ObjectId, ref: 'Review'
 	}],
 	images:[{
 		type: String, default: '/images/default-image.png'
@@ -64,9 +60,7 @@ schema.statics.deleteProduct = function(productID){
 	return this.findByIdAndRemove(productID, function(err, productData){
 		if (err) throw new Error(err);
 		//delete all reviews that are associated with the product
-		console.log('deleted product');
 		return Review.remove({product : productID}).then(function(reviewData){
-			console.log('removed reviews', reviewData);
 			return productData;
 		}).then(null, function(err){
 			throw err;
@@ -83,13 +77,16 @@ schema.statics.editProduct = function(productID, product){
 				});
 };
 
-schema.statics.getProductById = function(productID){
+schema.statics.getProductById = function(productID, cb){
 	return this.findById(productID)
 		.populate(storeQuery)
-		.exec(function(err, data){
-			if (err) throw new Error(err);
-			return data;
-		});
+		.exec(function(err, productData){
+	    	if(err) throw new Error(err);
+	    	Review.getReviewByQuery({product: productData._id})
+					.then(function(reviewData){
+						cb(productData, reviewData);
+					});
+				});
 };
 
 schema.statics.getProductsByQuery = function(query){

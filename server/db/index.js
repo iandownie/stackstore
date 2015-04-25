@@ -13,9 +13,9 @@ var db = mongoose.connect(DATABASE_URI).connection;
 // anywhere the User model needs to be used.
 require('./models/user');
 require('./models/store');
+require('./models/review');
 require('./models/product');
 require('./models/order');
-require('./models/review');
 require('./models/category');
 
 

@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Product = mongoose.model("Product");
 var Store = mongoose.model("Store");
+var Review = mongoose.model("Review");
 
 var router = require('express').Router();
 
@@ -25,11 +26,6 @@ router.get('/', function(req, res, next){
 	}).then(null, function(err){
 		return next(err);
 	});
-
-	// Product.find(query).populate('store').exec(function(err, dataArr){
-	// 	if(err) return next(err);
-	// 	res.json(dataArr);
-	// });
 });
 
 router.post('/', function(req, res, next){
@@ -41,8 +37,12 @@ router.post('/', function(req, res, next){
 });
 
 router.get('/:id', function (req, res, next) {
-    Product.getProductById(req.params.id).then(function(data){
-    	res.json(data);
+    //this static takes in two parameters, the product ID and a callback that handles the product and review data
+    Product.getProductById(req.params.id, function(product, reviews){
+    	res.json({
+    		product : product,
+    		reviews : reviews
+    	});
     }).then(null, function(err){
     	return next(err);
     });
@@ -54,11 +54,6 @@ router.delete('/:id', function(req, res, next){
 	}).then(null, function(err){
 		return next(err);
 	});
-
-	// Product.findByIdAndRemove(req.params.id, function(err, data){
-	// 	if(err) return next(err);
-	// 	res.json(data);
-	// });
 });
 
 router.put('/:id', function(req, res, next){
