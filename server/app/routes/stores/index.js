@@ -6,10 +6,22 @@ var Store = mongoose.model('Store');
 var User = mongoose.model('User');
 
 router.get('/', function (req, res, next) {
-    Store.findAndPopulate()
-        .then(function(stores){
-            res.json(stores);
-        });
+    if(req.query.id){
+        Store.findByIdAndCategory(req.query.id,{})
+            .then(function(stores){
+                res.json(stores);
+            }).then(null, function(err){
+                return next(err);
+            });
+    } else {
+        Store.findAndPopulate()
+            .then(function(stores){
+                res.json(stores);
+            }).then(null, function(err){
+                return next(err);
+            });
+    }
+
 });
 
 router.put('/:id', function (req, res, next) {
@@ -20,7 +32,7 @@ router.put('/:id', function (req, res, next) {
 
 });
 
-router.get('/:id', function (req, res, next) {
+router.get('/:url', function (req, res, next) {
     //default is get all items
     var query = {};
 
@@ -34,9 +46,11 @@ router.get('/:id', function (req, res, next) {
         }
     }
 
-    Store.findByIdAndCategory(req.params.id, query)
+    Store.findOneAndCategory(req.params.url, query)
             .then(function(store){
                 res.json(store);
+            }).then(null, function(err){
+                return next(err);
             });
 });
 
