@@ -18,7 +18,10 @@ var schema = new mongoose.Schema({
     },
     user:{
         type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true
-    }
+    },
+    orders:[{
+        type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
+    }]
 });
 
 schema.post('save', function(doc, next){
