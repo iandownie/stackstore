@@ -13,8 +13,8 @@ navbar {
   float: left;
   height: 110px;
   display: block;
-  background: linear-gradient(270deg, #c30b0b, #490606, #c30b0b, #340202);
-background-size: 800% 800%;
+  background: linear-gradient(199deg, black, red, black, red, #c30b0b, #490606, #c30b0b, #340202);
+  background-size: 116% 101%;
 
     animation:navbarGradient 20s ease infinite;
     -moz-animation:navbarGradient 20s ease infinite;
@@ -249,22 +249,22 @@ background-size: 800% 800%;
 /*** Animation 2 ***/
 
 @keyframes navbarGradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%{background-position:0% 0%}
+    50%{background-position:100% 100%}
+    100%{background-position:0% 0%}
 }
 @-webkit-keyframes navbarGradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%{background-position:0% 0%}
+    50%{background-position:100% 100%}
+    100%{background-position:0% 0%}
 }
 @-moz-keyframes navbarGradient {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%{background-position:0% 0%}
+    50%{background-position:100% 100%}
+    100%{background-position:0% 0%}
 }
 @keyframes navbarGradient { 
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    0%{background-position:0% 0%}
+    50%{background-position:100% 100%}
+    100%{background-position:0% 0%}
 }

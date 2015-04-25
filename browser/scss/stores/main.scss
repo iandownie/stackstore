@@ -42,3 +42,25 @@
 		}
 	}	
 }
+
+#storepage{
+	#store-editor{
+		right: 40px;
+		top:50%;
+		position: fixed;
+	}
+	select{
+		width: 152px;
+		background: transparent;
+		border-radius: 0;
+		option{
+		width: 148px;
+			height: 22px;
+			background: transparent;
+		}
+	}
+	input{
+		background: transparent;
+		display: block;
+	} 
+}

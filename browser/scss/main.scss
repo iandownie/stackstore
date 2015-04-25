@@ -49,11 +49,15 @@ color: white;
   textarea{
    color: black;
   }
+  tr{
+  background: transparent;
+    td{
+      min-width: 100px;
+      background: transparent;
+    }
 
-  td{
-  min-width: 100px;
-  background: black;
   }
+  
   }
 @mixin clearfix {
   &:after {

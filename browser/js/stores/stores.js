@@ -1,4 +1,5 @@
 'use strict';
+
 app.config(function ($stateProvider) {
     $stateProvider.state('stores', {
         url: '/stores',
@@ -39,7 +40,7 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
 });
 
 //app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
-app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreById, categoryList, CategoryFactory) {
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreById, categoryList, CategoryFactory, experimentalFactory) {
     $scope.currentStore = getStoreById;
     $scope.categoryList = categoryList;
     //proof of concept of adding categories
@@ -87,7 +88,13 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
            NavFactory.loader=true;
         });
     };
-
+    $scope.customizeStore =function(properties){
+        NavFactory.loader=false;
+        experimentalFactory.writeAFile(properties).then(function(){
+            $state.go('storeFront', {id:$scope.currentStore._id},{reload:true});
+        NavFactory.loader=true;
+        });
+    };
 });
 
 app.factory('StoresFactory', function ($http) {
@@ -112,6 +119,17 @@ app.factory('StoresFactory', function ($http) {
                 .then(function(response){
                     return response.data;
                 });
+        }
+    };
+});
+
+app.factory('experimentalFactory', function($http){
+    return {
+        writeAFile: function(properties){
+            return $http.post("/api/experiment/", properties)
+            .then(function(response){
+                return response.data;
+            });
         }
     };
 });
