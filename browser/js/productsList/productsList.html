@@ -17,17 +17,17 @@
 			<a href="/stores/{{product.store._id}}">
 				<h5>Visit this product's store.</h5>
 			</a>
+			<h5>Reviews:</h5>
+			<div ng-repeat="review in product.reviews">
+				<div>{{review}}</div>
+			</div>
 		</div> 
 		<div id="content-col">
-			<a href="/"+{{product._id}}>
+			<a href="/{{product._id}}">
 				<img class="store-img" src={{product.images[0]}}></img>
 			</a>
 			<div class="cart">
 			<button>Add to Cart</button>
-			<h5>Reviews:</h5>
-			</div>
-			<div ng-repeat="review in product.reviews">
-				<div>{{review}}</div>
 			</div>
 		</div>
 	</product>  

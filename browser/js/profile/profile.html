@@ -4,25 +4,31 @@
 <div class="main-container">
     <div class="one-third">
         
-        <h3>First name: {{user.firstName}}</h3>
-        <h3>Last name: {{user.lastName}}</h3>
+        <h3>Welcome, {{user.firstName}} {{user.lastName}}</h3>
         <h3>Email: {{user.email}}</h3>
 
-        <h3>store name: {{store.name}}</h3>
-        <img class="store-img" src="{{store.logo}}" />
+        <h3>Store Name: <a href="stores/{{store._id}}">{{store.name}}</a></h3>
+        <h3>Store Logo:</h3>
+        <a href="stores/{{store._id}}">
+            <img class="store-img" src="{{store.logo}}" />
+        </a>
         <h3>user data: {{user}}</h3>
         <h3>store data: {{store}}</h3>
 
     </div>    
     <div class="one-third" id="content-col">
         <div class="one-third">
-            <button ng-show="user.store" ng-click="edit=!edit">Manage Store</button>
+            <button ng-show="user.store" ng-click="edit=!edit">Manage Store Info</button>
             <form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store, user.store)">
                 <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
                 <error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
                 <error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
+                <label>Store Name:</label>
                 <input name="editname" placeholder="Store Name" ng-maxlength="20" ng-model="store.name" type="text" required>
+                <label>Store Logo:</label>
                 <input name="editlogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
+                <label>Store Description:</label>
+                <textarea placeholder="Drag Bottom Right Corner to Expand Text-box"></textarea>
                 <button ng-click="edit=!edit">Save changes</button>
             </form>
         </div>

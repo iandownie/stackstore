@@ -1,9 +1,9 @@
-<nav class="navbar navbar-static-top">
+<nav ng-controller="NavController" class="navbar navbar-static-top" ng-hide="imp">
     <div id="drop"></div>
     <div class="container justify-around">
         <h1>The Imp's Bazaar</h1>
         <img src="images/tyrion-lannister.png"></img>
-        <div ng-controller="NavController" class="nav navbar-nav justify-around">
+        <div  class="nav navbar-nav justify-around">
 
         <loader ng-hide="loader.loader"></loader>
             <button ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()" ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}

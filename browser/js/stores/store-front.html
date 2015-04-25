@@ -1,33 +1,134 @@
-<img src="{{store.logo}}" />
+<link rel="stylesheet" type="text/css" href="/{{currentStore._id}}.css" />
+<section id="storepage">
+	<nav id="custom-nav" >
+		<h1>{{currentStore.name}}</h1>
 
-<h1 ng-show="currentUser._id==currentStore.user._id">This is your store, where you can add products to sell or edit their information.</h1>
+	</nav>
+	<div ng-hide="currentUser._id==currentStore.user._id">
+		<div class="main-container">
+			<h1  >Your Store.</h1>
+			<button ng-click="imp=!imp">Return to the Imp's Bazaar</button>
+		</div>
+		<div class="main-container" ng-show="imp">
+			<h1 class="main-container">You can customize your store's appearance or add/delete/edit your products from this page.</h1>
+		</div>
+	</div>
+	<div ng-show="currentUser._id==currentStore.user._id" id="store-editor">
+			<button ng-hide="editor==true" ng-click="properties={user:currentStore._id}; editor=true">Store Editor</button>
+			<button ng-show="editor==true" ng-click="editor=false">Customer View</button>
+	</div>
+	<div class="main-container">
+		<div class="left-col">
+			<img src="{{store.logo}}" />
+			<div ng-show="currentUser._id==currentStore.user._id">
+				<h3 >Add New Item</h3>
+				<error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
+				<error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
+				<error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
+				<error ng-show="productNew.productprice.$error.min">Price must be over 0</error>
+				<error ng-show="productNew.productprice.$touched && productNew.productprice.$error.required">Price is required!</error>
+				<error ng-show="productNew.productquantity.$error.min">Quantity must not be negative</error>
+				<error ng-show="productNew.productdescription.$error.maxlength">Description is too long!</error>
+				<form ng-submit="productNew.$valid && product.store && newProduct(product)" name="productNew">
+				    <input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
+				    <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
+				    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
+				    <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
+				    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
+					</select>
+				    <input name="productimages" placeholder="images" ng-model="product.images"></input>
+				    <button class='btn btn-primary'>Submit Product</button>
+				</form>
+			</div>	
+		</div>
+		<div class="content-col">
+			<form ng-submit='loadStoreFront(store._id, categories)'>
+				<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
+				</select>
+				<button class='btn btn-primary'>Filter By Category</button>
+			</form>
 
-<h3 >Add New Item</h3>
-<error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
-<error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
-<error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
-<error ng-show="productNew.productprice.$error.min">Price must be over 0</error>
-<error ng-show="productNew.productprice.$touched && productNew.productprice.$error.required">Price is required!</error>
-<error ng-show="productNew.productquantity.$error.min">Quantity must not be negative</error>
-<error ng-show="productNew.productdescription.$error.maxlength">Description is too long!</error>
-<form ng-submit="productNew.$valid && product.store && newProduct(product)" name="productNew">
-    <input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
-    <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
-    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
-    <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
-    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
-	</select>
-    <input name="productimages" placeholder="images" ng-model="product.images"></input>
-    <button class='btn btn-primary'>Submit Product</button>
-</form>
-<br/>
+			<table class="table table-bordered">
 
-<form ng-submit='categoryName.length > 0 && addCategory(categoryName)'>
-	<input type='text' ng-model='categoryName'>
-	<button class='btn btn-primary'>Create a Category</button>
-</form>
+				<thead>
+				<tr>
+					<td>
+						<a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+							Name
+							<span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+					<td>
+						<a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">
+							Price
+							<span ng-show="sortType == 'price' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'price' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+					<td>
+						<a href="#" ng-click="sortType = 'quantity'; sortReverse = !sortReverse">
+							Quantity
+							<span ng-show="sortType == 'quantity' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'quantity' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+					<td>
+						<a href="#" ng-click="sortType = 'description'; sortReverse = !sortReverse">
+							Desciption
+							<span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+						</a>
+					</td>
+				</tr>
+				</thead>
 
-<form ng-submit='loadStoreFront(store._id, categories)'>
+
+				<tbody>
+				<tr ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
+					<td>{{ product.name }}</td>
+					<td>{{ product.price }}</td>
+					<td>{{ product.quantity }}</td>
+					<td>{{ product.description }}</td>
+					<td ng-show="editor==true"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+			            <div ng-show="visible">
+			                <form ng-submit="editProduct(product)">
+			                    <input  ng-model="product.name"></input>
+			                    <input  type="number" ng-model="product.quantity"></input>
+			                    <input  ng-model="product.description"></input>
+			                    <input  type="float" ng-model="product.price"></input>
+			                    <button class="btn btn-primary " type="submit">Save Changes</button>
+			                </form>
+			                <button class="btn-primary btn" >Add or Remove Pictures</button>
+			            </div>
+			        </td>    
+			        <td ng-show="editor==true"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
+				</tr>
+				</tbody>
+			</table>
+			<button ng-click="properties.backcolor=true">red</button>
+			{{properties}}
+			<div ng-show="editor==true">
+				<form ng-submit="customizeStore(properties)">
+					<label>Background Image or Color:</label>
+					<input ng-model="properties.backcolor" type="color"/>
+					<input ng-model="properties.backimage" type="text"/>
+					<label>Primary Store Text Color:</label>
+					<input ng-model="properties.fontcolorone" type="color"/>
+					<label>Secondary Store Text Color:</label>
+					<input ng-model="properties.fontcolortwo" type="color"/>
+					<label>Text Shadow Color:</label>
+					<input ng-model="properties.fontshadow" type="color"/>
+					<label>Store Description:</label>
+					<textarea placeholder="Drag Bottom Right to Expand" ng-model="properties.description"></textarea>
+					<button >Submit Changes</button>
+				</form>
+			</div>
+		</div>
+	</div>		
+</section>	
+
+<!-- <form ng-submit='loadStoreFront(store._id, categories)'>
 	<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
 	</select>
 	<button class='btn btn-primary'>GET ME PRODUCTS</button>
@@ -96,4 +197,5 @@ User._id: {{user._id}} <br/>
 
 Store.user._id: {{store.user._id}}
 
-</div>
+</div> -->
+
