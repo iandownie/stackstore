@@ -1,7 +1,7 @@
 <section id="stores">
     <div ng-repeat="store in stores" class="main-container" id="bar">
     	<div class="left-col">
-    		<a ng-href='/stores{{store.url}}' >
+    		<a ng-href='/stores/{{store.url}}' >
 		    	<h1>Store: {{ store.name }}</h1>
 		    	<h3>Owner: {{ store.user.firstName }} {{ store.user.lastName }}</h3>
 	    	</a>
