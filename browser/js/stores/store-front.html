@@ -1,15 +1,15 @@
 <link rel="stylesheet" type="text/css" href="/{{currentStore._id}}.css" />
 <section id="storepage">
 	<nav id="custom-nav" >
-		<h1>{{currentStore.name}}</h1>
+		<h1>{{currentStore}}</h1>
 
 	</nav>
-	<div ng-hide="currentUser._id==currentStore.user._id">
+	<div ng-show="currentUser._id==currentStore.user._id">
 		<div class="main-container">
 			<h1  >Your Store.</h1>
-			<button ng-click="imp=!imp">Return to the Imp's Bazaar</button>
+			<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
 		</div>
-		<div class="main-container" ng-show="imp">
+		<div class="main-container" >
 			<h1 class="main-container">You can customize your store's appearance or add/delete/edit your products from this page.</h1>
 		</div>
 	</div>
