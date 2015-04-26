@@ -3,15 +3,12 @@ app.config(function ($stateProvider) {
     $stateProvider.state('cart', {
         url: '/cart',
         templateUrl: 'js/cart/cart.html',
-        controller: 'CartCtrl',
-        params: {
-            lineItems: null
-        }
+        controller: 'CartCtrl'
     });
 
 });
 
-app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, CartFactory, $stateParams) {
+app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, CartFactory) {
 
     $scope.cart = {
         products: [],
@@ -24,17 +21,11 @@ app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, Ca
         }
     };
 
-    //console.log('Stateparams', $stateParams.lineItems);
-    $scope.cart.products = $stateParams.lineItems;
-
     AuthService.getLoggedInUser().then(function (user) {
         $scope.cart.user = user._id;
     });
 
-   $scope.cart.products = CartFactory.getCart()
-       .then(function(lineItems){
-           $scope.cart.products = lineItems;
-       });
+   $scope.cart.products = CartFactory.getCart();
 
    $scope.submitOrder = function(newOrder){
     NavFactory.loader=false;
