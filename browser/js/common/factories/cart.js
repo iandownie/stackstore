@@ -1,6 +1,8 @@
 'use strict';
 
-app.factory('CartFactory', function ($http, localStorageService, $state) {
+app.factory('CartFactory', function ($http, localStorageService) {
+
+	var cart = [];
 
 	return{
 
@@ -9,18 +11,15 @@ app.factory('CartFactory', function ($http, localStorageService, $state) {
 			var order = localStorageService.get('order');
 
 			return $http.post('api/line-item', {order: order, product: product, quantity: quantity})
-				.then( function(lineItems){
-					if (!order) localStorageService.set('order', lineItems.data.order);
-					$state.go('cart', {lineItems: lineItems.data});
+				.then( function(lineItem){
+					console.log('New Order!!!!', lineItem.data)
+					if (!order) localStorageService.set('order', lineItem.data.order);
+					return lineItem;
 				});
 		},
 
 		getCart: function(){
-			var order = localStorageService.get('order');
-			return $http.post('api/cart', {order: order})
-				.then( function (lineItems){
-					return lineItems.data;
-			});
+			return cart;
 		},
 
 		submitOrder: function(newOrder){
@@ -29,6 +28,7 @@ app.factory('CartFactory', function ($http, localStorageService, $state) {
 				el.product = el.product._id;
 				return el;
 			});
+			console.log('call me');
 			return $http.post('api/orders', newOrder).then(function(response){
 				return response.data;
 			});
