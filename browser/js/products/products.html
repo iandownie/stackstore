@@ -6,7 +6,7 @@
         <div id="content-col">
             <a href="/{{store._id}}"><img src={{store.images[0]}}></img></a>
         </div>
-    </div>    
+    </div>
     	<div class="main-container">
     		<div class="left-col">
     			<h1 class="product-name">{{product.name}} from {{store.name}}</h1>
@@ -23,7 +23,7 @@
                         <input type="number" ng-model="quant"></input>
                         <p>{{product.quantity}} left</p>
 		    		</span>
-		    		<button ng-click="addCart(product, quant)">Add to Cart</button>
+		    		<button ng-click="addToCart(product, quant)">Add to Cart</button>
     			</form>
                 <button ng-show="{{product.user==user._id}}" ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
             <div ng-show="visible">
@@ -79,7 +79,7 @@
                     <span>
                         <label>Review:</label>
                         <textarea placeholder="Write your review here." ng-model='review.description'></textarea>
-                    </span>    
+                    </span>
                     <button> Submit Review </button>
                 </form>
             </span>

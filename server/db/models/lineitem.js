@@ -2,8 +2,6 @@
 
 var mongoose = require('mongoose');
 var Order = mongoose.model("Order");
-var Q = require('q');
-var deepPopulate = require('mongoose-deep-populate');
 
 var schema = new mongoose.Schema({
     order: {
@@ -24,41 +22,52 @@ var schema = new mongoose.Schema({
     }
 });
 
-schema.plugin(deepPopulate, {} /* more on options below */);
-
+var productQuery = [{path: 'product', select: '_id name price store description'}];
 
 schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
-    console.log('!!!!!', lineItem)
+    var self = this;
     if (lineItem.order){
-        LineItem.findOne({order: lineItem.order, product: lineItem.product._id}, function(err, match){
+        self.findOne({order: lineItem.order, product: lineItem.product._id}, function(err, match){
             if(err) throw new Error(err);
-            console.log('Match', match)
             if(match){
-                LineItem.findByIdAndUpdate(match._id, {$inc : {quantity : lineItem.quantity}},
+                self.findByIdAndUpdate(match._id, {$inc : {quantity : lineItem.quantity}},
                     function(err, data){
-                        LineItem.find({order: lineItem.order}, function (err, allLineItems){
-                            cb(err, allLineItems);
+                        self.find({order: lineItem.order})
+                            .populate(productQuery)
+                            .exec(function (err, allLineItems){
+                                    cb(err, allLineItems);
+                                });
                         });
-                    })
             } else {
-                LineItem.create(lineItem, function(err, newLineItem) {
-                    LineItem.find({order: lineItem.order}, function (err, allLineItems){
-                    cb(err, allLineItems);
+                self.create(lineItem, function(err, newLineItem) {
+                    self.find({order: lineItem.order})
+                        .populate(productQuery)
+                        .exec(function (err, allLineItems){
+                                cb(err, allLineItems);
+                            });
                     });
-                });
             }
         });
     } else {
         return Order.create({}, function (err, newOrder){
-            console.log('NEW ORDERRR', newOrder)
             if(err) throw new Error(err);
             lineItem.order = newOrder._id;
-            LineItem.create(lineItem, function(err, newLineItem){
+            self.create(lineItem, function(err, newLineItem){
                  cb(err,newLineItem);
-            })
-        })
+            });
+        });
     }
 
+};
+
+schema.statics.findByCriteria = function (query) {
+    return this.find(query)
+                .populate(productQuery)
+                .exec(function(err, data){
+                    if(err) throw new Error(err);
+                    console.log(data);
+                    return data;
+                });
 };
 
 var LineItem = mongoose.model('LineItem', schema);

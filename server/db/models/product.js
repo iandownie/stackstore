@@ -60,11 +60,18 @@ schema.statics.deleteProduct = function(productID){
 	return this.findByIdAndRemove(productID, function(err, productData){
 		if (err) throw new Error(err);
 		//delete all reviews that are associated with the product
-		return Review.remove({product : productID}).then(function(reviewData){
+		return Review.remove({product : productID}, function(err, reviewData){
+			if (err) throw new Error(err);
+			console.log(reviewData);
 			return productData;
-		}).then(null, function(err){
-			throw err;
 		});
+	});
+};
+
+schema.statics.deleteProductByStore = function(storeID){
+	//still needs to be worked on
+	return this.remove({store: storeID}, function(err, storeProductArr){
+		console.log(storeProductArr);
 	});
 };
 

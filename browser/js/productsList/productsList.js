@@ -60,7 +60,7 @@ app.controller('ProductsListCtrl', function ($state, $scope, NavFactory, product
         });
     };
 
-    $scope.addCart = function(product, quant){
+    $scope.addToCart = function(product, quant){
         NavFactory.loader=false;
         CartFactory.addToCart(product, quant);
         NavFactory.loader=true;
