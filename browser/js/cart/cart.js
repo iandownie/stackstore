@@ -3,15 +3,20 @@ app.config(function ($stateProvider) {
     $stateProvider.state('cart', {
         url: '/cart',
         templateUrl: 'js/cart/cart.html',
-        controller: 'CartCtrl'
+        controller: 'CartCtrl',
+        resolve : {
+            lineItemsInfo : function(CartFactory){
+                return CartFactory.getCart();
+            }
+        }
     });
 
 });
 
-app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, CartFactory) {
+app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, CartFactory, lineItemsInfo) {
 
     $scope.cart = {
-        products: [],
+        products: lineItemsInfo,
         user: null,
         shippingAddress: {
             street: null,
@@ -22,10 +27,10 @@ app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, Ca
     };
 
     AuthService.getLoggedInUser().then(function (user) {
-        $scope.cart.user = user._id;
+        if(user){
+            $scope.cart.user = user._id;
+        }
     });
-
-   $scope.cart.products = CartFactory.getCart();
 
    $scope.submitOrder = function(newOrder){
     NavFactory.loader=false;
