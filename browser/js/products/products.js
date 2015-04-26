@@ -55,7 +55,9 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
     };
 
     AuthService.getLoggedInUser().then(function (user) {
-        $scope.review.user = user._id;
+        if(user){
+            $scope.review.user = user._id;
+        }
     });
 
     $scope.editProduct = function(product){
@@ -83,9 +85,9 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
         });
     };
 
-    $scope.addCart = function(product, quant){
+    $scope.addToCart = function(product, quant){
         NavFactory.loader=false;
-        CartFactory.addCart(product, quant);
+        CartFactory.addToCart(product, quant);
         NavFactory.loader=true;
 
     };
