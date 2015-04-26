@@ -32,16 +32,20 @@ schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
             if(match){
                 self.findByIdAndUpdate(match._id, {$inc : {quantity : lineItem.quantity}},
                     function(err, data){
-                        self.find({order: lineItem.order}, function (err, allLineItems){
-                            cb(err, allLineItems);
+                        self.find({order: lineItem.order})
+                            .populate(productQuery)
+                            .exec(function (err, allLineItems){
+                                    cb(err, allLineItems);
+                                });
                         });
-                    });
             } else {
                 self.create(lineItem, function(err, newLineItem) {
-                    self.find({order: lineItem.order}, function (err, allLineItems){
-                    cb(err, allLineItems);
+                    self.find({order: lineItem.order})
+                        .populate(productQuery)
+                        .exec(function (err, allLineItems){
+                                cb(err, allLineItems);
+                            });
                     });
-                });
             }
         });
     } else {
