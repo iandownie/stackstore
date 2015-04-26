@@ -37,8 +37,8 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
 
 //app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
 
-app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreById, categoryList, CategoryFactory, experimentalFactory) {
-    $scope.currentStore = getStoreById;
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreByUrl, categoryList, CategoryFactory, experimentalFactory) {
+    $scope.currentStore = getStoreByUrl;
 
     $scope.categoryList = categoryList;
     //proof of concept of adding categories
