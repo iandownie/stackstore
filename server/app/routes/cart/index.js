@@ -26,23 +26,20 @@ router.post('/', function(req, res, next){
 
 });
 
-//router.post('/', function(req, res, next){
-//    Order.create({}, function(err, newOrder){
-//        console.log('New Order!!!', newOrder)
-//        if (err) console.error(err);
-//        LineItem.create(req.body, function(err, newLineItem){
-//            console.log('New Line Item!!!', newLineItem)
-//            if (err) console.error(err);
-//            newOrder.products.push(newLineItem);
-//            console.log('New Order After Push!!!', newOrder)
-//            newOrder.save( function(err, data){
-//                if (err) console.error(err);
-//                console.log('SAVE!', data)
-//                res.send(data);
-//            })
-//        })
-//    })
-//
-//});
+router.delete('/', function(req, res, next){
+    LineItem.findByIdAndRemove(req.query.id, function(err, data){
+        if(err) return next(err);
+        res.json(data);
+    });
+
+});
+
+router.put('/', function(req, res, next){
+    LineItem.findByIdAndUpdate(req.body.id, {quantity: req.body.quantity},function(err, data){
+        if(err) return next(err);
+        res.json(data);
+    });
+
+});
 
 module.exports = router;
