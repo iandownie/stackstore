@@ -20,6 +20,7 @@ app.factory('CartFactory', function ($http, localStorageService) {
 		},
 
 		getCart: function(){
+			console.log(cart);
 			if (cart.length !== 0) return cart;
 			else {
 				var order = localStorageService.get('order');
