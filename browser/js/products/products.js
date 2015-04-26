@@ -85,7 +85,7 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
 
     $scope.addCart = function(product, quant){
         NavFactory.loader=false;
-        CartFactory.addToCart(product, quant);
+        CartFactory.addCart(product, quant);
         NavFactory.loader=true;
 
     };
