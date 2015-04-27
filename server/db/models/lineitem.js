@@ -32,6 +32,7 @@ schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
             if(match){
                 self.findByIdAndUpdate(match._id, {$inc : {quantity : lineItem.quantity}},
                     function(err, data){
+                        if(err) throw new Error(err);
                         self.find({order: lineItem.order})
                             .populate(productQuery)
                             .exec(function (err, allLineItems){
@@ -40,6 +41,7 @@ schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
                         });
             } else {
                 self.create(lineItem, function(err, newLineItem) {
+                    if(err) throw new Error(err);
                     self.find({order: lineItem.order})
                         .populate(productQuery)
                         .exec(function (err, allLineItems){
@@ -49,16 +51,21 @@ schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
             }
         });
     } else {
-        return Order.create({}, function (err, newOrder){
+        Order.create({}, function (err, newOrder){
             if(err) throw new Error(err);
             lineItem.order = newOrder._id;
-            self.create(lineItem, function(err, newLineItem){
-                 cb(err,newLineItem);
+            self.create(lineItem, function(err, newLineItem) {
+                if(err) throw new Error(err);
+                self.find({order: lineItem.order})
+                    .populate(productQuery)
+                    .exec(function (err, allLineItems){
+                        cb(err, allLineItems);
+                    });
+                });
             });
-        });
-    }
-
+        };
 };
+
 
 schema.statics.findByCriteria = function (query) {
     return this.find(query)

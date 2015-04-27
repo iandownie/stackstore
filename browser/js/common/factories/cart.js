@@ -15,6 +15,7 @@ app.factory('CartFactory', function ($http, localStorageService) {
 					//response.data will always be an array even if there is only one item
 					if (!order) localStorageService.set('order', response.data[0].order);
 					cart = response.data;
+					console.log("CART", cart)
 					return cart;
 				});
 		},
