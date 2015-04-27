@@ -62,12 +62,12 @@ schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
 
 schema.statics.findByCriteria = function (query) {
     return this.find(query)
-                .populate(productQuery)
-                .exec(function(err, data){
-                    if(err) throw new Error(err);
-                    console.log(data);
-                    return data;
-                });
+        .populate(productQuery)
+        .exec(function(err, data){
+            if(err) throw new Error(err);
+            console.log(data);
+            return data;
+        });
 };
 
 var LineItem = mongoose.model('LineItem', schema);

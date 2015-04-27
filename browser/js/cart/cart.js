@@ -13,11 +13,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartCtrl', function ($scope, $window, NavFactory, AuthService, $state, CartFactory, lineItemsInfo) {
+app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFactory, AuthService, $state, CartFactory, lineItemsInfo) {
 
     $scope.newQuantity = null;
 
     $scope.cart = {
+        id: localStorageService.get('order'),
         products: lineItemsInfo,
         user: null,
         total: 0,
@@ -52,7 +53,7 @@ app.controller('CartCtrl', function ($scope, $window, NavFactory, AuthService, $
     $scope.updateQuantity = function (id, quantity){
         CartFactory.updateQuantity(id, quantity).then( function(response){
             console.log('UPDATED.', response)
-            $window.location.reload()
+            $window.location.reload();
             //$state.go($state.current, {}, {reload: true});
         });
     };
@@ -66,7 +67,8 @@ app.controller('CartCtrl', function ($scope, $window, NavFactory, AuthService, $
    $scope.submitOrder = function(newOrder){
     NavFactory.loader=false;
         CartFactory.submitOrder(newOrder).then(function(data){
-            $state.go('orders', {id: data._id});
+            $window.location.reload();
+            //$state.go('orders', {id: data._id});
             NavFactory.loader=true;
         }).catch(function(err){
             console.log(err);

@@ -20,19 +20,21 @@ app.factory('CartFactory', function ($http, localStorageService) {
 		},
 
 		getCart: function(){
+			var order = localStorageService.get('order');
+			if (!order) return [];
 			if (cart.length !== 0) return cart;
 			else {
-				var order = localStorageService.get('order');
+
 				var config = {
 					params : {order : order}
 				};
 				return $http.get('api/cart', config)
-							.then( function (response){
-								//array of line items
-								cart = response.data;
-								console.log(cart);
-								return cart;
-							});
+					.then( function (response){
+						//array of line items
+						cart = response.data;
+						console.log(cart);
+						return cart;
+					});
 			}
 		},
 
@@ -62,6 +64,7 @@ app.factory('CartFactory', function ($http, localStorageService) {
 				return el;
 			});
 			return $http.post('api/orders', newOrder).then(function(response){
+				localStorageService.remove('order')
 				return response.data;
 			});
 		}
