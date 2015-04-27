@@ -17,48 +17,10 @@ button{
 h1{
   color: black;
 }
-option{
-  background: black;
-  height: 27px;
+@font-face {
+    font-family: impScrawl;
+    src: url(fonts/BLKCHCRY.TTF);
 }
-select[multiple], select[size] {
-  height: 27px;
-  margin: -6px 0;
-  border: 2px inset;
-  border-radius: 0;
-}
-select{
-  width: 150px;
-  height: 40px;
-  -webkit-appearance: menulist;
-  background: black;
-}
-body{
-color: white;
-  text-shadow: 0 0 2px white,
-             -1px -1px 14px white,
-             -2px -2px 14px white,
-             1px 1px 14px white,
-             2px 2px 14px white;
-  background: url(/images/tyrion_lannister_background.jpg);
-  background-attachment:fixed;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  background-position: center 1px;
-  textarea{
-   color: black;
-  }
-  tr{
-  background: transparent;
-    td{
-      min-width: 100px;
-      background: transparent;
-    }
-
-  }
-  
-  }
 @mixin clearfix {
   &:after {
     content: "";
@@ -66,6 +28,7 @@ color: white;
     clear: both;
   }
 }
+
 
 @import 'directives/main';
 @import 'home/main';

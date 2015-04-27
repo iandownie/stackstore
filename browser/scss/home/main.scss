@@ -4,9 +4,50 @@
     width: 150px;
     margin: 0 auto;
   }
-  h1 {
-    margin-top: 140px;
+  .logo-wrap{
+  	padding:1em;
+  	text-align: center;
+  	background-image: url('images/nice-bg.jpg');
+  	height: 450px;
+  }	
+  .product-scoller {
+  	text-align: center;
+  	display: inline-block;
+
+  }
+  .owl-item{
+  	text-align: center;
+  	margin-bottom:40px;
+  }
+  h4 {
+  	margin:40px;
+  	font-size:200%;
     text-align: center;
+    font-family:impScrawl;
+  }
+  h4.new-products {
+  	text-align: left;
+  	margin:0px;
+  	padding:10px 0px 0px 50px;
+  }
+  .title-wrap{
+  	text-align: center;
+  	padding:10px;
+  }
+  img{
+  	margin:0 auto;
+  }
+  .spacer.prepare {
+  	height:100px;
+  	background-image: url('images/nice-bg.jpg');
+  	display:table;
+  	width:100%;
+	  	h4 {
+			font-family: impScrawl;
+			text-align: center;
+			display:table-cell;
+			vertical-align: middle;
+	  	}
   }
 }
 

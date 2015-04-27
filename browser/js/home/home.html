@@ -1,3 +1,86 @@
 <section id="home">
-	<h1>Welcome to the Imp's Bazzar, where all of your greatest needs, fantastic wishes, and darkest desires may be fullfilled, all for a reasonsable price.</h1>
+		<div class="logo-wrap">
+			<img src="images/logo/lannister_logo_72x72_1pt.png"></img>
+				<h4>Winter is Coming</h4>
+	
+		</div>
+		<h4 class="new-products"> New Wares</h4>
+		<div id="home-product-owl">
+			<div class="item" ng-repeat="product in productsList">
+				<div class="title-wrap"> <a href="/products/{{product._id}}"> {{product.name}}</a></div>
+			 	<img src="{{product.images[0]}}" /> <br>
+				<a href="/stores/{{product.store._id}}"> {{product.store.name}} </a>
+			</div>
+		</div>
+		<div class="spacer prepare"> 
+			<h4>"Stick 'em With The Pointy End..." </h4>
+		</div>
+		<h4 class="new-products"> Stores</h4>
+		<div id="home-store-owl">
+			<div class="item" ng-repeat="product in productsList">
+				<div class="title-wrap"> <a href="/products/{{product._id}}"> {{product.name}}</a></div>
+			 	<img src="{{product.images[0]}}" /> <br>
+				<a href="/stores/{{product.store._id}}"> {{product.store.name}} </a>
+			</div>
+		</div>
 </section>
+<!-- <h4>Welcome to the Imp's Bazzar, where all of your greatest needs, fantastic wishes, and darkest desires may be fullfilled, all for a reasonsable price.</h4> -->
+<script>
+	setTimeout(function(){
+		$(document).ready(function() {
+		 
+		  var owl = $("#home-product-owl");
+		 
+		  owl.owlCarousel({
+		  	  autoPlay : 3000,
+		      items : 4, //10 items above 1000px browser width
+		      itemsTablet: [600,1], //2 items between 600 and 0
+		      itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+		  });
+		 
+		  // Custom Navigation Events
+		  $(".next").click(function(){
+		    owl.trigger('owl.next');
+		  })
+		  $(".prev").click(function(){
+		    owl.trigger('owl.prev');
+		  })
+		  $(".play").click(function(){
+		    owl.trigger('owl.play',1000); //owl.play event accept autoPlay speed as second parameter
+		  })
+		  $(".stop").click(function(){
+		    owl.trigger('owl.stop');
+		  })
+		 
+		});
+	},0)
+	setTimeout(function(){
+		$(document).ready(function() {
+		 
+		  var owl = $("#home-store-owl");
+		 
+		  owl.owlCarousel({
+		  	  rtl: true,
+		  	  autoPlay : 3000,
+		      items : 4, //10 items above 1000px browser width
+		      itemsTablet: [600,1], //2 items between 600 and 0
+		      itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+		  });
+		 
+		  // Custom Navigation Events
+		  $(".next").click(function(){
+		    owl.trigger('owl.next');
+		  })
+		  $(".prev").click(function(){
+		    owl.trigger('owl.prev');
+		  })
+		  $(".play").click(function(){
+		    owl.trigger('owl.play',1000); //owl.play event accept autoPlay speed as second parameter
+		  })
+		  $(".stop").click(function(){
+		    owl.trigger('owl.stop');
+		  })
+		 
+		});
+	},0)		
+</script>

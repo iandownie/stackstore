@@ -15,24 +15,27 @@ app.factory('CartFactory', function ($http, localStorageService) {
 					//response.data will always be an array even if there is only one item
 					if (!order) localStorageService.set('order', response.data[0].order);
 					cart = response.data;
+					console.log("CART", cart)
 					return cart;
 				});
 		},
 
 		getCart: function(){
+			var order = localStorageService.get('order');
+			if (!order) return [];
 			if (cart.length !== 0) return cart;
 			else {
-				var order = localStorageService.get('order');
+
 				var config = {
 					params : {order : order}
 				};
 				return $http.get('api/cart', config)
-							.then( function (response){
-								//array of line items
-								cart = response.data;
-								console.log(cart);
-								return cart;
-							});
+					.then( function (response){
+						//array of line items
+						cart = response.data;
+						console.log(cart);
+						return cart;
+					});
 			}
 		},
 
@@ -62,6 +65,7 @@ app.factory('CartFactory', function ($http, localStorageService) {
 				return el;
 			});
 			return $http.post('api/orders', newOrder).then(function(response){
+				localStorageService.remove('order')
 				return response.data;
 			});
 		}

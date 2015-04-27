@@ -66,9 +66,13 @@ gulp.task('buildCSS', function () {
 });
 
 gulp.task('moveImages', function () {
-    return gulp.src('./browser/images/*')
-
+    return gulp.src('./browser/images/**')
         .pipe(gulp.dest('./public/images'))
+});
+gulp.task('moveFonts', function () {
+    return gulp.src('./browser/fonts/**')
+
+        .pipe(gulp.dest('./public/fonts'))
 });
 gulp.task('seedDB', function () {
 
