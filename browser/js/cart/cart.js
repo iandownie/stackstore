@@ -20,6 +20,7 @@ app.controller('CartCtrl', function ($scope, $window, NavFactory, AuthService, $
     $scope.cart = {
         products: lineItemsInfo,
         user: null,
+        total: 0,
         shippingAddress: {
             street: null,
             city: null,
@@ -35,8 +36,12 @@ app.controller('CartCtrl', function ($scope, $window, NavFactory, AuthService, $
     });
 
     $scope.showModifyOptions = function () {
-        if ($scope.showModify) $scope.showModify = false;
-        else $scope.showModify = true;
+        if ($scope.showModify) {
+            $scope.showModify = false;
+            $scope.showUpdate = false;
+        } else {
+            $scope.showModify = true;
+        }
     };
 
     $scope.showUpdateField = function () {

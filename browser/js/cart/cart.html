@@ -18,13 +18,13 @@
                 <tr id="{{ product._id }}" ng-repeat="product in cart.products">
                     <td>{{ product.product.name }}</td>
                     <td>{{ product.quantity }}</td>
-                    <td>{{ product.product.price }}</td>
-                    <td>{{ product.quantity * product.product.price }}</td>
+                    <td>{{ product.product.price | currency }}</td>
+                    <td ng-init="itemTotal = product.product.price * product.quantity; cart.total = cart.total + itemTotal">{{itemTotal | currency}}</td>
                     <td>
                         <button ng-click="showModifyOptions()" ng-hide="showModify">Modify</button>
                         <button ng-click="showUpdateField()" ng-show="showModify">Update Quantity</button>
                         <form ng-show="showUpdate" ng-submit="updateQuantity(product._id, newQuantity)">
-                            <input type="number" placeholder="Enter Quantity" ng-model="newQuantity">
+                            <input type="number" placeholder="{{product.quantity}}" ng-model="newQuantity">
                             <button>Go</button>
                         </form>
                         <button ng-click="removeLineItem(product._id)" ng-show="showModify">Remove</button>
@@ -36,6 +36,9 @@
         </table>
         <h4 ng-show="cart.products[0]==null">You cart is currently empty</h4>
     </div>
+
+    <h4>Total: {{cart.total | currency}} </h4>
+
     <div class="content-col">
         <h2>Shipping Information</h2>
 
