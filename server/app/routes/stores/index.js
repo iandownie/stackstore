@@ -4,6 +4,7 @@ var router = require('express').Router();
 module.exports = router;
 var Store = mongoose.model('Store');
 var User = mongoose.model('User');
+var Product = mongoose.model('Product');
 
 router.get('/', function (req, res, next) {
     if(req.query.id){
@@ -25,7 +26,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.put('/:id', function (req, res, next) {
-    Store.findByIdAndUpdate(req.params.id, req.body, function(err, data){
+    Store.findByIdAndUpdate(req.params.id, req.body, {new: true}, function(err, data){
         if(err) return next(err);
         res.json(data);
     });
@@ -55,16 +56,21 @@ router.get('/:url', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res, next) {
-    Store.findByIdAndRemove(req.params.id, function(err, data){
-        if(err) return next(err);
+    Product.deleteProductsAndStore(req.params.id).then(function(data){
         res.json(data);
+    }).then(null, function(err){
+        return next(err);
     });
+    // Store.findByIdAndRemove(req.params.id, function(err, data){
+    //     if(err) return next(err);
+    //     res.json(data);
+    // });
 });
 
 router.post('/', function (req, res, next){
     Store.createStoreAndAttachUser(req.body, function (err, newStore){
         if (err) return next(err);
+        console.log('this the new Store', newStore);
         res.json(newStore);
-
     });
 });

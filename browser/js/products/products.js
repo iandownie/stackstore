@@ -51,7 +51,7 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
         rating : 0,
         title: '',
         description: '',
-        user: null
+        user: undefined
     };
 
     AuthService.getLoggedInUser().then(function (user) {

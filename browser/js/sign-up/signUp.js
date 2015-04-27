@@ -9,10 +9,10 @@ app.config(function ($stateProvider) {
 app.controller('SignUpController', function ($state, $scope, NavFactory, SignUpFactory, AuthService) {
 
     $scope.newUser = {
-        firstName: null,
-        lastName: null,
-        email: null,
-        password: null
+        firstName: undefined,
+        lastName: undefined,
+        email: undefined,
+        password: undefined
     };
 
     $scope.signUp = function (user) {

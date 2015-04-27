@@ -1,8 +1,10 @@
 'use strict';
 
+var Promise = require('q');
 var mongoose = require('mongoose');
 var Store = mongoose.model('Store');
 var Review = mongoose.model('Review');
+var User = mongoose.model('User');
 
 var schema = new mongoose.Schema({
 	name:{
@@ -68,10 +70,28 @@ schema.statics.deleteProduct = function(productID){
 	});
 };
 
-schema.statics.deleteProductByStore = function(storeID){
+schema.statics.deleteProductsAndStore = function(storeID){
 	//still needs to be worked on
-	return this.remove({store: storeID}, function(err, storeProductArr){
-		console.log(storeProductArr);
+	var self = this;
+	return this.find({store: storeID}).exec(function(err, storeProductArr){
+		if(err) throw new Error(err);
+
+		var removedProductsArr = storeProductArr.map(function(product){
+			return product._id;
+		});
+
+		var dependencyArr = [
+			User.findOneAndUpdate({store : storeID}, {store:undefined}).exec(),
+			self.remove({store: storeID}),
+			Review.remove({product : {$in : removedProductsArr}}),
+			Store.findByIdAndRemove(storeID).exec()
+		];
+
+		return Promise.all(dependencyArr).then(function(data){
+			return data;
+		}).catch(function(err){
+			throw new Error(err);
+		});
 	});
 };
 
