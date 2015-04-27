@@ -1,12 +1,12 @@
 <link rel="stylesheet" type="text/css" href="/{{currentStore._id}}.css" />
 <section id="storepage">
-	<nav id="custom-nav" >
-		<h1>{{currentStore}}</h1>
+	<nav id="custom-nav" class="main-container">
+		<h1>{{currentStore.name}}</h1>
 
 	</nav>
 	<div ng-show="currentUser._id==currentStore.user._id">
-		<div class="main-container">
-			<h1  >Your Store.</h1>
+		<div >
+			<h1 class="main-container">Your Store.</h1>
 			<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
 		</div>
 		<div class="main-container" >
@@ -37,7 +37,7 @@
 				    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
 					</select>
 				    <input name="productimages" placeholder="images" ng-model="product.images"></input>
-				    <button class='btn btn-primary'>Submit Product</button>
+				    <button>Submit Product</button>
 				</form>
 			</div>	
 		</div>
@@ -45,7 +45,7 @@
 			<form ng-submit='loadStoreFront(store._id, categories)'>
 				<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
 				</select>
-				<button class='btn btn-primary'>Filter By Category</button>
+				<button >Filter By Category</button>
 			</form>
 
 			<table class="table table-bordered">
@@ -106,10 +106,11 @@
 				</tr>
 				</tbody>
 			</table>
-			<button ng-click="properties.backcolor=true">red</button>
-			{{properties}}
 			<div ng-show="editor==true">
+			{{properties}}
 				<form ng-submit="customizeStore(properties)">
+					<label>Hide Imp's Bazzar Navigation Bar?</label>
+					<input ng-model="properties.nav"type="checkbox"/>
 					<label>Background Image or Color:</label>
 					<input ng-model="properties.backcolor" type="color"/>
 					<input ng-model="properties.backimage" type="text"/>
