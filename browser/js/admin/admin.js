@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 app.controller('AdminController', function ($state, $scope, NavFactory, AdminFactory) {
 	
-	$scope.users = null;
+	$scope.users = undefined;
 	
 	AdminFactory.getAllUsers()
 		.then(function(users){

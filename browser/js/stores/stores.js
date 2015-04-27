@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/stores/store-front.html',
         resolve: {
             getStoreByUrl: function($stateParams, $state, StoresFactory){
-                console.log("Ran the resolve of state");
+                console.log($stateParams.url);
                 return StoresFactory.loadStoreFrontByUrl($stateParams.url).catch(function(err){
                     $state.go('error');
                 });
@@ -46,13 +46,13 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.currentUser = null;
 
     $scope.product = {
-        name: "",
-        price: null,
-        quantity: null,
-        description: "",
-        store: null,
-        categories: null,
-        images : null
+        name: undefined,
+        price: undefined,
+        quantity: undefined,
+        description: undefined,
+        store: undefined,
+        categories: undefined,
+        images : undefined
     };
 
     $scope.sortType     = 'name'; // set the default sort type

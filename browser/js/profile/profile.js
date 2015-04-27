@@ -22,30 +22,38 @@ app.config(function ($stateProvider) {
 app.controller('ProfileController', function ($scope, $state, NavFactory, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
     $scope.user = getUserInfo;
     $scope.store =  getUserInfo.store || {
-        name: null,
-        logo: null,
+        name: undefined,
+        url: undefined,
+        logo: undefined,
         user: $scope.user._id
     };
-    
+
     if($scope.user.store){
         StoresFactory.loadStoreFrontById($scope.user.store).then(function (store){
             $scope.store = store;
         });
     }
+
     $scope.createStore = function (store){
         NavFactory.loader=false;
-        ProfileFactory.makeStore(store).then(function(store){
-            $scope.store = store;
-            $state.go('stores') ;//I'd like to make this go directly to the store just made //
+        ProfileFactory.createStore(store).then(function(store){
+            // $state.go('storeFront', {url : store.url});//I'd like to make this go directly to the store just made //
             NavFactory.loader=true;
         });
-    },
+    };
+
     $scope.editStore = function (store, storeID){
+        console.log(' i am here');
         NavFactory.loader=false;
-        ProfileFactory.changeStore(store, storeID).then(function(store){
-            $scope.store = store;
-            $state.go('stores');
+        ProfileFactory.editStore(store, storeID).then(function(store){
+            $state.go('storeFront', {url : store.url});
             NavFactory.loader=true;
+        });
+    };
+
+    $scope.deleteStore = function(storeID){
+        ProfileFactory.deleteStore(storeID).then(function(store){
+            $state.go('profile', undefined ,{reload : true});
         });
     };
 });
@@ -53,14 +61,19 @@ app.controller('ProfileController', function ($scope, $state, NavFactory, AuthSe
 app.factory('ProfileFactory', function ($http) {
 
     return {
-        makeStore: function (store) {
-            return $http.post('/api/stores/', store)
-                .then(function(response){
-                    return response;
+        createStore: function (store) {
+            return $http.post('/api/stores', store).then(function(response){
+                    console.log(response.data);
+                    return response.data;
             });
         },
-        changeStore: function(store, storeID){
+        editStore: function(store, storeID){
             return $http.put('api/stores/' + storeID, store).then(function(response){
+                return response.data;
+            });
+        },
+        deleteStore: function(storeID){
+            return $http.delete('api/stores/' + storeID).then(function(response){
                 return response.data;
             });
         }
