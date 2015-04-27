@@ -21,7 +21,10 @@ var schema = new mongoose.Schema({
     },
     orders:[{
         type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
-    }]
+    }],
+    description: {
+        type: String
+    }
 });
 
 schema.post('save', function(doc, next){
@@ -72,16 +75,16 @@ schema.statics.createStoreAndAttachUser = function(store){
     return User.findById(store.user, function (err, user) {
         if (user.store) throw new Error("User Has Store.");
         self.create(store, function(err, newStore){
-            if (err) console.error (err);
+            if (err) throw new Error(err);
             user.store = newStore._id;
             user.save(function (){
-                newStore.user = user._id;
-                newStore.save(function(){
-                    return newStore;
-                });
+                console.log(newStore);
+                return newStore;
             });
         });
     });
 };
+
+
 
 mongoose.model('Store', schema);

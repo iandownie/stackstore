@@ -19,12 +19,14 @@
     <div class="one-third" id="content-col">
         <div class="one-third">
             <button ng-show="user.store" ng-click="edit=!edit">Manage Store Info</button>
+            <button ng-show='edit' ng-click='deleteStore(store._id)' class='btn btn-danger'>DELETE ME</button>
             <form ng-show="edit" name="editStoreForm" ng-submit="editStoreForm.$valid && editStore(store, user.store)">
                 <error ng-show="editStoreForm.editname.$touched && editStoreForm.editname.$error.required">Store name is required!</error>
                 <error ng-show="editStoreForm.editname.$error.maxlength">First name is required!</error>
                 <error ng-show="editStoreForm.editlogo.$touched && editStoreForm.editlogo.$error.required">Store logo is required!</error>
                 <label>Store Name:</label>
                 <input name="editname" placeholder="Store Name" ng-maxlength="20" ng-model="store.name" type="text" required>
+                <input name='urlSlug' type='text' ng-minlength ='5' ng-model='store.url' placeholder='urlSlug'>
                 <label>Store Logo:</label>
                 <input name="editlogo" placeholder="Store Logo" ng-model="store.logo" type="text" required>
                 <label>Store Description:</label>

@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/stores/store-front.html',
         resolve: {
             getStoreByUrl: function($stateParams, $state, StoresFactory){
-                console.log("Ran the resolve of state");
+                console.log($stateParams.url);
                 return StoresFactory.loadStoreFrontByUrl($stateParams.url).catch(function(err){
                     $state.go('error');
                 });
@@ -37,7 +37,7 @@ app.controller('StoresController', function ($state, $scope, StoresFactory) {
 
 //app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, StoresFactory, getStoreById, categoryList, CategoryFactory) {
 
-app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreByUrl, categoryList, CategoryFactory, experimentalFactory) {
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreByUrl, categoryList, CategoryFactory, experimentalFactory, ProductFactory) {
     $scope.currentStore = getStoreByUrl;
 
     $scope.categoryList = categoryList;
@@ -46,15 +46,16 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.currentUser = null;
 
     $scope.product = {
-        name: "",
-        price: null,
-        quantity: null,
-        description: "",
-        store: null,
-        categories: null,
-        images : null
+        name: undefined,
+        price: undefined,
+        quantity: undefined,
+        description: undefined,
+        store: undefined,
+        categories: undefined,
+        images : undefined
     };
 
+    $scope.selectedProduct=$scope.currentStore.products[0];
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
 
@@ -67,10 +68,22 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.isOwner = function(){
         return StoresFactory.isOwner($scope.currentUser._id, $scope.currentStore.user._id);
     };
-
+    $scope.editProduct=function(data){
+        NavFactory.loader=false;
+        ProductFactory.editProduct(data).then(function (respeonse){
+            $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
+            NavFactory.loader=true;
+        })
+    }
+    $scope.deleteProduct=function(data){
+        NavFactory.loader=false;
+        ProductFactory.deleteProduct(data).then(function (response){
+            $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
+           NavFactory.loader=true;
+        });
+    }
     $scope.newProduct =function(data){
         NavFactory.loader=false;
-
         StoresFactory.newProduct(data).then(function (response){
             $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
            NavFactory.loader=true;

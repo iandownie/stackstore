@@ -103,18 +103,13 @@ schema.method('correctPassword', function (candidatePassword) {
 
 var AdminSchema = schema.extend({
     powerful: {type: Boolean, default: true}
-})
-
-
-
+});
 
 // AdminSchema.statics.promoteUser = function(user){
 //     console.log("User: ", user);
 //     console.log("THIS:", this)
 
 // }
-
-
 
 schema.statics.getProperLoginType = function(id){
     Admin.findById(id, function (err, admin){
@@ -129,7 +124,6 @@ schema.statics.getProperLoginType = function(id){
         }
     });
 };
-mongoose.model('User', schema);
+var User = mongoose.model('User', schema);
 mongoose.model('Admin', AdminSchema);
-var User = mongoose.model('User');
 

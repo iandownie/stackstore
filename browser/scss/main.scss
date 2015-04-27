@@ -17,10 +17,11 @@ button{
 h1{
   color: black;
 }
-option{
-  background: black;
-  height: 27px;
+@font-face {
+    font-family: impScrawl;
+    src: url(fonts/BLKCHCRY.TTF);
 }
+
 select[multiple], select[size] {
   height: 27px;
   margin: -6px 0;
@@ -58,6 +59,7 @@ color: white;
   }
   
   }
+
 @mixin clearfix {
   &:after {
     content: "";
@@ -65,6 +67,7 @@ color: white;
     clear: both;
   }
 }
+
 
 @import 'directives/main';
 @import 'home/main';
