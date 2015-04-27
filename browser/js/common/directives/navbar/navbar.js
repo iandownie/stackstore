@@ -7,20 +7,16 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
-            localStorageService.set('testKey', 'testVal')
-
-            scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'Stores', state: 'stores' },
-                { label: 'Products', state: 'productsList' },
-                { label: 'Profile', state: 'profile', auth: true },
-                { label: 'Cart', state: 'cart' }
-            ];
-
             scope.user = null;
+
+            scope.select= function(page) {
+                scope.selected = page;
+            };
+
             scope.linkToAdmin = function(){
                 $state.go("admin")
-            }
+            };
+
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
             };
