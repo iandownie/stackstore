@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state('stores', {
         url: '/stores',
         controller: 'StoresController',
-        templateUrl: 'js/stores/stores.html'
+        templateUrl: 'js/stores/stores.html',
     });
 
     $stateProvider.state('storeFront', {
