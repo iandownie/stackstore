@@ -31,8 +31,9 @@ app.factory('ProductFactory', function ($http) {
                 return response.data;
             });
         },
-        deleteProduct: function(productID){
-            return $http.delete('api/products/' + productID).then(function(response){
+        deleteProduct: function(product){
+            console.log("product: ", product);
+            return $http.delete('api/products/' + product._id).then(function(response){
                 return response.data;
             });
         }
