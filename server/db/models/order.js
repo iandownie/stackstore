@@ -10,7 +10,19 @@ var schema = new mongoose.Schema({
     },
     //removed shipping address requirements for order creation
     shippingAddress: {
+        firstName: {type: String},
+        lastName: {type: String},
         street: {type: String},
+        street2: {type: String},
+        city: {type: String},
+        state: {type: String},
+        zip: {type: Number}
+    },
+    billingAddress: {
+        firstName: {type: String},
+        lastName: {type: String},
+        street: {type: String},
+        street2: {type: String},
         city: {type: String},
         state: {type: String},
         zip: {type: Number}
