@@ -36,7 +36,7 @@
 			<button  ng-click="deleteItem='off'; editItem='off'; editStore='off';newItem='on'" class="waves-effect waves-light btn modal-trigger">Add New Item</button>
 		</div>
 		<div class="main-container">
-			<button ng-click="deleteItem='off'; editItem='off'; editStore='off';newItem='on'" class="waves-effect waves-light btn">Edit Item</button>
+			<button ng-click="deleteItem='off'; editItem='on'; editStore='off';newItem='off'" class="waves-effect waves-light btn">Edit Item</button>
 			<button ng-click="deleteItem='on'; editItem='off'; editStore='off';newItem='off'" class='waves-effect waves-light btn'>Remove Product</button>
 		</div>
 	</div>
@@ -51,7 +51,7 @@
 		</form>	
 	</div>
 	<div id="modal" class="modal" ng-class="editItem">
-	    <form ng-submit="editProduct(product); editItem='off'">
+	    <form ng-submit="editProduct(selectedProduct)">
 	    	<div class="modal-content">
 	    		<label>Choose Product:</label>
 	    		<select ng-model='selectedProduct' ng-options="product.name for product in currentStore.products">
@@ -64,16 +64,16 @@
 		        <input  ng-model="selectedProduct.description" placeholder="{{selectedProduct.description}}"></input>
 		        <label>Edit Price:</label>
 		        <input  type="float" ng-model="selectedProduct.price" placeholder="{{selectedProduct.price}}"></input>
-		        <button class="btn btn-primary" >Save Changes</button>
+		        <button class="btn btn-primary" type="submit">Save Changes</button>
 		    </div>    
 	    </form>
 	    <button class="btn-primary btn" >Add or Remove Pictures</button>
 	</div>
 	<div id="modal" class="modal" ng-class="deleteItem">
-	    <form ng-submit="deleteProduct(product._id); deleteItem='off'">
+	    <form ng-submit="deleteProduct(deletedProduct); deleteItem='off'">
 	    	<div class="modal-content">
 	    		<label>Choose Product:</label>
-	    		<select ng-model='selectedProduct' ng-options="product.name for product in currentStore.products">
+	    		<select ng-model='deletedProduct' ng-options="product.name for product in currentStore.products">
 	    		</select>
 		        <button class="btn btn-primary" >Delete Selected Product</button>
 		    </div>    
