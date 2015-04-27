@@ -2,15 +2,27 @@
 
 var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
+var Product = mongoose.model('Product');
 
 var router = require('express').Router();
 
 
 router.post('/', function(req, res, next){
-	//create an order
-	Order.create(req.body, function(err, data){
+	console.log('Order route: ', req.body)
+	//update order status to processing
+	req.body.status = 'Processing';
+
+	//submit an order by finding open order by id
+	Order.findByIdAndUpdate(req.body.id, req.body, function(err, data){
 		if(err) return next(err);
-		res.json(data);
+
+		Product.updateQuantities(req.body, function (err, otherData){
+			if(err) return next(err);
+			console.log('ORDERS ROUTE - DATA', data)
+			console.log('ORDERS ROUTE - OTHERDATA', otherData)
+
+			res.send(data);
+		})
 	});
 });
 
