@@ -1,41 +1,45 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Product = mongoose.model("Product");
 
-var Store = mongoose.model("Store");
 var LineItem = mongoose.model("LineItem");
-var Order = mongoose.model("Order");
-
 
 var router = require('express').Router();
+
+router.get('/', function(req, res, next){
+	//the query will be structured by the front-end, it can be order # or product #
+	LineItem.findByCriteria(req.query).then(function(orderArr){
+		res.json(orderArr);
+	}).then(null, function(err){
+		return next(err);
+	});
+});
 
 router.post('/', function(req, res, next){
 
     LineItem.addItemToCurrentOrder(req.body, function(err, order){
         if(err) return next(err);
+        if(!(order instanceof Array)) order = [order];
         res.json(order);
-    })
+
+    });
 
 });
 
-//router.post('/', function(req, res, next){
-//    Order.create({}, function(err, newOrder){
-//        console.log('New Order!!!', newOrder)
-//        if (err) console.error(err);
-//        LineItem.create(req.body, function(err, newLineItem){
-//            console.log('New Line Item!!!', newLineItem)
-//            if (err) console.error(err);
-//            newOrder.products.push(newLineItem);
-//            console.log('New Order After Push!!!', newOrder)
-//            newOrder.save( function(err, data){
-//                if (err) console.error(err);
-//                console.log('SAVE!', data)
-//                res.send(data);
-//            })
-//        })
-//    })
-//
-//});
+router.delete('/', function(req, res, next){
+    LineItem.findByIdAndRemove(req.query.id, function(err, data){
+        if(err) return next(err);
+        res.json(data);
+    });
+
+});
+
+router.put('/', function(req, res, next){
+    LineItem.findByIdAndUpdate(req.body.id, {quantity: req.body.quantity},function(err, data){
+        if(err) return next(err);
+        res.json(data);
+    });
+
+});
 
 module.exports = router;

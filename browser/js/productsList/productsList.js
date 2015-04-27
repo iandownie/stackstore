@@ -34,11 +34,12 @@ app.factory('ProductsListFactory', function ($http) {
                 return response.data;
             });
         }
+
     };
 
 });
 
-app.controller('ProductsListCtrl', function ($state, $scope, NavFactory, productsList, categoryList, CategoryFactory, ProductsListFactory) {
+app.controller('ProductsListCtrl', function ($state, $scope, NavFactory, productsList, categoryList, CategoryFactory, ProductsListFactory, CartFactory) {
     // Holds all the available categories so that you can filter
     $scope.categoryList = categoryList;
     //Holds productsList
@@ -58,4 +59,12 @@ app.controller('ProductsListCtrl', function ($state, $scope, NavFactory, product
             NavFactory.loader=true;
         });
     };
+
+    $scope.addToCart = function(product, quant){
+        NavFactory.loader=false;
+        CartFactory.addToCart(product, quant);
+        NavFactory.loader=true;
+
+    };
+
 });
