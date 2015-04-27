@@ -66,7 +66,7 @@ gulp.task('buildCSS', function () {
 });
 
 gulp.task('moveImages', function () {
-    return gulp.src('./browser/images/*')
+    return gulp.src('./browser/images/**')
 
         .pipe(gulp.dest('./public/images'))
 });
