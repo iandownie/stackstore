@@ -13,11 +13,14 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, CartFactory, lineItemsInfo) {
+app.controller('CartCtrl', function ($scope, $window, NavFactory, AuthService, $state, CartFactory, lineItemsInfo) {
+
+    $scope.newQuantity = null;
 
     $scope.cart = {
         products: lineItemsInfo,
         user: null,
+        total: 0,
         shippingAddress: {
             street: null,
             city: null,
@@ -31,6 +34,34 @@ app.controller('CartCtrl', function ($scope, NavFactory, AuthService, $state, Ca
             $scope.cart.user = user._id;
         }
     });
+
+    $scope.showModifyOptions = function () {
+        if ($scope.showModify) {
+            $scope.showModify = false;
+            $scope.showUpdate = false;
+        } else {
+            $scope.showModify = true;
+        }
+    };
+
+    $scope.showUpdateField = function () {
+        if ($scope.showUpdate) $scope.showUpdate = false;
+        else $scope.showUpdate = true;
+    };
+
+    $scope.updateQuantity = function (id, quantity){
+        CartFactory.updateQuantity(id, quantity).then( function(response){
+            console.log('UPDATED.', response)
+            $window.location.reload()
+            //$state.go($state.current, {}, {reload: true});
+        });
+    };
+
+    $scope.removeLineItem = function(lineItemId){
+        CartFactory.removeLineItem(lineItemId).then( function(){
+            angular.element('#'+lineItemId).remove(); //remove elem from DOM
+        });
+    };
 
    $scope.submitOrder = function(newOrder){
     NavFactory.loader=false;

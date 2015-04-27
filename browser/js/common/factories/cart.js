@@ -20,7 +20,6 @@ app.factory('CartFactory', function ($http, localStorageService) {
 		},
 
 		getCart: function(){
-			console.log(cart);
 			if (cart.length !== 0) return cart;
 			else {
 				var order = localStorageService.get('order');
@@ -35,6 +34,25 @@ app.factory('CartFactory', function ($http, localStorageService) {
 								return cart;
 							});
 			}
+		},
+
+		removeLineItem: function(lineItem){
+			var config = {
+				params : {id : lineItem}
+			};
+
+			return $http.delete('api/cart', config)
+				.then( function (response){
+					return response;
+				});
+		},
+
+		updateQuantity: function (id, quantity){
+			var config = {id : id, quantity: quantity};
+			return $http.put('api/cart', config)
+				.then( function (response){
+					return response;
+				});
 		},
 
 		submitOrder: function(newOrder){
