@@ -54,7 +54,9 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         categories: null,
         images : null
     };
-
+    $scope.dummy=[1,2,3
+    ];
+    $scope.selectedProduct=$scope.currentStore.products[0];
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
 
