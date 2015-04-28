@@ -3,3 +3,64 @@
 </div>
 
 <h4>Finalize Order</h4>
+
+<div class="left-col">
+    <table ng-show="cart.products.length > 0" class="table table-bordered">
+
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Quantity</td>
+            <td>Price</td>
+            <td>Subtotal</td>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="{{ product._id }}" ng-repeat="product in cart.products">
+            <td>{{ product.product.name }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.product.price | currency }}</td>
+            <td ng-init="itemTotal = product.product.price * product.quantity; cart.total = cart.total + itemTotal">{{itemTotal | currency}}</td>
+        </tr>
+        <tr>
+            <td>Total:</td>
+            <td></td>
+            <td></td>
+            <td>{{cart.total | currency}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+    <h4 ng-show="cart.products[0]==null">You cart is currently empty</h4>
+</div>
+</div><br/>
+
+<div class="row">
+    <div class="float: left">
+        <h4>Shipping Address</h4>
+        <ul>
+            <li>First: {{cart.shippingAddress.firstName}}</li>
+            <li>Last: {{cart.shippingAddress.lastName}}</li>
+            <li>Street: {{cart.shippingAddress.street}}</li>
+            <li>Street 2: {{cart.shippingAddress.street2}}</li>
+            <li>City: {{cart.shippingAddress.city}}</li>
+            <li>State: {{cart.shippingAddress.state}}</li>
+            <li>Zip: {{cart.shippingAddress.zip}}</li>
+        </ul>
+    </div>
+    <div class="float: right">
+        <h4>Billing Address</h4>
+        <ul>
+            <li>First: {{cart.billingAddress.firstName}}</li>
+            <li>Last: {{cart.billingAddress.lastName}}</li>
+            <li>Street: {{cart.billingAddress.street}}</li>
+            <li>Street 2: {{cart.billingAddress.street2}}</li>
+            <li>City: {{cart.billingAddress.city}}</li>
+            <li>State: {{cart.billingAddress.state}}</li>
+            <li>Zip: {{cart.billingAddress.zip}}</li>
+        </ul>
+    </div>
+</div>
+
+<button ng-click="submitOrder(cart)">Submit Order</button>

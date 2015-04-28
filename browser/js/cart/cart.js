@@ -15,7 +15,8 @@ app.config(function ($stateProvider) {
             templateUrl: 'js/cart/cart-view.html'
         })
         .state('cart.userOrGuest', {
-            templateUrl: 'js/cart/user-or-guest.html'
+            templateUrl: 'js/cart/user-or-guest.html',
+            controller: 'LoginCtrl'
         })
         .state('cart.addressInfo', {
             templateUrl: 'js/cart/address-info.html'
@@ -24,7 +25,8 @@ app.config(function ($stateProvider) {
             templateUrl: 'js/cart/finalize-order.html'
         })
         .state('cart.orderComplete', {
-            templateUrl: 'js/cart/order-complete.html'
+            templateUrl: 'js/cart/order-complete.html',
+            controller: 'CartCtrl'
         })
 });
 
@@ -58,13 +60,16 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
     };
 
     AuthService.getLoggedInUser().then(function (user) {
-        if(user) $scope.cart.user = user._id;
+        if(user) {
+            $scope.user = user;
+            $scope.cart.user = user._id;
+        }
     });
 
     $scope.sameBilling = function(){
         if ($scope.billingIsSame) {
-            $scope.billingIsSame = false;
             $scope.cart.billingAddress = $scope.cart.shippingAddress;
+            $scope.billingIsSame = false;
         } else {
             $scope.billingIsSame = true;
         }
@@ -101,12 +106,19 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
    $scope.submitOrder = function(newOrder){
     NavFactory.loader=false;
         CartFactory.submitOrder(newOrder).then(function(data){
-            $window.location.reload();
-            //$state.go('orders', {id: data._id});
+            //$window.location.reload();
+            console.log('ORDER RETURN DATA', data)
+            $scope.orderId = data._id;
+            $state.go('cart.orderComplete');
             NavFactory.loader=true;
         }).catch(function(err){
             $state.go('error');
         });
    };
+
+    $scope.checkout = function (user) {
+        if (user) $state.go('cart.addressInfo')
+        else $state.go('cart.userOrGuest')
+    }
 
 });

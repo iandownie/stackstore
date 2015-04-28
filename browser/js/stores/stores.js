@@ -68,20 +68,23 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.isOwner = function(){
         return StoresFactory.isOwner($scope.currentUser._id, $scope.currentStore.user._id);
     };
+
     $scope.editProduct=function(data){
         NavFactory.loader=false;
         ProductFactory.editProduct(data).then(function (respeonse){
             $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
             NavFactory.loader=true;
         })
-    }
+    };
+
     $scope.deleteProduct=function(data){
         NavFactory.loader=false;
         ProductFactory.deleteProduct(data).then(function (response){
             $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
            NavFactory.loader=true;
         });
-    }
+    };
+
     $scope.newProduct =function(data){
         NavFactory.loader=false;
         StoresFactory.newProduct(data).then(function (response){
