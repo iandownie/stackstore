@@ -1,24 +1,48 @@
 <section id="admin">
 	<div class="main-container">
 		<div class="left-col">
-			<div id="bar" ng-repeat="user in users">
-				<h4>First Name: {{user.firstName}}</h4>
-				<h4>Last Name: {{user.lastName}} </h4> 
-				<h4>Email: {{user.email}}</h4> 
-				<h4>Store: {{user.store}}</h4> 
-				<h4>Password: {{user.password}}</h4> 
-				<h4>Type: {{user._type || 'User'}}</h4> 
-				<button ng-click="deleteUser(user)">Delete User</button>
-				<button ng-click="promoteUser(user)">Promote User</button> 
+			<div>
+				<h3 class="content-col">Admin Page</h3>
+				<div class="row">
+					<div class="col m6 lg4 s12">
+						<h4>Add Categories: </h4>
+						<form ng-submit='categoryName.length > 0 && addCategory(categoryName)'>
+							<input type='text' ng-model='categoryName'>
+							<button class='btn btn-primary'>Create a Category</button>
+						</form>
+						
+					</div>
+				</div>
 			</div>
+			<table>
+				<tr class="heading">
+					<td>first name</td>
+					<td>last name</td>
+					<td>email </td>
+					<td>store </td>
+					<td>permission</td>
+					<td>actions</td>
+				</tr>
+				<tr ng-repeat="user in users">
+					<td>{{user.firstName}}</td>
+					<td>{{user.lastName}}</td>
+					<td>{{user.email}}</td>
+
+						<td>
+							<a ng-if="user.store" href="/stores/{{user.store._id}}">{{user.store.name}} </a>
+							<span ng-if="!user.store" href="/stores/{{user.store}}"> No Store </span>
+
+						</td>
+
+
+					<td>{{user._type || 'User'}}</td>
+					<td> 
+						<button class="mdi-action-delete waves-effect waves-light btn" ng-click="deleteUser(user)" > Remove </button>
+						<button class="mdi-navigation-expand-less waves-effect waves-light btn" ng-click="promoteUser(user)" > Promote </button>
+					</td>
+				</tr>
+			</table>
 		</div>
-		<div>
-			<h1 class="content-col">Admin Page</h1>
-			<h3>Add Categories: </h3>
-			<form ng-submit='categoryName.length > 0 && addCategory(categoryName)'>
-			<input type='text' ng-model='categoryName'>
-			<button class='btn btn-primary'>Create a Category</button>
-		</form>
-		</div>
+
 	</div>
 </section>
