@@ -26,8 +26,8 @@ router.post('/', function(req, res, next){
 
 });
 
-router.delete('/', function(req, res, next){
-    LineItem.findByIdAndRemove(req.query.id, function(err, data){
+router.delete('/:id', function(req, res, next){
+    LineItem.findByIdAndRemove(req.params.id, function(err, data){
         if(err) return next(err);
         res.json(data);
     });

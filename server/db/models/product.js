@@ -127,6 +127,7 @@ schema.statics.getProductsByQuery = function(query){
 };
 
 schema.statics.updateQuantities = function (order, cb) {
+	//update quantities will affect orders/lineitems/products
 	var self = this;
 	order.products.forEach( function(e){
 		return self.findByIdAndUpdate(e.product, {$inc : {quantity : -e.quantity}}, function(err, data){

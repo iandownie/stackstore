@@ -35,18 +35,13 @@ var schema = new mongoose.Schema({
 
 });
 
-schema.plugin(deepPopulate, {} /* more on options below */);
-
 var Order = mongoose.model('Order', schema);
-
 
 Order.schema.path('status').validate(function (value) {
   return /Created|Processing|Cancelled|Completed/i.test(value);
 }, 'Invalid Order Status');
 
-
-
-/* 
+/*
 
 1. Unauthenticated Users
 

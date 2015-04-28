@@ -26,23 +26,71 @@ var Product = mongoose.model('Product');
 var Store = mongoose.model('Store');
 var Order = mongoose.model('Order');
 var Review = mongoose.model('Review');
+var Admin = mongoose .model('Admin');
+var LineItem = mongoose.model('LineItem');
+var Category = mongoose.model('Category');
 
 var q = require('q');
 var chalk = require('chalk');
 
+var getCurrentAdminData = function () {
+    return q.ninvoke(Admin, 'find', {});
+};
 var getCurrentUserData = function () {
     return q.ninvoke(User, 'find', {});
 };
-var getCurrentProductsData = function () {
+var getCurrentCategoryData = function () {
+    return q.ninvoke(Category, 'find', {});
+};
+var getCurrentStoreData = function () {
+    return q.ninvoke(Store, 'find', {});
+};
+var getCurrentProductData = function () {
     return q.ninvoke(Product, 'find', {});
 };
-var getCurrentStoresData = function () {
-    return q.ninvoke(Store, 'find', {});
+var getCurrentReviewData = function () {
+    return q.ninvoke(Review, 'find', {});
+};
+var getCurrentOrderData = function () {
+    return q.ninvoke(Order, 'find', {});
+};
+var getCurrentLineItemData = function () {
+    return q.ninvoke(LineItem, 'find', {});
+};
+
+var seedAdmin = function(){
+
+    var admin = [{
+        firstName : 'Worlds',
+        lastName : 'Greatest',
+        email : 'me@thetop.com',
+        password : 'secure'
+    }];
+
+    return q.invoke(Admin, 'create', admin);
 };
 
 var seedUsers = function () {
 
     var users = [
+        {
+            firstName: 'Trash',
+            lastName : 'Miner',
+            email: 'treasure@trashheap.com',
+            password: 'garbage'
+        },
+        {
+            firstName: 'Black',
+            lastName : 'Hat',
+            email : 'lurk@shadows.com',
+            password: 'hack'
+        },
+        {
+            firstName: 'Tyrion',
+            lastName: 'Lannister',
+            email: 'halfman@greathouse.com',
+            password: 'bazaar'
+        },
         {
             firstName: 'Mocha',
             lastName: 'Chai',
@@ -50,28 +98,10 @@ var seedUsers = function () {
             password: 'password'
         },
         {
-            firstName: 'Barak',
-            lastName: 'Obama',
-            email: 'obama@gmail.com',
-            password: 'potus'
-        },
-        {
-            firstName: 'Tony',
-            lastName: 'Tiger',
-            email: 'frostedflakes@kitchen.com',
-            password: 'itsgreat'
-        },
-        {
             firstName: 'Gaius',
             lastName: 'Baltar',
             email: 'cylon@galatica.com',
             password: 'need2jump'
-        },
-        {
-            firstName: 'Tyrion',
-            lastName: 'Lannister',
-            email: 'halfman@greathouse.com',
-            password: 'bazaar'
         }
     ];
 
@@ -79,35 +109,115 @@ var seedUsers = function () {
 
 };
 
-var seedProducts = function () {
+var seedCategories = function(){
+    var categories = [{
+        name : 'Trash'
+    },
+    {
+        name : 'Accounts'
+    },
+    {
+        name : 'Weaponry'
+    }];
+
+    return q.invoke(Category, 'create', categories);
+};
+
+var seedStores = function(userIDArray){
+
+    var stores = [{
+        user: userIDArray[0], //user Trash Miner
+        name : 'Trashy',
+        url : 'trashy',
+        logo : 'http://www.melissa-popp.com/wp-content/uploads/2014/11/pro-disposal-review.jpg'
+    },
+    {
+        user : userIDArray[1], //user Black Hat
+        name : 'Mother Lode',
+        url : 'motherlode',
+        logo : 'http://motherlode.com.au/wp-content/uploads/2014/03/motherlode-logo-black-code-on-trans-landscape.png'
+    },
+    {
+        user : userIDArray[2], //user Tyrion Lannister
+        name: 'Tyrion\'s Armory',
+        logo: 'http://dailycampus.com/wp-content/uploads/2015/03/03-30-2015-Armory-logo.jpg'
+    }];
+
+    return q.invoke(Store, 'create', stores);
+};
+
+var seedProducts = function (storeIDArray, categoriesIDArray) {
 
     var products = [
         {
-            name: 'Glass of Red Wine',
-            price: "6.99",
-            description: 'A delicious glass of red wine.',
-            quantity:1,
-            images: ['https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSCxsaik5Lrz-ZYYBru8s5dOMuFVn3o2XmtIqMZJ8cIgUGhChGafa-Vo6Km48fJ0arl-PQsvw&usqp=CAE', 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRPIJ9BOFZNm88UacFxlm-ImoWfyJ6iiiFAEKdllaiMYHdnIcB7&usqp=CAE']
+            name : 'Dozen of Hand Teared Candy Wrapper',
+            price : 29.99,
+            quantity : 5,
+            description : 'Personally teared candy wrappers while watching TV, lying on my bed, sitting in the bathroom',
+            categories : [categoriesIDArray[0]],
+            store: storeIDArray[0],
+            images : ['http://thesingingnurse.com/wp-content/uploads/2012/02/16-x-15-papers-IMG_0051_1282.jpg', 'http://texturetaddka.com/wp-content/uploads/2012/10/Golden_chocolate_candy_wrapper_texture_1.jpg']
+        },
+        {
+            name : 'Sock with Holes',
+             price : 39.99,
+             quantity : 2,
+             description: 'The holes were slowly impressed on the socks through continuous long walks along the urban beaches',
+             categories : [categoriesIDArray[0]],
+             store: storeIDArray[0],
+             images : ['http://www.makingthishome.com/wp-content/uploads/2009/10/sock-hole.jpg', 'https://c1.staticflickr.com/9/8458/7935235656_091438ae30.jpg', 'http://www.alwaysonholladays.com/wp-content/uploads/2011/07/IMG_3844.jpg']
+        },{
+            name : 'Stained White Tees',
+            price : 69.99,
+            quantity : 2,
+            description: 'Traveled the world with these shirts. Some of these stains may be from quinoa/kale',
+            categories : [categoriesIDArray[0]],
+            store: storeIDArray[0],
+            images : ['http://divasanddorks.com/wp-content/uploads/2013/04/sclothing.jpg', 'http://photo.blogpressapp.com/photos/12/03/25/s_4122.jpg']
+        },
+        {
+            name: 'joedotjs\'s Codewar Account',
+            price: "89.99",
+            description: 'You know you want it.',
+            quantity: 1,
+            categories : [categoriesIDArray[1]],
+            store: storeIDArray[1],
+            images: ['http://joselcontreras.com/wp-content/uploads/2014/06/codewars.jpg']
+        },
+        {
+            name: 'gtelljohann\'s Codewar Account',
+            price: "99.99",
+            description: 'You know you want it.',
+            quantity: 1,
+            categories : [categoriesIDArray[1]],
+            store: storeIDArray[1],
+            images: ['http://joselcontreras.com/wp-content/uploads/2014/06/codewars.jpg']
+        },
+        {
+            name: 'heythisisdave\'s Codewar Account',
+            price: "109.99",
+            description: 'You know you want it.',
+            quantity: 1,
+            categories : [categoriesIDArray[1]],
+            store: storeIDArray[1],
+            images: ['http://joselcontreras.com/wp-content/uploads/2014/06/codewars.jpg']
         },
         {
             name: 'Broadsword',
             price: "199.99",
-            description: 'This shit is sharp.',
-            quantity:1,
-            images: []
-        },
-        {
-            name: 'A Glass of Ale',
-            price: "4.99",
-            description: 'This shit is delicous.',
-            quantity:1,
-            images: ['http://iveneverdonethat.com/indt2012/files/75AleCoverShot.jpg','http://www.bonappetit.com/wp-content/uploads/2012/12/bacon-brown-ale-uncommon-brewers-646.jpg', 'http://www.bevlaw.com/bevlog/wp-content/uploads/2011/12/bacon.jpg']
+            description: 'Freshly Forged',
+            quantity : 5,
+            categories : [categoriesIDArray[2]],
+            store: storeIDArray[2],
+            images: ['http://www.cuttingedgecombat.co.uk/userfiles/image/singlehanded%20broadsword.JPG']
         },
         {
             name: 'Axe',
             price: "99.99",
-            description: 'This shit is sharp.',
+            description: 'Whack',
             quantity:1,
+            categories : [categoriesIDArray[2]],
+            store: storeIDArray[2],
             images : ['https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQ8NE9Q7JGTgt2EMoKjxN4062FXtR0RsxQ2yHFeqY4DcuJbqfI&usqp=CAE']
         },
     ];
@@ -115,102 +225,143 @@ var seedProducts = function () {
     return q.invoke(Product, 'create', products);
 
 };
-var seedStores = function (productsArray) {
 
-    var stores = [
-        {
-            userName: 'ImpishDelights',
-            name: "Tyrion's Wine Shop",
-            logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png',
-            products : productsArray
-        },
-         {
-             userName: 'SnowMan123',
-             name: "Snow\'s Swords",
-             products: productsArray,
-             logo: 'http://www.bootcamps.in/wp-content/uploads/2014/12/fullstack-academy.png'
-         }
-    ];
+var seedReviews = function (productIDArray, userIDArray) {
 
-    return q.invoke(Store, 'create', stores);
+    var reviews = [{
+        product : productIDArray[0],
+        user: userIDArray[3],
+        rating : 3,
+        title : 'It is ok.',
+        description : 'I expected more.'
+    },
+    {
+        product : productIDArray[0],
+        user : userIDArray[4],
+        rating : 4,
+        title : 'Absolutely love it',
+        description: 'It tastes great'
+    },
+    {
+        product : productIDArray[1],
+        user : userIDArray[3],
+        rating : 1,
+        title : 'Wat',
+        description : 'Did I receive the wrong product? Because it doesn\'t work the way they say it would'
+    }];
+
+    return q.invoke(Review, 'create', reviews);
 
 };
 
 connectToDb.then(function () {
-    getCurrentUserData().then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-        }
-    }).then(function () {
-        console.log(chalk.green('User Seed Successful!'));
-    }).catch(function (err) {
-        console.error(err);
-    });
 
-    getCurrentProductsData().then(function (products) {
-        if (products.length === 0) {
-            return seedProducts();
-        } else {
-            console.log(chalk.magenta('Seems to already be products data, exiting!'));
-            return products;
-        }
-    }).then(function (products) {
-        console.log(chalk.green('Product Seed Successful!'));
-
-        getCurrentStoresData().then(function (stores) {
-            if (stores.length === 0) {
-                //randomly generates an array of ObjectIds of products for a store
-                var productIDs = products.map(function(product){
-                    return product._id;
-                }).filter(function(productId){
-                    if (Math.random() > 0.6){
-                        return true;
-                    } else {
-                        return false;
-                    }
-                });
-                //passes array of ObjectIds of products to be seeded into the stores
-                return seedStores(productIDs);
+    var firstStep = [
+        //Seed Admin
+        getCurrentAdminData().then(function (admin) { // seed user
+            if (admin.length === 0) {
+                return seedAdmin();
             } else {
-                console.log(chalk.magenta('Seems to already be store data, exiting!'));
+                console.log(chalk.magenta('Seems to already be admin data, exiting!'));
             }
-        }).then(function () {
-            console.log(chalk.green('Store Seed Successful!'));
+        }).then(function(data){
+            console.log(chalk.green('Admin Seed Successful!'));
+            return data;
         }).catch(function (err) {
+            console.error(err);
+            throw new Error(err);
+        }),
+        //Seed Users
+        getCurrentUserData().then(function (users) { // seed user
+            if (users.length === 0) {
+                return seedUsers();
+            } else {
+                console.log(chalk.magenta('Seems to already be user data, exiting!'));
+            }
+        }).then(function (data) {
+            console.log(chalk.green('User Seed Successful!'));
+            return data;
+        }).catch(function (err) {
+            console.error(err);
+            throw new Error(err);
+        }),
+        //Seed Categories
+        getCurrentCategoryData().then(function (categories) { // seed user
+            if (categories.length === 0) {
+                return seedCategories();
+            } else {
+                console.log(chalk.magenta('Seems to already be categories data, exiting!'));
+            }
+        }).then(function (data) {
+            console.log(chalk.green('Categories Seed Successful!'));
+            return data;
+        }).catch(function (err) {
+            console.error(err);
+            throw new Error(err);
+        })
+    ];
+
+    q.all(firstStep).spread(function(admin, users, categories){
+        return users.map(function(el){
+            return el._id;
+        });
+    }).then(function(userIDArray){
+        //checks to see if there are stores and then if not, it will seed
+        return getCurrentStoreData().then(function(stores){
+            if(stores.length === 0){
+                return seedStores(userIDArray);
+            } else {
+                console.log(chalk.magenta('Seems to already be stores data, exiting!'));
+            }
+        }).then(function (data) {
+            console.log(chalk.green('Stores Seed Successful!'));
+            return data;
+        }).catch(function (err) {
+            console.error(err);
             throw new Error(err);
         });
-    }).catch(function (err) {
-        console.error(err);
+
+    }).then(function(storeArray){
+        var storeIDArray = storeArray.map(function(el){
+            return el._id;
+        });
+        //Seeds Products
+        return q.all([getCurrentCategoryData(), getCurrentProductData()]).spread(function(categories, products){
+            if (products.length === 0){
+                var categoriesIDArray = categories.map(function(el){
+                    return el._id;
+                });
+                return seedProducts(storeIDArray, categoriesIDArray);
+            } else {
+                console.log(chalk.magenta('Seems to already be products data, exiting!'));
+                return products;
+            }
+        }).then(function(data) {
+            console.log(chalk.green('Product Seed Successful!'));
+            return data;
+        }).catch(function (err) {
+            console.error(err);
+            throw new Error(err);
+        });
+    }).then(function(productArray){
+        var productIDArray = productArray.map(function(el){
+            return el._id;
+        });
+        //Seeds Reviews
+        return q.all([getCurrentUserData(),getCurrentReviewData()]).spread(function(users, reviews){
+            if (reviews.length === 0){
+                var usersIDArray = users.map(function(el){
+                    return el._id;
+                });
+                return seedReviews(productIDArray, usersIDArray);
+            } else {
+                console.log(chalk.magenta('Seems to already be reviews data, exiting!'));
+            }
+        }).then(function() {
+            console.log(chalk.green('Review Seed Successful!'));
+        }).catch(function (err) {
+            console.error(err);
+            throw new Error(err);
+        });
     });
 });
-
-
-// connectToDb.then(function () {
-//     getCurrentProductData().then(function (products) {
-//         if (users.length === 0) {
-//             return seedProducts();
-//         } else {
-//             console.log(chalk.magenta('Seems to already be products data, exiting!'));
-//         }
-//     }).then(function () {
-//         console.log(chalk.green('Product Seed Successful!'));
-//     }).catch(function (err) {
-//         console.error(err);
-//     });
-// });
-// connectToDb.then(function () {
-//     getCurrentStoreData().then(function (stores) {
-//         if (users.length === 0) {
-//             return seedStore();
-//         } else {
-//             console.log(chalk.magenta('Seems to already be store data, exiting!'));
-//         }
-//     }).then(function () {
-//         console.log(chalk.green('Store Seed Successful!'));
-//     }).catch(function (err) {
-//         console.error(err);
-//         process.kill(1);
-//     });
-// });

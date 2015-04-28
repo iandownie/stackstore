@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 app.directive('loader', function(){
 	return{
