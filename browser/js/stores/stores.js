@@ -132,11 +132,14 @@ app.factory('StoresFactory', function ($http) {
                 });
         },
         loadStoreFrontByUrl: function(storeUrl, categories){
+            console.log("storeUrl: ", storeUrl)
+            console.log("categories: ", categories)
             var config = {
                 params : {categories: categories}
             };
             return $http.get('/api/stores/' + storeUrl, config)
                 .then(function(response){
+                    console.log("data: ", response.data)
                     return response.data;
                 });
         },

@@ -45,30 +45,53 @@
 
 #storepage{
 	#top {
-
+		margin-top: 5px;
 		height: 400px;
 		border-bottom: solid black 3px;
 		ul#category-nav {
 			background-color: rgb(96, 9, 17);
 			position:fixed;
 			height: 100%;
-			width: 240px;
+			width: 241px;
 			float: left;
+			left: -1px;
 			margin-top: 0;
 			li{
-				background-color: rgb(96, 9, 17);
 				color: white;
 				padding-left: 10px;
 			}
 		}
+		.collection{
+				.collection-item{
+					background-color: rgb(96, 9, 17);
+					border: 1px solid rgb(45, 0, 0);
+					padding-top: 13px;
+					height: 50px;
+					transition: All 1s;
+				}
+				.collection-item:hover {
+					background-color: #2d0000;
+					-webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+					-moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+					box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+				}
+			}
 		#main-window{
 			text-align: center;
 			margin-left: 240px;
 			width:calc(100% - 240px);
 			float: left;
 			height: 400px;
-			h1{
-				font-size: 20px;
+			
+			h5{
+				color: rgb(96, 9, 17);
+				font-size: 30px;
+				text-shadow: -1px 1px 1px black,
+				 -2px 2px 1px black,
+				 -3px 3px 1px black;
+			}
+			h6{
+				color: rgb(96, 9, 17);
 			}
 		}
 		#logo{
@@ -79,16 +102,58 @@
 			img{
 				width: 300px;
 				height: 230px;
+				margin-bottom: -6px;
+			}
+		}
+	}
+	div#store-bottom{
+		margin-left: 240px;
+		color: rgb(96, 9, 17);
+		text-align: center;
+		.center{
+			margin-left: calc(50% - 76px);
+			text-align: left;
+			.btn{
+				margin-left: -33px;
 			}
 		}
 	}
 	#modal{
 		color: black;
 		background-color: #fff;
+		box-shadow: 1px 1px 14px rgb(96, 9, 17),
+			 3px 3px 14px rgb(96, 9, 17),
+			 -3px -3px 14px rgb(96, 9, 17);
 		display: block; 
 		opacity: 0; 
 		bottom: -100%;
 		transition: all 1s;
+		input{
+			margin-left: calc(50% - 100px);
+			width: 200px;
+			border: 1px solid black;
+			height: 20px;
+			margin-bottom: 15px;
+		}
+		textarea{
+			margin-bottom: 15px;
+		}
+		input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+			border: 2px solid  rgb(96, 9, 17);
+			box-shadow: none;
+			height: 25px;
+		}
+		
+		select{
+			margin-bottom: 15px;
+			margin-left: calc(50% - 100px);
+			width: 200px;
+			background-color: rgb(96, 9, 17);
+		}
+		.main-container{
+			display: flex;
+			justify-content: center;
+		}
 		.modal-footer{
 			background-color: #fff;
 		}
@@ -116,15 +181,28 @@
 			height: 100px;
 		}
 		.item-hide {
+		width: 50%;
+		min-width: 500px;
+		background-color: rgb(96, 9, 17);
+		color: white;
+		border-radius: 30px;
 		padding: 10px;
 		position: fixed;
-		left: calc(50% - 150px);
+		left: calc(50% - 250px);
 		top: -1000px;
-		background-color: #777;
 		transform: scale(0,0); 
 		opacity: 0;
 		transition: All 1s;
+		box-shadow: 0px 0px 11px black,
+				3px -3px 11px black,
 		
+				-3px 3px 11px black;
+		h4{
+			text-shadow:0px 0px 1px black,
+				-1px 1px 1px black,
+				-2px 2px 1px black,
+				-3px 3px 1px black;
+			}
 		}
 	}	
 	.product:hover{
@@ -135,12 +213,44 @@
 		}
 	}
 	#product-container{
-		margin-left: 240px;
+		
 	}
-	#store-editor{
-		right: 40px;
-		top:40%;
+	#editor{
+		right: -200px;
+		top:6%;
 		position: fixed;
+		transition: All 1s;
+		#opener{
+			width: 143px;
+			transform: rotate(-90deg) translate(-90px, -90px);
+		}
+		#opened{
+			display:none;
+			width: 143px;
+			transform: rotate(-90deg) translate(-90px, -90px);
+		}
+		#store-editor{
+			.btn{
+				opacity: 0;
+				border: black solid 1px;
+				display: block;
+				min-width: 200px;
+			}
+		}
+	}
+	#editor.editing{
+			right: 0px;
+		#opener{
+			display:none; 
+		}
+		#opened{
+			display:block;
+		}
+		#store-editor{
+			.btn{
+				opacity: 1;
+			}
+		}
 	}
 	select{
 		display: block;
