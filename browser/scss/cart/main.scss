@@ -18,5 +18,13 @@ section#cart{
 	td.total{
 		border-top: solid 2px #600911;
 	}
-
+}
+section#log-cart{
+	h1{	
+		font-size: 35px;
+		text-shadow: -1px 1px 1px black,
+		-2px 2px 1px black,
+		-3px 3px 1px black;
+		color: #600911;
+	}
 }
