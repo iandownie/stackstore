@@ -15,7 +15,6 @@ app.factory('CartFactory', function ($http, localStorageService) {
 					//response.data will always be an array even if there is only one item
 					if (!order) localStorageService.set('order', response.data[0].order);
 					cart = response.data;
-					console.log("CART", cart)
 					return cart;
 				});
 		},
@@ -25,7 +24,6 @@ app.factory('CartFactory', function ($http, localStorageService) {
 			if (!order) return [];
 			if (cart.length !== 0) return cart;
 			else {
-
 				var config = {
 					params : {order : order}
 				};
@@ -33,20 +31,15 @@ app.factory('CartFactory', function ($http, localStorageService) {
 					.then( function (response){
 						//array of line items
 						cart = response.data;
-						console.log(cart);
 						return cart;
 					});
 			}
 		},
 
-		removeLineItem: function(lineItem){
-			var config = {
-				params : {id : lineItem}
-			};
-
-			return $http.delete('api/cart', config)
+		removeLineItem: function(lineItemID){
+			return $http.delete('api/cart' + lineItemID)
 				.then( function (response){
-					return response;
+					return response.data;
 				});
 		},
 
@@ -54,18 +47,19 @@ app.factory('CartFactory', function ($http, localStorageService) {
 			var config = {id : id, quantity: quantity};
 			return $http.put('api/cart', config)
 				.then( function (response){
-					return response;
+					return response.data;
 				});
 		},
 
 		submitOrder: function(newOrder){
+			console.log(newOrder);
 			newOrder.products = newOrder.products.map(function(el){
 				el.paidUnitPrice = el.product.price;
 				el.product = el.product._id;
 				return el;
 			});
 			return $http.post('api/orders', newOrder).then(function(response){
-				localStorageService.remove('order')
+				localStorageService.remove('order');
 				return response.data;
 			});
 		}

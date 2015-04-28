@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/cart/cart.html',
         controller: 'CartCtrl',
         resolve : {
-            lineItemsInfo : function(CartFactory){
+            CartInfo : function(CartFactory){
                 return CartFactory.getCart();
             }
         }
@@ -13,13 +13,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFactory, AuthService, $state, CartFactory, lineItemsInfo) {
+app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFactory, AuthService, $state, CartFactory, CartInfo) {
 
     $scope.newQuantity = null;
 
     $scope.cart = {
         id: localStorageService.get('order'),
-        products: lineItemsInfo,
+        products: CartInfo,
         user: null,
         total: 0,
         shippingAddress: {
@@ -43,9 +43,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
     };
 
     AuthService.getLoggedInUser().then(function (user) {
-        if(user){
-            $scope.cart.user = user._id;
-        }
+        if(user) $scope.cart.user = user._id;
     });
 
     $scope.sameBilling = function(){
@@ -66,6 +64,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
         }
     };
 
+
     $scope.showUpdateField = function () {
         if ($scope.showUpdate) $scope.showUpdate = false;
         else $scope.showUpdate = true;
@@ -73,15 +72,14 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
 
     $scope.updateQuantity = function (id, quantity){
         CartFactory.updateQuantity(id, quantity).then( function(response){
-            console.log('UPDATED.', response)
-            $window.location.reload();
-            //$state.go($state.current, {}, {reload: true});
+            // $window.location.reload();
+            $state.go($state.current, {}, {reload: true});
         });
     };
 
-    $scope.removeLineItem = function(lineItemId){
-        CartFactory.removeLineItem(lineItemId).then( function(){
-            angular.element('#'+lineItemId).remove(); //remove elem from DOM
+    $scope.removeFromCart = function(lineItemID){
+        CartFactory.removeFromCart(lineItemID).then( function(){
+            angular.element('#'+lineItemID).remove(); //remove elem from DOM
         });
     };
 
@@ -92,7 +90,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
             //$state.go('orders', {id: data._id});
             NavFactory.loader=true;
         }).catch(function(err){
-            console.log(err);
+            $state.go('error');
         });
    };
 

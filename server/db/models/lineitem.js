@@ -19,6 +19,11 @@ var schema = new mongoose.Schema({
         type: Number,
         //required: true,
         min : 0
+    },
+    status : {
+        type: String, 
+        required: true, 
+        default: 'Created'
     }
 });
 
@@ -63,9 +68,40 @@ schema.statics.addItemToCurrentOrder = function (lineItem, cb) {
                     });
                 });
             });
-        };
+        }
 };
 
+
+schema.statics.updateLineItem = function(lineItemID, statusChange){
+    //update line items and if all line items of the same objectId changes, it'' affect the status of the entire order.
+    this.findByIdAndUpdate(lineItemID, statusChange,function(err,lineItem){
+        if (err) throw new Error(err);
+        // if line item is changed to completed or cancelled, check to see if the other line items are completed/cancelled to update the total order status
+        if (statusChange.status === 'Completed' || statusChange.status === 'Cancelled'){
+            this.find({order : lineItem.order}, function(err, cart){
+                if(err) throw new Error(err);
+                var completedLineItems = cart.filter(function(el){
+                    return el.status === 'Completed' || el.status === 'Cancelled';
+                });
+
+                if(completedLineItems.length === cart.length){
+                    //if all is completed then update the entire order status to completed
+                    Order.findByIdAndUpdate(lineItem.order, {status : 'Completed'}, {new: true}, function(err, data){
+                        if (err) throw new Error(err);
+                        return data;
+                    });
+                }
+            });
+        }
+    });
+};
+
+schema.statics.updateOrder = function(orderID, statusChange){
+    // if order status changes, line item status would also have to change
+    this.find({order : orderID}, statusChange, {}, function(err, data){
+        
+    });
+};
 
 schema.statics.findByCriteria = function (query) {
     return this.find(query)
@@ -78,3 +114,7 @@ schema.statics.findByCriteria = function (query) {
 };
 
 var LineItem = mongoose.model('LineItem', schema);
+
+LineItem.schema.path('status').validate(function (value) {
+  return /Created|Processing|Cancelled|Completed/i.test(value);
+}, 'Invalid Line Item Status');

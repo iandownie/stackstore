@@ -1,0 +1,16 @@
+<tr>
+    <td>{{ product.name }}</td>
+    <td>{{ quantity }}</td>
+    <td>{{ product.price | currency }}</td>
+    <td ng-init="itemTotal = ; cart.total = cart.total + itemTotal">{{itemTotal | currency}}</td>
+    <td>
+        <button ng-click="showModifyOptions()" ng-hide="showModify">Modify</button>
+        <button ng-click="showUpdateField()" ng-show="showModify">Update Quantity</button>
+        <form ng-show="showUpdate" ng-submit="updateQuantity(product._id, newQuantity)">
+            <input type="number" placeholder="{{product.quantity}}" ng-model="newQuantity">
+            <button>Go</button>
+        </form>
+        <button ng-click="removeFromCart(product._id)" ng-show="showModify">Remove</button>
+        <button ng-click="showModifyOptions()" ng-show="showModify">Done</button>
+    </td>
+</tr>
