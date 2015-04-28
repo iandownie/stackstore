@@ -47,12 +47,11 @@ router.get('/:url', function (req, res, next) {
         }
     }
 
-    Store.findOneAndCategory(req.params.url, query)
-            .then(function(store){
-                res.json(store);
-            }).then(null, function(err){
-                return next(err);
-            });
+    Product.findStoreProductsByCategory(req.params.url, req.query, function(err, data){
+        if(err) return next(err);
+        console.log(data);
+        res.json(data);
+    });
 });
 
 router.delete('/:id', function (req, res, next) {
