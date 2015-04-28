@@ -102,7 +102,13 @@ var seedUsers = function () {
             lastName: 'Baltar',
             email: 'cylon@galatica.com',
             password: 'need2jump'
-        }
+        },
+        {
+            firstName: 'Sheogorath',
+            lastName: 'Parrallax',
+            email: 'Sheogorath@Parrallax.com',
+            password: 'Parallax'
+        },
     ];
 
     return q.invoke(User, 'create', users);
@@ -118,6 +124,9 @@ var seedCategories = function(){
     },
     {
         name : 'Weaponry'
+    },
+    {
+        name : 'Madness'
     }];
 
     return q.invoke(Category, 'create', categories);
@@ -140,6 +149,12 @@ var seedStores = function(userIDArray){
         user : userIDArray[2], //user Tyrion Lannister
         name: 'Tyrion\'s Armory',
         logo: 'http://dailycampus.com/wp-content/uploads/2015/03/03-30-2015-Armory-logo.jpg'
+    },
+    {
+        user: userIDArray[5], //user Trash Miner
+        name : "Cheese Monger\'s Hollow",
+        url : 'madness',
+        logo : 'http://www.ufunk.net/wp-content/uploads/2014/03/David-Szakaly-animated-GIFs-4.gif'
     }];
 
     return q.invoke(Store, 'create', stores);
@@ -165,7 +180,8 @@ var seedProducts = function (storeIDArray, categoriesIDArray) {
              categories : [categoriesIDArray[0]],
              store: storeIDArray[0],
              images : ['http://www.makingthishome.com/wp-content/uploads/2009/10/sock-hole.jpg', 'https://c1.staticflickr.com/9/8458/7935235656_091438ae30.jpg', 'http://www.alwaysonholladays.com/wp-content/uploads/2011/07/IMG_3844.jpg']
-        },{
+        },
+        {
             name : 'Stained White Tees',
             price : 69.99,
             quantity : 2,
@@ -219,6 +235,33 @@ var seedProducts = function (storeIDArray, categoriesIDArray) {
             store: storeIDArray[2],
             images : ['https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQ8NE9Q7JGTgt2EMoKjxN4062FXtR0RsxQ2yHFeqY4DcuJbqfI&usqp=CAE']
         },
+        {
+            name: 'Swiss',
+            price: "6.99",
+            description: 'Holiest of Holy Cheeses',
+            quantity:2,
+            categories : [categoriesIDArray[3]],
+            store: storeIDArray[3],
+            images : ['http://www.ufunk.net/wp-content/uploads/2014/03/David-Szakaly-animated-GIFs-9.gif']
+        },
+        {
+            name: 'Cheddar',
+            price: "4.99",
+            description: 'Show me the Cheddar!!!!',
+            quantity:5,
+            categories : [categoriesIDArray[3]],
+            store: storeIDArray[3],
+            images : ['http://www.ufunk.net/wp-content/uploads/2014/03/David-Szakaly-animated-GIFs-2.gif']
+        },
+        {
+            name: 'limburger',
+            price: "9.99",
+            description: 'Smells delicious!',
+            quantity:1,
+            categories : [categoriesIDArray[3]],
+            store: storeIDArray[3],
+            images : ['http://www.ufunk.net/wp-content/uploads/2014/03/David-Szakaly-animated-GIFs-5.gif']
+        }
     ];
 
     return q.invoke(Product, 'create', products);
@@ -243,10 +286,17 @@ var seedReviews = function (productIDArray, userIDArray) {
     },
     {
         product : productIDArray[1],
-        user : userIDArray[3],
+        user : userIDArray[5],
         rating : 1,
         title : 'Wat',
         description : 'Did I receive the wrong product? Because it doesn\'t work the way they say it would'
+    },
+    {
+        product : productIDArray[11],
+        user : userIDArray[5],
+        rating : 5,
+        title : 'Cheesey Review',
+        description : 'Brain-meltingly good!'
     }];
 
     return q.invoke(Review, 'create', reviews);
