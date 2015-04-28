@@ -1,61 +1,113 @@
+
+
 <section id="product">
-    <div class="main-container">
-    	<div class="left-col">
+    <div class="product-wrap">
+        <div class="row">
+            <div class="title-header">
+                Ye Olde {{product.name}}
+            </div>
+        <div id="content-col">
+            <a href="/{{store._id}}"><img src={{store.images[0]}}></img></a>
+        </div>
+        <div class="row">
+            <div class="images-wrap">
+                <div class="big-image-wrap">
+                    <img src="{{product.images[0]}}" ></img>
+                </div>
+                <div class="small-images-wrap">
+                    <img src="{{product.images[0]}}" ></img>
+                    <img src="{{product.images[0]}}" ></img>
+                    <img src="{{product.images[0]}}" ></img>
+                    <img src="{{product.images[0]}}" ></img>
+                </div>
+            </div>
+            <div class="product-description">
+                <div class="description">
+                    <p>Description: {{product.description}} </p>
+                </div>
+                <div class="price">
+                   <p> Price: {{product.price | currency}} </p>
+                </div>
+                <div class="quantity">
+                    <p> Quantity Left: Only {{product.quantity}}! </p>
+                </div>
+            </div>
+            <div class="product-actions">
+                <form class="order">
+                    <div class="add-to-cart">
+                        <button ng-click="addToCart(product, quant)">Add to Cart</button>
+                    </div>
+                    <div class="add-quantity">
+                        <input type="number" ng-model="quant"></input>
+                    </div>
+
+                </form>
+            </div>
+            <br>
+        </div>
+
+    </div>
+    <div class="edittor">
+        <ul class="collapsible" data-collapsible="accordion" ng-show="currentUser.store === product.store._id">
+          <li>
+            <div class="collapsible-header"><i class="mdi-editor-mode-edit"></i>This Product Is Yours. You May Edit</div>
+            <div class="collapsible-body">
+                <form ng-submit="editProduct(product)">
+                    <span>
+                    <label>Product name: </label> <br>
+                    <input  ng-model="product.name"></input><br>
+                    </span>
+                    <span>
+                    <label>Quantity Available: </label><br>
+                    <input  type="number" class="override-input" ng-model="product.quantity"></input><br>
+                    </span>
+                    <span>
+                    <label>Product Description: </label><br>
+                    <input  ng-model="product.description"></input><br>
+                    </span>
+                    <span>
+                    <label>Product Price: </label><br>
+                    <input  type="float" ng-model="product.price"></input><br>
+                    </span>
+                    <button class="btn btn-primary " type="submit">Save Changes</button><br>
+                    <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>Delete Item</button>
+                </form>    
+            </div>
+          </li>
+        </ul>
+    </div>
+</section>
+
+<!--     <div class="main-container">
+        <div class="left-col">
             <h2>{{store}}</h2>
-            {{user}}
-    	</div>
+        </div>
         <div id="content-col">
             <a href="/{{store._id}}"><img src={{store.images[0]}}></img></a>
         </div>
     </div>
-    	<div class="main-container">
-    		<div class="left-col">
-    			<h1 class="product-name">{{product.name}} from {{store.name}}</h1>
-    			<img class="primary-img" src={{product.images[0]}}></img>
-    		</div>
-    		<div id="content-col">
-    			<form class="order">
-    				<span>
+        <div class="main-container">
+            <div class="left-col">
+                <img class="primary-img" src={{product.images[0]}}></img>
+            </div>
+            <div id="content-col">
+                <form class="order">
+                    <span>
                         <h3>price:</h3>
-		    			<h4>${{product.price}}</h3>
-		    			<h4>Product Description:</h4>
-		    			<p>{{product.description}}</p>
+                        <h4>${{product.price}}</h3>
+                        <h4>Product Description:</h4>
+                        <p>{{product.description}}</p>
                         <p>Number to buy:</p>
                         <input type="number" ng-model="quant"></input>
                         <p>{{product.quantity}} left</p>
-		    		</span>
-		    		<button ng-click="addToCart(product, quant)">Add to Cart</button>
-    			</form>
-                <button ng-show="{{product.user==user._id}}" ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
-            <div ng-show="visible">
-                <form ng-submit="editProduct(product)">
-                    <span>
-                    <label>Product name: </label>
-                    <input  ng-model="product.name"></input>
                     </span>
-                    <span>
-                    <label>Quantity Available: </label>
-                    <input  type="number" ng-model="product.quantity"></input>
-                    </span>
-                    <span>
-                    <label>Product Description: </label>
-                    <input  ng-model="product.description"></input>
-                    </span>
-                    <span>
-                    <label>Product Price: </label>
-                    <input  type="float" ng-model="product.price"></input>
-                    </span>
-                    <span>
-                    <label>Product Images: </label>
-                    </span>
-                    <input type="text" ng-model="product.images"></input>
-                    <button class="btn btn-primary " type="submit">Save Changes</button>
+                    <button ng-click="addToCart(product, quant)">Add to Cart</button>
                 </form>
-                <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>Un-List Product</button>
+                <button ng-show="{{product.user==user._id}}" ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
+            
             </div>
-    		</div>
 
-    	</div>
+        </div>
         
         
     </div>
@@ -85,5 +137,11 @@
                 </form>
             </span>
         </div>    
-    </div>
-</section>
+    </div> -->
+    <script>
+    $(document).ready(function(){
+      $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+      });
+    });
+    </script>

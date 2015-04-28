@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('SignUpController', function ($state, $scope, NavFactory, SignUpFactory, AuthService) {
+app.controller('SignUpController', function ($state, $scope, NavFactory, SignUpFactory, AuthService, $timeout) {
 
     $scope.newUser = {
         firstName: undefined,

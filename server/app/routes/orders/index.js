@@ -9,7 +9,7 @@ var router = require('express').Router();
 
 
 router.post('/', function(req, res, next){
-	console.log('Order route: ', req.body);
+
 	//update order status to processing
 	req.body.status = 'Processing';
 
@@ -19,8 +19,6 @@ router.post('/', function(req, res, next){
 
 		Product.updateQuantities(req.body, function (err, otherData){
 			if(err) return next(err);
-			console.log('ORDERS ROUTE - DATA', data);
-			console.log('ORDERS ROUTE - OTHERDATA', otherData);
 			res.json(data);
 		});
 	});

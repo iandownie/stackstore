@@ -59,6 +59,7 @@ select{
   background: black;
 }
 body{
+
 color: black;
   //text-shadow: 0 0 2px white,
   //           -1px -1px 14px white,
@@ -101,3 +102,4 @@ color: black;
 @import 'productsList/main';
 @import 'admin/admin';
 @import 'stores/main';
+@import 'product/main';

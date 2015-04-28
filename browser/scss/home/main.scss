@@ -1,5 +1,6 @@
 #home {
   color: black;
+
   fullstack-logo {
     padding-top: 30px;
     width: 150px;
@@ -19,6 +20,12 @@
   .owl-item{
   	text-align: center;
   	margin-bottom:40px;
+    img{
+      width:120px;
+      height: 120px;
+      margin:0 auto;
+    }
+
   }
   h4 {
   	margin:40px;
@@ -35,9 +42,7 @@
   	text-align: center;
   	padding:10px;
   }
-  img{
-  	margin:0 auto;
-  }
+
   .spacer.prepare {
   	height:100px;
   	background-image: url('images/nice-bg.jpg');
