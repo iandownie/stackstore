@@ -292,7 +292,7 @@ var seedReviews = function (productIDArray, userIDArray) {
         description : 'Did I receive the wrong product? Because it doesn\'t work the way they say it would'
     },
     {
-        product : productIDArray[11],
+        product : productIDArray[10],
         user : userIDArray[5],
         rating : 5,
         title : 'Cheesey Review',
