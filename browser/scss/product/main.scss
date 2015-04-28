@@ -1,5 +1,22 @@
 #product{
-
+	.edittor {
+		width:80%;
+		margin: 0 auto;
+		input {
+			padding:10px;
+			width:50%;
+		}
+		form {
+			margin:10px;
+			text-align: center;
+		}
+		.override-input {
+			width:50%;
+		}
+		button {
+			width:50%;
+		}
+	}
 	.product-wrap{
 	margin: 0 auto;
 	width:80%;	

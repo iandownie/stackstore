@@ -7,7 +7,6 @@ app.config(function ($stateProvider) {
         controller: 'ProductCtrl',
         resolve: {
             productsInfo:function($stateParams, $state, ProductFactory){
-
                 return ProductFactory.getProduct($stateParams.id).catch(function(err){
                     $state.go('error');
                 });
@@ -31,8 +30,9 @@ app.factory('ProductFactory', function ($http) {
                 return response.data;
             });
         },
-        deleteProduct: function(productID){
-            return $http.delete('api/products/' + productID).then(function(response){
+        deleteProduct: function(product){
+            console.log("product: ", product);
+            return $http.delete('api/products/' + product._id).then(function(response){
                 return response.data;
             });
         }
@@ -42,7 +42,7 @@ app.factory('ProductFactory', function ($http) {
 
 app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInfo, ProductFactory, CartFactory, ReviewFactory, NavFactory) {
     $scope.visible=false;
-
+    $scope.currentUser = null
     $scope.quant=1;
 
     $scope.product = productsInfo;
@@ -51,12 +51,14 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
         rating : 0,
         title: '',
         description: '',
-        user: null
+        user: undefined
     };
 
     AuthService.getLoggedInUser().then(function (user) {
         if(user){
             $scope.review.user = user._id;
+            $scope.currentUser = user;
+
         }
     });
 

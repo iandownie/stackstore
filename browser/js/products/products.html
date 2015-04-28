@@ -41,35 +41,39 @@
 
                 </form>
             </div>
-            <div ng-show="visible">
+            <br>
+        </div>
+
+    </div>
+    <div class="edittor">
+        <ul class="collapsible" data-collapsible="accordion" ng-show="currentUser.store === product.store._id">
+          <li>
+            <div class="collapsible-header"><i class="mdi-editor-mode-edit"></i>This Product Is Yours. You May Edit</div>
+            <div class="collapsible-body">
                 <form ng-submit="editProduct(product)">
                     <span>
-                    <label>Product name: </label>
-                    <input  ng-model="product.name"></input>
+                    <label>Product name: </label> <br>
+                    <input  ng-model="product.name"></input><br>
                     </span>
                     <span>
-                    <label>Quantity Available: </label>
-                    <input  type="number" ng-model="product.quantity"></input>
+                    <label>Quantity Available: </label><br>
+                    <input  type="number" class="override-input" ng-model="product.quantity"></input><br>
                     </span>
                     <span>
-                    <label>Product Description: </label>
-                    <input  ng-model="product.description"></input>
+                    <label>Product Description: </label><br>
+                    <input  ng-model="product.description"></input><br>
                     </span>
                     <span>
-                    <label>Product Price: </label>
-                    <input  type="float" ng-model="product.price"></input>
+                    <label>Product Price: </label><br>
+                    <input  type="float" ng-model="product.price"></input><br>
                     </span>
-                    <span>
-                    <label>Product Images: </label>
-                    </span>
-                    <input type="text" ng-model="product.images"></input>
-                    <button class="btn btn-primary " type="submit">Save Changes</button>
-                </form>
-                <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>Un-List Product</button>
+                    <button class="btn btn-primary " type="submit">Save Changes</button><br>
+                    <button class='btn btn-danger' ng-click='deleteProduct(product._id)'>Delete Item</button>
+                </form>    
             </div>
-        </div>
+          </li>
+        </ul>
     </div>
-    {{product}}
 </section>
 
 <!--     <div class="main-container">
@@ -132,3 +136,10 @@
             </span>
         </div>    
     </div> -->
+    <script>
+    $(document).ready(function(){
+      $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+      });
+    });
+    </script>
