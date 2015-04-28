@@ -2,30 +2,34 @@
     <div ng-repeat="store in stores" class="main-container" id="bar">
     	<div class="left-col">
     		<a ng-href='/stores/{{store.url}}' >
-		    	<h1>Store: {{ store.name }}</h1>
-		    	<h3>Owner: {{ store.user.firstName }} {{ store.user.lastName }}</h3>
+		    	<h4>Store: {{ store.name }}</h4>
+		    	<h5>Owner: {{ store.user.firstName }} {{ store.user.lastName }}</h5>
 	    	</a>
-	    	<h2>Products available at this store: </h2>
+	    	<h6>Products:</h6>
 	    	<div ng-repeat="product in store.products">
 	    		<div ng-hide="hovered" class="hovering">
 	    			<a href="products/{{product._id}}">
-	    				<h3>{{product.name}}</h3>
+	    				<h7>{{product.name}}</h7>
 	    			</a> 
-	    			<div class="details">
-	    				<a href="products/{{product._id}}">
-	    					<img src="{{product.images[0]}}"></img>
-	    				</a>	
-	    				<p class=price>Price: ${{product.price}}<p>
-	    				<p>Product Description: {{product.description}}</p>
-	    				<p>Quanitity Available: {{product.quantity}}</p>
-	    				<p>Reviews: </p>
-	    				<p ng-repeat="review in reviews">{{product.review}}</p>
+	    			<div class="details main-container">
+	    				<div >
+		    				<a href="products/{{product._id}}">
+		    					<img src="{{product.images[0]}}"></img>
+		    				</a>	
+		    			</div>
+		    			<div>
+		    				<h6 class="price">Price: ${{product.price}}</h6>
+		    				<h6>Product Description: {{product.description}}</h6>
+		    				<h6>Quanitity Available: {{product.quantity}}</h6>
+		    				<h6>Reviews: </h6>
+		    				<h6 ng-repeat="review in reviews">{{product.review}}</h6>
+	    				</div>
 	    			</div>	
 	    		</div>
 	    	</div>
 	    </div>
 	    <div id="content-col" ng-hide="{{store.logo}}==''"> 	
-	        <a ng-href='/stores{{store.url}}' ><img class="store-img" src="{{store.logo}}" /></a> 
+	        <a ng-href='/stores/{{store.url}}' ><img class="store-img" src="{{store.logo}}" /></a> 
 	    </div>   
     </div>
 </section>

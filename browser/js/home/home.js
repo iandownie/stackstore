@@ -7,12 +7,15 @@ app.config(function ($stateProvider) {
         resolve: {
             productsList:function(ProductsListFactory){
                 return ProductsListFactory.getAll();
+            },
+            storesList:function(StoresFactory){
+                return StoresFactory.loadAllStores();
             }
         }
     });
 });
-app.controller('HomeCtrl', function ($scope, $state, NavFactory, productsList) {
+app.controller('HomeCtrl', function ($scope, $state, NavFactory, productsList, storesList) {
     $scope.productsList = productsList;
-
+    $scope.storesList = storesList
 });
 

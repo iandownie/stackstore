@@ -88,7 +88,7 @@
 				    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
 
 				    <textarea name="productdescription" ng-maxlength="150" placeholder="Product Description. Drag Bottom Right to Expand" ng-model="product.description"></textarea>
-				    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
+				    <select ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
 					</select>
 				    <input name="productimages" placeholder="images" ng-model="product.images"></input>
 				</div>

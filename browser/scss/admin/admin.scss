@@ -1,3 +1,12 @@
-#product{
-	
+#admin{
+	.main-container {
+		width:80%;
+		margin: 0 auto;
+		font-family: impScrawl;
+	}
+	tr.heading {
+		td {
+			text-decoration: underline;
+		}
+	}	
 }
