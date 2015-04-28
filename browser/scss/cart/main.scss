@@ -1,0 +1,22 @@
+.progress{
+	background-color: red;
+	.determinate{
+	background-color: #600911;
+	}
+}
+
+section#cart{
+	h1{
+		color: #600911;
+		text-shadow: -1px 1px 1px black,
+		-2px 2px 1px black,
+		-3px 3px 1px black;
+	}
+	thead{
+		border-bottom: solid 2px #600911;
+	}
+	td.total{
+		border-top: solid 2px #600911;
+	}
+
+}

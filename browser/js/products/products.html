@@ -78,70 +78,10 @@
     </div>
 </section>
 
-<!--     <div class="main-container">
-        <div class="left-col">
-            <h2>{{store}}</h2>
-        </div>
-        <div id="content-col">
-            <a href="/{{store._id}}"><img src={{store.images[0]}}></img></a>
-        </div>
-    </div>
-        <div class="main-container">
-            <div class="left-col">
-                <img class="primary-img" src={{product.images[0]}}></img>
-            </div>
-            <div id="content-col">
-                <form class="order">
-                    <span>
-                        <h3>price:</h3>
-                        <h4>${{product.price}}</h3>
-                        <h4>Product Description:</h4>
-                        <p>{{product.description}}</p>
-                        <p>Number to buy:</p>
-                        <input type="number" ng-model="quant"></input>
-                        <p>{{product.quantity}} left</p>
-                    </span>
-                    <button ng-click="addToCart(product, quant)">Add to Cart</button>
-                </form>
-                <button ng-show="{{product.user==user._id}}" ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
-            
-            </div>
-
-        </div>
-        
-        
-    </div>
-    <div class="main-container">
-        <div class="left-col">
-            <h3>Past Reviews:</h3>
-            {{product.reviews}}
-            <p ng-repeat="review in product.reviews">{{product.review}}</p>
-        </div>
-        <div class="content-col">
-            <span ng-show="{{product.user==user._id}}">
-                <h3>{{user}}Bought this Item? Then please, leave a</h3><button ng-click="hidde=!hidde">Review</button>
-                <form ng-show="hidde" ng-submit='createReview(product._id, review)'>
-                    <span>
-                        <label>Product Rating:</label>
-                        <input ng-min=0 ng-max=5 type='number' ng-model='review.rating'>
-                    </span>
-                    <span>   
-                        <label>Review Summary:</label> 
-                        <input placeholder="Summary" type='text' ng-model='review.title'>
-                    </span>
-                    <span>
-                        <label>Review:</label>
-                        <textarea placeholder="Write your review here." ng-model='review.description'></textarea>
-                    </span>
-                    <button> Submit Review </button>
-                </form>
-            </span>
-        </div>    
-    </div> -->
-    <script>
+<script>
     $(document).ready(function(){
       $('.collapsible').collapsible({
         accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
       });
     });
-    </script>
+</script>
