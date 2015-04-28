@@ -1,4 +1,4 @@
-<div class="navbar-fixed">
+<div class="navbar-fixed" id="header">
     <nav ng-controller="NavController" style="background: #600911">
         <div class="nav-wrapper ">
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
@@ -6,13 +6,12 @@
             <!--<img src="images/tyrion-lannister.png"></img>-->
 
                 <ul id="nav-mobile" class="hide-on-med-and-down">
-                    <li ng-click="select('home')" ng-class="{activepage: selected === 'home'}" ui-sref="home">The Imp's Bazaar</li>
+                    <li ng-click="select('home')" ng-class="{activepage: selected === 'home'}" ui-sref="home"><img src="images/logo/lannister_logo_50x50_1pt.png" style="height: 64px;"></img></li>
                     <li ng-click="select('stores')" ng-class="{activepage: selected === 'stores'}" ui-sref="stores">Stores</li>
                     <li ng-click="select('products')" ng-class="{activepage: selected === 'products'}" ui-sref="productsList">Products</li>
                     <li ng-click="select('profile')" ng-class="{activepage: selected === 'profile'}" ng-show="isLoggedIn()" ui-sref="profile">Profile</li>
 
                 </ul>
-
                 <!--mobile hamburger bar-->
                 <ul class="side-nav" id="mobile-demo">
                     <li ui-sref="home">The Imp's Bazaar</li>

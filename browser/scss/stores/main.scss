@@ -84,23 +84,23 @@
 	}
 	#modal{
 		color: black;
-		background-color: #888;
+		background-color: #fff;
 		display: block; 
 		opacity: 0; 
 		bottom: -100%;
 		transition: all 1s;
 		.modal-footer{
-			background-color: #888;
+			background-color: #fff;
 		}
 	}
 	#modal.off{
-		background-color: #888;
+		background-color: #fff;
 		display: block; 
 		opacity: 0; 
 		bottom: -100%;
 		transition: all 1s;
 		.modal-footer{
-			background-color: #888;
+			background-color: #fff;
 		}
 	}
 	#modal.on{

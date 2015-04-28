@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 input{
-  background: transparent;
   transition: box-shadow 0.3s, border 0.3s;
 }
 button.btn {
@@ -11,6 +10,7 @@ button.btn {
 }
 button.btn:hover{
   background-color: #3D070C
+
 }
 /*button.btn:hover {
   background: linear-gradient(199deg, black, red, black, red, #c30b0b, #490606, #c30b0b, #340202);
@@ -20,8 +20,18 @@ button.btn:hover{
   -webkit-animation: navbarGradient 20s ease infinite;
   -o-animation: navbarGradient 20s ease infinite;
 }*/
-
-
+nav.side-nav li{
+  background-color: rgb(96, 9, 17);
+  transition: All 1s;
+}
+nav.side-nav li:hover{
+  background-color: #3D070C;
+  box-shadow: 0 0 11px 3px #000;
+}
+.side-nav li:hover, .side-nav li.active{
+    background-color: #3D070C;
+  box-shadow: 0 0 11px 3px #000;
+}
 input.focus,
 input:focus{
   border: solid 1px #707070;

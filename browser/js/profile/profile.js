@@ -21,6 +21,7 @@ app.config(function ($stateProvider) {
 
 app.controller('ProfileController', function ($scope, $state, NavFactory, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
     $scope.user = getUserInfo;
+    console.log($scope.user)
     $scope.store =  getUserInfo.store || {
         name: undefined,
         url: undefined,
@@ -30,7 +31,9 @@ app.controller('ProfileController', function ($scope, $state, NavFactory, AuthSe
 
     if($scope.user.store){
         StoresFactory.loadStoreFrontById($scope.user.store).then(function (store){
+            console.log("store: ",store)
             $scope.store = store;
+            console.log("$scope.store",$scope.store)
         });
     }
 
