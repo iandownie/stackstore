@@ -2,21 +2,15 @@
 <section id="storepage">
 	<div id="top">
 		<ul id="category-nav" class="collection">
-			<li class="collection-item">Category Name</li>
-			<li class="collection-item">Category Name</li>
-			<li class="collection-item">Category Name</li>
-			<li class="collection-item">Category Name</li>
-			<li class="collection-item">Category Name</li>
-			<li class="collection-item">Category Name</li>
-			<li ng-click="currentcat=category.name" ng-repeat="category in categories">{{category.name}}</li>
+			<li class="collection-item">All Categories</li>
+			<li ng-repeat="category in categoryList" ng-click="loadStoreFront(currentStore._id, category._id)" class="collection-item">{{category.name}}</li>
 		</ul>
 		<div id="main-window">
 			<div id="logo">
 				<img src="{{currentStore.logo}}"/>
 			</div>
 			<div>
-			{{currentStore}}
-				<h1 ng-hide="currentUser._id==currentStore.user._id">{{currentStore.name}}</h1>
+				<h5 ng-hide="currentUser._id==currentStore.user._id">{{currentStore.name}}</h5>
 				<h5 class="main-container" ng-show="currentUser._id==currentStore.user._id">Your Store.</h5>
 				<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
 			</div>
@@ -30,117 +24,118 @@
 	
 		
 	</div>
-	<div ng-show="currentUser._id==currentStore.user._id" id="store-editor">
-		<div class="main-container">
-			<button class="waves-effect waves-light btn modal-trigger" ng-click="properties={user:currentStore._id}; deleteItem='off'; editItem='off'; editStore='on';newItem='off'">Store Editor</button>
-			<button  ng-click="deleteItem='off'; editItem='off'; editStore='off';newItem='on'" class="waves-effect waves-light btn modal-trigger">Add New Item</button>
-		</div>
-		<div class="main-container">
-			<button ng-click="deleteItem='off'; editItem='on'; editStore='off';newItem='off'" class="waves-effect waves-light btn">Edit Item</button>
-			<button ng-click="deleteItem='on'; editItem='off'; editStore='off';newItem='off'" class='waves-effect waves-light btn'>Remove Product</button>
-		</div>
-	</div>
-	<div class="main-container">
-		<h4>{{currentStore.name}}'s products for sale:</h3>
-	</div>
-	<div class="main-container">
-		<form ng-submit='loadStoreFront(store._id, categories)'>
-			<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
-			</select>
-			<button class="waves-effect waves-light btn">Filter By Category</button>
-		</form>	
-	</div>
-	<div id="modal" class="modal" ng-class="editItem">
-	    <form ng-submit="editProduct(selectedProduct)">
-	    	<div class="modal-content">
-	    		<label>Choose Product:</label>
-	    		<select ng-model='selectedProduct' ng-options="product.name for product in currentStore.products">
-	    		</select>
-	    		<label>Edit Name:</label>
-		        <input  ng-model="selectedProduct.name" placeholder="{{product.name}}"></input>
-		        <label>Edit Quantity:</label>
-		        <input  type="number" ng-model="selectedProduct.quantity" placeholder="{{selectedProduct.quantity}}"></input>
-		        <label>Description:</label>
-		        <input  ng-model="selectedProduct.description" placeholder="{{selectedProduct.description}}"></input>
-		        <label>Edit Price:</label>
-		        <input  type="float" ng-model="selectedProduct.price" placeholder="{{selectedProduct.price}}"></input>
-		        <button class="btn btn-primary" type="submit">Save Changes</button>
-		    </div>    
-	    </form>
-	    <button class="btn-primary btn" >Add or Remove Pictures</button>
-	</div>
-	<div id="modal" class="modal" ng-class="deleteItem">
-	    <form ng-submit="deleteProduct(deletedProduct); deleteItem='off'">
-	    	<div class="modal-content">
-	    		<label>Choose Product:</label>
-	    		<select ng-model='deletedProduct' ng-options="product.name for product in currentStore.products">
-	    		</select>
-		        <button class="btn btn-primary" >Delete Selected Product</button>
-		    </div>    
-	    </form>
-	    <button class="btn-primary btn" >Add or Remove Pictures</button>
-	</div>
-	<div id="modal" class="modal" ng-class="newItem">
-		<error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
-		<error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
-		<error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
-		<error ng-show="productNew.productprice.$error.min">Price must be over 0</error>
-		<error ng-show="productNew.productprice.$touched && productNew.productprice.$error.required">Price is required!</error>
-		<error ng-show="productNew.productquantity.$error.min">Quantity must not be negative</error>
-		<error ng-show="productNew.productdescription.$error.maxlength">Description is too long!</error>
-		<form ng-submit="productNew.$valid && product.store && newProduct(product)" name="productNew">
-			<div class="modal-content">
-				<input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
-			    <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
-			    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
-			    <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
-			    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
-				</select>
-			    <input name="productimages" placeholder="images" ng-model="product.images"></input>
+	<div ng-class="editOn" ng-show="currentUser._id==currentStore.user._id" id="editor">
+			<button id="opener" class="btn" ng-click="editOn='editing'">Editor</button>
+			<button id="opened" class="btn" ng-click="editOn='not'">Close</button>
+			<div id="store-editor">
+				<button class="waves-effect waves-light btn modal-trigger" ng-click="properties={user:currentStore._id}; deleteItem='off'; editItem='off'; editStore='on';newItem='off'">Store Editor</button>
+				<button  ng-click="deleteItem='off'; editItem='off'; editStore='off';newItem='on'" class="waves-effect waves-light btn modal-trigger">Add New Item</button>
+				<button ng-click="deleteItem='off'; editItem='on'; editStore='off';newItem='off'" class="waves-effect waves-light btn">Edit Item</button>
+				<button ng-click="deleteItem='on'; editItem='off'; editStore='off';newItem='off'" class='waves-effect waves-light btn'>Remove Product</button>
 			</div>
-			<div class="modal-footer">
+	</div>
+	<div id="store-bottom">
+		<div class="main-container">
+			<h4>{{currentStore.name}}'s products for sale:</h3>
+		</div>
+		<div id="modal" class="modal" ng-class="editItem">
+		    <form ng-submit="editProduct(selectedProduct)">
+		    	<div class="modal-content">
+		    		<h6>Choose Product:</h6>
+		    		<select ng-model='selectedProduct' ng-options="product.name for product in currentStore.products">
+		    		</select>
+		    		<h6>Edit Name:</h6>
+			        <input  ng-model="selectedProduct.name" placeholder="{{product.name}}"></input>
+			        <h6>Edit Quantity:</h6>
+			        <input  type="number" ng-model="selectedProduct.quantity" placeholder="{{selectedProduct.quantity}}"></input>
+			        <h6>Description:</h6>
+			        <input  ng-model="selectedProduct.description" placeholder="{{selectedProduct.description}}"></input>
+			        <h6>Edit Price:</h6>
+			        <input  type="float" ng-model="selectedProduct.price" placeholder="{{selectedProduct.price}}"></input>
+			        <button class="btn btn-primary" type="submit">Save Changes</button>
+			    </div>    
+		    </form>
+		    <button class="waves-effect waves-light btn modal-trigger" ng-click="editItem='off'">Cancel</button>
+		    <button class="btn-primary btn" >Add or Remove Pictures</button>
+		</div>
+		<div id="modal" class="modal" ng-class="deleteItem">
+		    <form ng-submit="deleteProduct(deletedProduct); deleteItem='off'">
+		    	<div class="modal-content">
+		    		<h5>Choose Product to Delete:</h5>
+		    		<div class="main-container">
+			    		<div>
+				    		<select ng-model='deletedProduct' ng-options="product.name for product in currentStore.products">
+				    		</select>
+			    		</div>
+		    		</div>
+			        <button class="btn btn-primary" >Delete Selected Product</button>
+			    </div>    
+		    </form>
+		    <button class="waves-effect waves-light btn modal-trigger" ng-click="deleteItem='off'">Cancel</button>
+		</div>
+		<div id="modal" class="modal" ng-class="newItem">
+			<error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
+			<error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
+			<error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
+			<error ng-show="productNew.productprice.$error.min">Price must be over 0</error>
+			<error ng-show="productNew.productprice.$touched && productNew.productprice.$error.required">Price is required!</error>
+			<error ng-show="productNew.productquantity.$error.min">Quantity must not be negative</error>
+			<error ng-show="productNew.productdescription.$error.maxlength">Description is too long!</error>
+			<form ng-submit="productNew.$valid && product.store && newProduct(product)" name="productNew">
+				<div class="modal-content">
+					<input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
+				    <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
+				    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
+
+				    <textarea name="productdescription" ng-maxlength="150" placeholder="Product Description. Drag Bottom Right to Expand" ng-model="product.description"></textarea>
+				    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
+					</select>
+				    <input name="productimages" placeholder="images" ng-model="product.images"></input>
+				</div>
 				<button class="waves-effect waves-light btn">Save New Item</button>	
-				<button class="waves-effect waves-light btn modal-trigger" ng-click="editItem='off'">Cancel</button>
+			</form>
+			<div class="modal-footer">
+				<button class="waves-effect waves-light btn modal-trigger" ng-click="newItem='off'">Cancel</button>
 			</div>
-		</form>
-	</div>	
-	<div id="modal" class="modal" ng-class="editStore">	
-		<form ng-submit="customizeStore(properties)">
-			<div class="modal-content">
-				<label>Hide Imp's Bazzar Navigation Bar?</label>
-				<input ng-model="properties.nav"type="checkbox"/>
-				<label>Background Image or Color:</label>
-				<input ng-model="properties.backcolor" type="color"/>
-				<input ng-model="properties.backimage" type="text"/>
-				<label>Primary Store Text Color:</label>
-				<input ng-model="properties.fontcolorone" type="color"/>
-				<label>Secondary Store Text Color:</label>
-				<input ng-model="properties.fontcolortwo" type="color"/>
-				<label>Text Shadow Color:</label>
-				<input ng-model="properties.fontshadow" type="color"/>
-				<label>Store Description:</label>
-				<textarea placeholder="Drag Bottom Right to Expand" ng-model="properties.description"></textarea>
-			</div>
-			<div class="modal-footer">	
-				<button class="waves-effect waves-light btn">Save Changes</button>
-				<button class="waves-effect waves-light btn modal-trigger" ng-click="editStore='off'">Cancel</button>
-			</div>	
-		</form>
-	</div>	
-	<div id="product-container">	
-		<div ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
-			<a href="/products/{{product._id}}" class="product">
-				<img src="{{product.images[0]}}"/>
-				<div class="item-hide">
-					<h4>Product Information:</h4>
-					<p>{{ product.name }}</p>
-					<p>Price: {{ product.price }}</p>
-					<p>Quantity Available: {{ product.quantity }}</p>
-					<p>Description: {{ product.description }}</p>
-					<p ng-repeat="review in product.reviews">Reviews: {{product.review}}</p>
-				</div>		
-			</a>
 		</div>	
+		<div id="modal" class="modal" ng-class="editStore">	
+			<form ng-submit="customizeStore(properties)">
+				<div class="modal-content">
+					<h6>Hide Imp's Bazzar Navigation Bar?</h6>
+					<input ng-model="properties.nav"type="checkbox"/>
+					<h6>Background Image or Color:</h6>
+					<input ng-model="properties.backcolor" type="color"/>
+					<input ng-model="properties.backimage" placeholder="Image URL" type="text"/>
+					<h6>Primary Store Text Color:</h6>
+					<input ng-model="properties.fontcolorone" type="color"/>
+					<h6>Secondary Store Text Color:</h6>
+					<input ng-model="properties.fontcolortwo" type="color"/>
+					<h6>Text Shadow Color:</h6>
+					<input ng-model="properties.fontshadow" type="color"/>
+					<h6>Store Description:</h6>
+					<textarea placeholder="Drag Bottom Right to Expand" ng-model="properties.description"></textarea>
+				</div>
+				<div class="modal-footer">	
+					<button class="waves-effect waves-light btn">Save Changes</button>
+					<button class="waves-effect waves-light btn modal-trigger" ng-click="editStore='off'">Cancel</button>
+				</div>	
+			</form>
+		</div>	
+		<div id="product-container">	
+			<div ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish" ng-hide="false">
+				<a href="/products/{{product._id}}" class="product">
+					<img src="{{product.images[0]}}"/>
+					<div class="item-hide">
+						<h4>Product Information:</h4>
+						<p>{{ product.name }}</p>
+						<p>Price: {{ product.price }}</p>
+						<p>Quantity Available: {{ product.quantity }}</p>
+						<p>Description: {{ product.description }}</p>
+						<p ng-repeat="review in product.reviews">Reviews: {{product.review}}</p>
+					</div>		
+				</a>
+			</div>	
+		</div>		
 	</div>		
 </section>	
 
