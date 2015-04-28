@@ -23,7 +23,19 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
         user: null,
         total: 0,
         shippingAddress: {
+            firstName: null,
+            lastName: null,
             street: null,
+            street2: null,
+            city: null,
+            state: null,
+            zip: null
+        },
+        billingAddress: {
+            firstName: null,
+            lastName: null,
+            street: null,
+            street2: null,
             city: null,
             state: null,
             zip: null
@@ -33,6 +45,15 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
     AuthService.getLoggedInUser().then(function (user) {
         if(user) $scope.cart.user = user._id;
     });
+
+    $scope.sameBilling = function(){
+        if ($scope.billingIsSame) {
+            $scope.billingIsSame = false;
+            $scope.cart.billingAddress = $scope.cart.shippingAddress;
+            console.log('BILLING ADDRESS:', $scope.cart.billingAddress)
+        }
+        else $scope.billingIsSame = true;
+    };
 
     $scope.showModifyOptions = function () {
         if ($scope.showModify) {

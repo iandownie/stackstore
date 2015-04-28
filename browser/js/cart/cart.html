@@ -1,7 +1,5 @@
-<div class="main-container">
+<div style="width: 70%; text-align: center">
     <h1>Shopping Cart</h1>
-</div>
-<div class="main-container">
     <div class="left-col">
         <table ng-show="cart.products.length > 0" class="table table-bordered">
 
@@ -10,7 +8,7 @@
                     <td>Name</td>
                     <td>Quantity</td>
                     <td>Price</td>
-                    <td>Total Price</td>
+                    <td>Subtotal</td>
 
                 </tr>
             </thead>
@@ -31,27 +29,105 @@
                         <button ng-click="showModifyOptions()" ng-show="showModify">Done</button>
                     </td>
                 </tr>
+            <tr>
+                <td>Total:</td>
+                <td></td>
+                <td></td>
+                <td>{{cart.total | currency}}</td>
+            </tr>
             </tbody>
 
         </table>
         <h4 ng-show="cart.products[0]==null">You cart is currently empty</h4>
     </div>
+</div><br/>
+<br/>
+    <div class="row">
+    <div class="col s12 m6 l8">
+        <h4>Shipping Information</h4>
+        <form ng-submit="submitOrder(cart)" name="address" novalidate>
+            <div class="row">
+                <div class="input-field">
+                    <input id="first_name" name="first" type="text" ng-maxlength="15" ng-model="cart.shippingAddress.firstName" required></input><br/>
+                    <label for="first_name">First Name</label>
+                </div>
+                <div class="input-field">
+                    <input id="last_name" name="last" type="text" ng-maxlength="15" ng-model="cart.shippingAddress.lastName" required></input><br/>
+                    <label for="last_name">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input id="street" name="street" type="text" ng-maxlength="15" ng-model="cart.shippingAddress.street" required></input><br/>
+                    <label for="street">Street</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input id="street_2" name="street2" type="text" ng-maxlength="15" ng-model="cart.shippingAddress.street2" required></input><br/>
+                    <label for="street_2">Street 2</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input id="city" name="city" type="text" ng-model="cart.shippingAddress.city" required></input><br/>
+                    <label for="city">City</label>
+                </div>
+                <!--<div class="input-field col s12">-->
+                    <!--<state-selector></state-selector>-->
+                <!--</div>-->
+                <div class="input-field">
+                    <input id="state" name="state" type="text" ng-maxlength="2" ng-minlength="2" ng-model="cart.shippingAddress.state"></input><br/>
+                    <label for="state">State</label>
+                </div>
+                <div class="input-field">
+                    <input id="zip" name="zip" ng-maxlength="5" ng-minlength="5" ng-model="cart.shippingAddress.zip" required></input><br/>
+                    <label for="zip">Zip</label>
+                </div>
+            </div>
 
-    <h4>Total: {{cart.total | currency}} </h4>
-
-    <div class="content-col">
-        <h2>Shipping Information</h2>
-
-        <form ng-submit="submitOrder(cart)" name="address">
-            <input name="first" type="text" placeholder="first name" ng-maxlength="15" ng-model="cart.shippingAddress.firstName" required></input><br/>
-            <input name="last" type="text" placeholder="last name" ng-maxlength="15" ng-model="cart.shippingAddress.lastName" required></input><br/>
-            <input name="street" type="text" placeholder="street" ng-maxlength="15" ng-model="cart.shippingAddress.street" required></input><br/>
-            <input name="city" type="text" placeholder="city" ng-model="cart.shippingAddress.city" required></input><br/>
-            <input name="state" type="text" placeholder="state" ng-maxlength="2" ng-minlength="2" ng-model="cart.shippingAddress.state"></input><br/>
-            <input name="zip" placeholder="zip" ng-maxlength="5" ng-minlength="5" ng-model="cart.shippingAddress.zip" required></input><br/>
-            <button>Submit Order</button><br/>
-        </form>
-    </div>    
-</div>    
-
-
+        <div class="col s12 m6 l8">
+            <h4>Billing Information</h4>
+            <input ng-click="sameBilling()" type="checkbox" id="same_billing" /><label for="same_billing">Check if the same as shipping</label>
+                <div class="row">
+                    <div class="input-field" ng-hide="billingIsSame">
+                        <input id="billing_first_name" name="first" type="text" ng-maxlength="15" ng-model="cart.billingAddress.firstName" required></input><br/>
+                        <label for="billing_first_name">First Name</label>
+                    </div>
+                    <div class="input-field" ng-hide="billingIsSame">
+                        <input id="billing_last_name" name="last" type="text" ng-maxlength="15" ng-model="cart.billingAddress.lastName" required></input><br/>
+                        <label for="billing_last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field" ng-hide="billingIsSame">
+                        <input id="billing_street" name="street" type="text" ng-maxlength="15" ng-model="cart.billingAddress.street" required></input><br/>
+                        <label for="billing_street">Street</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field" ng-hide="billingIsSame">
+                        <input id="billing_street_2" name="street2" type="text" ng-maxlength="15" ng-model="cart.billingAddress.street2" required></input><br/>
+                        <label for="billing_street_2">Street 2</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field" ng-hide="billingIsSame">
+                        <input id="billing_city" name="city" type="text" ng-model="cart.billingAddress.city" required></input><br/>
+                        <label for="billing_city">City</label>
+                    </div>
+                    <div class="input-field" ng-hide="billingIsSame">
+                        <input id="billing_state" name="billing_state" type="text" ng-maxlength="2" ng-minlength="2" ng-model="cart.billingAddress.state"></input><br/>
+                        <label for="billing_state">State</label>
+                    </div>
+                    <div class="input-field" ng-hide="billingIsSame">
+                        <input id="billing_zip" name="zip" ng-maxlength="5" ng-minlength="5" ng-model="cart.billingAddress.zip" required></input><br/>
+                        <label for="billing_zip">Zip</label>
+                    </div><br/>
+                    <button>Submit Order</button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="col s12 m3 l2"></div>
+    </div>

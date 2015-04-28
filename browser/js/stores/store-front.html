@@ -1,202 +1,146 @@
 <link rel="stylesheet" type="text/css" href="/{{currentStore._id}}.css" />
 <section id="storepage">
-	<nav id="custom-nav" class="main-container">
-		<h1>{{currentStore.name}}</h1>
-
-	</nav>
-	<div ng-show="currentUser._id==currentStore.user._id">
-		<div >
-			<h1 class="main-container">Your Store.</h1>
-			<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
+	<div id="top">
+		<ul id="category-nav" class="collection">
+			<li class="collection-item">Category Name</li>
+			<li class="collection-item">Category Name</li>
+			<li class="collection-item">Category Name</li>
+			<li class="collection-item">Category Name</li>
+			<li class="collection-item">Category Name</li>
+			<li class="collection-item">Category Name</li>
+			<li ng-click="currentcat=category.name" ng-repeat="category in categories">{{category.name}}</li>
+		</ul>
+		<div id="main-window">
+			<div id="logo">
+				<img src="{{currentStore.logo}}"/>
+			</div>
+			<div>
+			{{currentStore}}
+				<h1 ng-hide="currentUser._id==currentStore.user._id">{{currentStore.name}}</h1>
+				<h5 class="main-container" ng-show="currentUser._id==currentStore.user._id">Your Store.</h5>
+				<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
+			</div>
+			<div class="main-container" >
+				<h6 class="main-container" ng-show="currentUser._id==currentStore.user._id">You can customize your store's appearance or add/delete/edit your products from this page.</h6>
+				<h6 class="main-container" ng-hide="currentUser._id==currentStore.user._id">store.description</h6>
 		</div>
-		<div class="main-container" >
-			<h1 class="main-container">You can customize your store's appearance or add/delete/edit your products from this page.</h1>
 		</div>
+	</div>
+	<div >
+	
+		
 	</div>
 	<div ng-show="currentUser._id==currentStore.user._id" id="store-editor">
-			<button ng-hide="editor==true" ng-click="properties={user:currentStore._id}; editor=true">Store Editor</button>
-			<button ng-show="editor==true" ng-click="editor=false">Customer View</button>
+		<div class="main-container">
+			<button class="waves-effect waves-light btn modal-trigger" ng-click="properties={user:currentStore._id}; deleteItem='off'; editItem='off'; editStore='on';newItem='off'">Store Editor</button>
+			<button  ng-click="deleteItem='off'; editItem='off'; editStore='off';newItem='on'" class="waves-effect waves-light btn modal-trigger">Add New Item</button>
+		</div>
+		<div class="main-container">
+			<button ng-click="deleteItem='off'; editItem='on'; editStore='off';newItem='off'" class="waves-effect waves-light btn">Edit Item</button>
+			<button ng-click="deleteItem='on'; editItem='off'; editStore='off';newItem='off'" class='waves-effect waves-light btn'>Remove Product</button>
+		</div>
 	</div>
 	<div class="main-container">
-		<div class="left-col">
-			<img src="{{store.logo}}" />
-			<div ng-show="currentUser._id==currentStore.user._id">
-				<h3 >Add New Item</h3>
-				<error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
-				<error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
-				<error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
-				<error ng-show="productNew.productprice.$error.min">Price must be over 0</error>
-				<error ng-show="productNew.productprice.$touched && productNew.productprice.$error.required">Price is required!</error>
-				<error ng-show="productNew.productquantity.$error.min">Quantity must not be negative</error>
-				<error ng-show="productNew.productdescription.$error.maxlength">Description is too long!</error>
-				<form ng-submit="productNew.$valid && product.store && newProduct(product)" name="productNew">
-				    <input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
-				    <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
-				    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
-				    <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
-				    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
-					</select>
-				    <input name="productimages" placeholder="images" ng-model="product.images"></input>
-				    <button>Submit Product</button>
-				</form>
-			</div>	
-		</div>
-		<div class="content-col">
-			<form ng-submit='loadStoreFront(store._id, categories)'>
-				<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
+		<h4>{{currentStore.name}}'s products for sale:</h3>
+	</div>
+	<div class="main-container">
+		<form ng-submit='loadStoreFront(store._id, categories)'>
+			<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
+			</select>
+			<button class="waves-effect waves-light btn">Filter By Category</button>
+		</form>	
+	</div>
+	<div id="modal" class="modal" ng-class="editItem">
+	    <form ng-submit="editProduct(selectedProduct)">
+	    	<div class="modal-content">
+	    		<label>Choose Product:</label>
+	    		<select ng-model='selectedProduct' ng-options="product.name for product in currentStore.products">
+	    		</select>
+	    		<label>Edit Name:</label>
+		        <input  ng-model="selectedProduct.name" placeholder="{{product.name}}"></input>
+		        <label>Edit Quantity:</label>
+		        <input  type="number" ng-model="selectedProduct.quantity" placeholder="{{selectedProduct.quantity}}"></input>
+		        <label>Description:</label>
+		        <input  ng-model="selectedProduct.description" placeholder="{{selectedProduct.description}}"></input>
+		        <label>Edit Price:</label>
+		        <input  type="float" ng-model="selectedProduct.price" placeholder="{{selectedProduct.price}}"></input>
+		        <button class="btn btn-primary" type="submit">Save Changes</button>
+		    </div>    
+	    </form>
+	    <button class="btn-primary btn" >Add or Remove Pictures</button>
+	</div>
+	<div id="modal" class="modal" ng-class="deleteItem">
+	    <form ng-submit="deleteProduct(deletedProduct); deleteItem='off'">
+	    	<div class="modal-content">
+	    		<label>Choose Product:</label>
+	    		<select ng-model='deletedProduct' ng-options="product.name for product in currentStore.products">
+	    		</select>
+		        <button class="btn btn-primary" >Delete Selected Product</button>
+		    </div>    
+	    </form>
+	    <button class="btn-primary btn" >Add or Remove Pictures</button>
+	</div>
+	<div id="modal" class="modal" ng-class="newItem">
+		<error ng-show="productNew.productname.$error.maxlength">Name is too long!</error>
+		<error ng-show="productNew.productname.$touched && productNew.productname.$error.required">Name is required!</error>
+		<error ng-show="productNew.productdescription.$touched && productNew.productdescription.$error.required">Description is required!</error>
+		<error ng-show="productNew.productprice.$error.min">Price must be over 0</error>
+		<error ng-show="productNew.productprice.$touched && productNew.productprice.$error.required">Price is required!</error>
+		<error ng-show="productNew.productquantity.$error.min">Quantity must not be negative</error>
+		<error ng-show="productNew.productdescription.$error.maxlength">Description is too long!</error>
+		<form ng-submit="productNew.$valid && product.store && newProduct(product)" name="productNew">
+			<div class="modal-content">
+				<input name="productname" placeholder="name" ng-maxlength="15" ng-model="product.name" required></input>
+			    <input name="productprice" type="number" placeholder="price" ng-model="product.price" required min="0"></input>
+			    <input name="productquantity" type="number" placeholder="quantity" ng-model="product.quantity" min="0"></input>
+			    <input name="productdescription" placeholder="description" ng-maxlength="150" ng-model="product.description" required></input>
+			    <select multiple ng-model='product.categories' ng-options='category._id as category.name for category in categoryList'>
 				</select>
-				<button >Filter By Category</button>
-			</form>
-
-			<table class="table table-bordered">
-
-				<thead>
-				<tr>
-					<td>
-						<a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-							Name
-							<span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
-							<span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
-						</a>
-					</td>
-					<td>
-						<a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">
-							Price
-							<span ng-show="sortType == 'price' && !sortReverse" class="fa fa-caret-down"></span>
-							<span ng-show="sortType == 'price' && sortReverse" class="fa fa-caret-up"></span>
-						</a>
-					</td>
-					<td>
-						<a href="#" ng-click="sortType = 'quantity'; sortReverse = !sortReverse">
-							Quantity
-							<span ng-show="sortType == 'quantity' && !sortReverse" class="fa fa-caret-down"></span>
-							<span ng-show="sortType == 'quantity' && sortReverse" class="fa fa-caret-up"></span>
-						</a>
-					</td>
-					<td>
-						<a href="#" ng-click="sortType = 'description'; sortReverse = !sortReverse">
-							Desciption
-							<span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
-							<span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
-						</a>
-					</td>
-				</tr>
-				</thead>
-
-
-				<tbody>
-				<tr ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
-					<td>{{ product.name }}</td>
-					<td>{{ product.price }}</td>
-					<td>{{ product.quantity }}</td>
-					<td>{{ product.description }}</td>
-					<td ng-show="editor==true"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
-			            <div ng-show="visible">
-			                <form ng-submit="editProduct(product)">
-			                    <input  ng-model="product.name"></input>
-			                    <input  type="number" ng-model="product.quantity"></input>
-			                    <input  ng-model="product.description"></input>
-			                    <input  type="float" ng-model="product.price"></input>
-			                    <button class="btn btn-primary " type="submit">Save Changes</button>
-			                </form>
-			                <button class="btn-primary btn" >Add or Remove Pictures</button>
-			            </div>
-			        </td>    
-			        <td ng-show="editor==true"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
-				</tr>
-				</tbody>
-			</table>
-			<div ng-show="editor==true">
-			{{properties}}
-				<form ng-submit="customizeStore(properties)">
-					<label>Hide Imp's Bazzar Navigation Bar?</label>
-					<input ng-model="properties.nav"type="checkbox"/>
-					<label>Background Image or Color:</label>
-					<input ng-model="properties.backcolor" type="color"/>
-					<input ng-model="properties.backimage" type="text"/>
-					<label>Primary Store Text Color:</label>
-					<input ng-model="properties.fontcolorone" type="color"/>
-					<label>Secondary Store Text Color:</label>
-					<input ng-model="properties.fontcolortwo" type="color"/>
-					<label>Text Shadow Color:</label>
-					<input ng-model="properties.fontshadow" type="color"/>
-					<label>Store Description:</label>
-					<textarea placeholder="Drag Bottom Right to Expand" ng-model="properties.description"></textarea>
-					<button >Submit Changes</button>
-				</form>
+			    <input name="productimages" placeholder="images" ng-model="product.images"></input>
 			</div>
-		</div>
+			<div class="modal-footer">
+				<button class="waves-effect waves-light btn">Save New Item</button>	
+				<button class="waves-effect waves-light btn modal-trigger" ng-click="editItem='off'">Cancel</button>
+			</div>
+		</form>
+	</div>	
+	<div id="modal" class="modal" ng-class="editStore">	
+		<form ng-submit="customizeStore(properties)">
+			<div class="modal-content">
+				<label>Hide Imp's Bazzar Navigation Bar?</label>
+				<input ng-model="properties.nav"type="checkbox"/>
+				<label>Background Image or Color:</label>
+				<input ng-model="properties.backcolor" type="color"/>
+				<input ng-model="properties.backimage" type="text"/>
+				<label>Primary Store Text Color:</label>
+				<input ng-model="properties.fontcolorone" type="color"/>
+				<label>Secondary Store Text Color:</label>
+				<input ng-model="properties.fontcolortwo" type="color"/>
+				<label>Text Shadow Color:</label>
+				<input ng-model="properties.fontshadow" type="color"/>
+				<label>Store Description:</label>
+				<textarea placeholder="Drag Bottom Right to Expand" ng-model="properties.description"></textarea>
+			</div>
+			<div class="modal-footer">	
+				<button class="waves-effect waves-light btn">Save Changes</button>
+				<button class="waves-effect waves-light btn modal-trigger" ng-click="editStore='off'">Cancel</button>
+			</div>	
+		</form>
+	</div>	
+	<div id="product-container">	
+		<div ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
+			<a href="/products/{{product._id}}" class="product">
+				<img src="{{product.images[0]}}"/>
+				<div class="item-hide">
+					<h4>Product Information:</h4>
+					<p>{{ product.name }}</p>
+					<p>Price: {{ product.price }}</p>
+					<p>Quantity Available: {{ product.quantity }}</p>
+					<p>Description: {{ product.description }}</p>
+					<p ng-repeat="review in product.reviews">Reviews: {{product.review}}</p>
+				</div>		
+			</a>
+		</div>	
 	</div>		
 </section>	
-
-<!-- <form ng-submit='loadStoreFront(store._id, categories)'>
-	<select multiple ng-model='categories' ng-options='category._id as category.name for category in categoryList'>
-	</select>
-	<button class='btn btn-primary'>GET ME PRODUCTS</button>
-</form>
-
-<table class="table table-bordered table-striped">
-
-	<thead>
-	<tr>
-		<td>
-			<a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-				Name
-				<span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
-				<span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
-			</a>
-		</td>
-		<td>
-			<a href="#" ng-click="sortType = 'price'; sortReverse = !sortReverse">
-				Price
-				<span ng-show="sortType == 'price' && !sortReverse" class="fa fa-caret-down"></span>
-				<span ng-show="sortType == 'price' && sortReverse" class="fa fa-caret-up"></span>
-			</a>
-		</td>
-		<td>
-			<a href="#" ng-click="sortType = 'quantity'; sortReverse = !sortReverse">
-				Quantity
-				<span ng-show="sortType == 'quantity' && !sortReverse" class="fa fa-caret-down"></span>
-				<span ng-show="sortType == 'quantity' && sortReverse" class="fa fa-caret-up"></span>
-			</a>
-		</td>
-		<td>
-			<a href="#" ng-click="sortType = 'description'; sortReverse = !sortReverse">
-				Desciption
-				<span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
-				<span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
-			</a>
-		</td>
-	</tr>
-	</thead>
-
-	<tbody>
-	<tr ng-repeat="product in currentStore.products | orderBy:sortType:sortReverse | filter:searchFish">
-		<td>{{ product.name }}</td>
-		<td>{{ product.price }}</td>
-		<td>{{ product.quantity }}</td>
-		<td>{{ product.description }}</td>
-		<td ng-show="currentUser._id==currentStore.user._id"><button ng-click="visible=!visible" class="btn-primary btn">Edit Item</button>
-            <div ng-show="visible">
-                <form ng-submit="editProduct(product)">
-                    <input  ng-model="product.name"></input>
-                    <input  type="number" ng-model="product.quantity"></input>
-                    <input  ng-model="product.description"></input>
-                    <input  type="float" ng-model="product.price"></input>
-                    <button class="btn btn-primary " type="submit">Save Changes</button>
-                </form>
-                <button class="btn-primary btn" >Add or Remove Pictures</button>
-            </div>
-        </td>    
-        <td ng-show="currentUser._id==currentStore.user._id"><button class='btn btn-danger' ng-click='deleteProduct(product._id)'>DELETE ME</button></td>
-	</tr>
-	</tbody>
-
-</table>
-
-User._id: {{user._id}} <br/>
-
-Store.user._id: {{store.user._id}}
-
-</div> -->
 

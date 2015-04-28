@@ -21,7 +21,10 @@ var schema = new mongoose.Schema({
     },
     lineitem:[{
         type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
-    }]
+    }],
+    description: {
+        type: String
+    }
 });
 
 schema.post('save', function(doc, next){
