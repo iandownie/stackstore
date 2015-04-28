@@ -10,9 +10,6 @@ var schema = new mongoose.Schema({
     url:{
         type: String, unique: true
     },
-    products: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Product'
-    }],
     logo: {
         type: String
     },
@@ -42,18 +39,6 @@ schema.statics.findAndPopulate = function (){
         .exec(function (err, stores){
             if (err) console.error(err);
             return stores;
-        });
-};
-
-schema.statics.findByIdAndCategory = function (id, query){
-    var productCategoryQuery = [{path: 'products',
-                                match: query}];
-    return this.findById(id)
-        .populate(productCategoryQuery)
-        .populate(userQuery)
-        .exec(function (err, store){
-            if (err) throw new Error(err);
-            return store;
         });
 };
 
