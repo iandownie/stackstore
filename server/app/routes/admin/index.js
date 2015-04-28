@@ -6,9 +6,13 @@ var User = mongoose.model('User');
 var Admin = mongoose.model('Admin');
 
 router.get('/', function(req, res, next){
-	User.find({}, function (err, users){
-		res.send(users);
-	})
+	if(req.user._type === "Admin"){
+		User.find({}, function (err, users){
+			res.send(users);
+		})	
+	} else {
+		res.status(401)
+	}
 })
 
 router.delete('/:id', function(req, res, next){
@@ -18,10 +22,6 @@ router.delete('/:id', function(req, res, next){
 })
 
 router.put('/', function(req, res, next){
-	//console.log(req.body);
-	// Admin.promoteUser(req.body, function(err, admin){
-	// 	res.send(admin);
-	// })
     User.findByIdAndRemove(req.body._id, function (err, user){
         Admin.create(req.body, function (err, admin){
         	res.send(admin);
