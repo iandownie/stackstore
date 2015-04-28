@@ -16,7 +16,7 @@
 	 <div class="row">
 	 	<div class="col s12 m2 lg3" ng-repeat="product in productsList">
 			<!-- <pre>{{product | json}}</pre> -->
-			<h5 class="productPrice"> Item: {{product.name}}</h5>
+			<h5 class="productPrice"> Item: <a href="/products/{{product._id}}"> {{product.name}} </a></h5>
 				<div class="main-container">
 					<div class="image-wrapper">
 						<img class="store-img" src="{{product.images[0]}}"></img>

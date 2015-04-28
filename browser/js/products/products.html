@@ -6,6 +6,8 @@
             <div class="title-header">
                 Ye Olde {{product.name}}
             </div>
+        <div id="content-col">
+            <a href="/{{store._id}}"><img src={{store.images[0]}}></img></a>
         </div>
         <div class="row">
             <div class="images-wrap">
@@ -117,7 +119,7 @@
         </div>
         <div class="content-col">
             <span ng-show="{{product.user==user._id}}">
-                <h3>Bought this Item? Then please, leave a</h3><button ng-click="hidde=!hidde">Review</button>
+                <h3>{{user}}Bought this Item? Then please, leave a</h3><button ng-click="hidde=!hidde">Review</button>
                 <form ng-show="hidde" ng-submit='createReview(product._id, review)'>
                     <span>
                         <label>Product Rating:</label>
