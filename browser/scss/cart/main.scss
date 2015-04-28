@@ -4,7 +4,10 @@
 	background-color: #600911;
 	}
 }
-
+.main-container{
+	display: flex;
+	justify-content: center;
+}
 section#cart{
 	h1{
 		color: #600911;
