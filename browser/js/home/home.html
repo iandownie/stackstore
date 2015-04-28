@@ -17,10 +17,9 @@
 		</div>
 		<h4 class="new-products"> Stores </h4>
 		<div id="home-store-owl">
-			<div class="item" ng-repeat="product in productsList">
-				<div class="title-wrap"> <a href="/products/{{product._id}}"> {{product.name}}</a></div>
-			 	<img src="{{product.images[0]}}" /> <br>
-				<a href="/stores/{{product.store._id}}"> {{product.store.name}} </a>
+			<div class="item" ng-repeat="store in storesList">
+				<div class="title-wrap"> <a href="/products/{{product._id}}"> {{store.name}}</a></div>
+			 	<img src="{{store.logo}}" /> <br>
 			</div>
 		</div>
 </section>
