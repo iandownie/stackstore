@@ -81,6 +81,9 @@ schema.statics.createStoreAndAttachUser = function(store){
                 return newStore;
             });
         });
+    }).exec(function(err, data){
+        if(err) throw new Error(err);
+        return data;
     });
 };
 

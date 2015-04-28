@@ -124,7 +124,6 @@ var seedCategories = function(){
 };
 
 var seedStores = function(userIDArray){
-
     var stores = [{
         user: userIDArray[0], //user Trash Miner
         name : 'Trashy',
@@ -321,7 +320,23 @@ connectToDb.then(function () {
             throw new Error(err);
         });
 
-    }).then(function(storeArray){
+    })
+    .then(function(storeArray){
+        //Linking Stores to Users
+        var storeUserArray = storeArray.map(function(el){
+            return User.findByIdAndUpdate(el.user, {store : el._id}, function(err, data){
+                    if(err) throw new Error(err);
+                    return data;
+                }).exec();
+        });
+
+        return q.all(storeUserArray).then(function(dataArr){
+            return storeArray;
+        }).catch(function(err){
+            throw new Error(err);
+        });
+    })
+    .then(function(storeArray){
         var storeIDArray = storeArray.map(function(el){
             return el._id;
         });
