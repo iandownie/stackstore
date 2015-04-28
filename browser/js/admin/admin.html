@@ -13,28 +13,33 @@
 						
 					</div>
 				</div>
-
 			</div>
 			<table>
 				<tr class="heading">
 					<td>first name</td>
 					<td>last name</td>
 					<td>email </td>
+					<td>store </td>
 					<td>permission</td>
 					<td>actions</td>
-
 				</tr>
 				<tr ng-repeat="user in users">
 					<td>{{user.firstName}}</td>
 					<td>{{user.lastName}}</td>
 					<td>{{user.email}}</td>
+
+						<td>
+							<a ng-if="user.store" href="/stores/{{user.store._id}}">{{user.store.name}} </a>
+							<span ng-if="!user.store" href="/stores/{{user.store}}"> No Store </span>
+
+						</td>
+
+
 					<td>{{user._type || 'User'}}</td>
 					<td> 
 						<button class="mdi-action-delete waves-effect waves-light btn" ng-click="deleteUser(user)" > Remove </button>
-						<button class="mdi-navigation-expand-less waves-effect waves-light btn" ng-click="promoteUser(user)" >Promote </button>
+						<button class="mdi-navigation-expand-less waves-effect waves-light btn" ng-click="promoteUser(user)" > Promote </button>
 					</td>
-
-
 				</tr>
 			</table>
 		</div>

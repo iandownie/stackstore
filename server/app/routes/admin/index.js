@@ -7,9 +7,11 @@ var Admin = mongoose.model('Admin');
 
 router.get('/', function(req, res, next){
 	if(req.user._type === "Admin"){
-		User.find({}, function (err, users){
-			res.send(users);
-		})	
+		User.find({})
+		.populate('store')
+		.exec(function(err, stores){
+			res.send(stores)
+		})
 	} else {
 		res.status(401)
 	}
