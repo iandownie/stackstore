@@ -7,7 +7,6 @@ app.config(function ($stateProvider) {
         controller: 'ProductCtrl',
         resolve: {
             productsInfo:function($stateParams, $state, ProductFactory){
-
                 return ProductFactory.getProduct($stateParams.id).catch(function(err){
                     $state.go('error');
                 });
@@ -43,7 +42,7 @@ app.factory('ProductFactory', function ($http) {
 
 app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInfo, ProductFactory, CartFactory, ReviewFactory, NavFactory) {
     $scope.visible=false;
-
+    $scope.currentUser = null
     $scope.quant=1;
 
     $scope.product = productsInfo;
@@ -58,6 +57,8 @@ app.controller('ProductCtrl', function ($scope, $state, AuthService, productsInf
     AuthService.getLoggedInUser().then(function (user) {
         if(user){
             $scope.review.user = user._id;
+            $scope.currentUser = user;
+
         }
     });
 
