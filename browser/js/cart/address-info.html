@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col s12 m6 l8">
         <h4>Shipping Information</h4>
-        <form ng-submit="submitOrder(cart)" name="address" novalidate>
+        <form name="address" novalidate>
             <div class="row">
                 <div class="input-field">
                     <input id="first_name" name="first" type="text" ng-maxlength="15" ng-model="cart.shippingAddress.firstName" required></input><br/>
@@ -84,10 +84,11 @@
                         <input id="billing_zip" name="zip" ng-maxlength="5" ng-minlength="5" ng-model="cart.billingAddress.zip" required></input><br/>
                         <label for="billing_zip">Zip</label>
                     </div><br/>
-                    <button>Submit Order</button>
                 </div>
             </div>
         </form>
     </div>
     <div class="col s12 m3 l2"></div>
 </div>
+<a class="waves-effect waves-light btn red" ui-sref="cart.finalizeOrder">Checkout</a>
+
