@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Order = mongoose.model('Order');
+var LineItem = mongoose.model('LineItem');
 var Product = mongoose.model('Product');
 
 var router = require('express').Router();
@@ -18,9 +19,8 @@ router.post('/', function(req, res, next){
 
 		Product.updateQuantities(req.body, function (err, otherData){
 			if(err) return next(err);
-
+			res.json(data);
 		});
-		res.json(data);
 	});
 });
 
@@ -44,9 +44,11 @@ router.put('/:id', function(req, res, next){
 });
 
 router.delete('/:id', function(req, res, next){
+	var status = {status : 'Cancelled'};
 	//delete an order
-	Order.findByIdAndRemove(req.params.id, function(err, data){
-		if(err) return next(err);
+	LineItem.updateOrder(req.params.id, status).then(function(data){
+		// returns new order data
+		console.log(data);
 		res.json(data);
 	});
 });
