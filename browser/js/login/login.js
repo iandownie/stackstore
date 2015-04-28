@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, NavFactory, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, NavFactory, AuthService, $state, SignUpFactory) {
 
     $scope.login = {};
     $scope.error = null;
@@ -25,7 +25,24 @@ app.controller('LoginCtrl', function ($scope, NavFactory, AuthService, $state) {
             $scope.error = 'Invalid login credentials.';
             NavFactory.loader=true;
         });
+    };
 
+    $scope.newUser = {
+        firstName: undefined,
+        lastName: undefined,
+        email: undefined,
+        password: undefined
+    };
+
+    $scope.signUp = function (user) {
+        NavFactory.loader=false;
+        SignUpFactory.registerNewUser(user).then(function(data){
+            AuthService.login({email: user.email, password: user.password})
+                .then(function(){
+                    $state.go('home');
+                    NavFactory.loader=false;
+                });
+        });
     };
 
 });

@@ -21,8 +21,8 @@ router.post('/', function(req, res, next){
 			console.log('ORDERS ROUTE - DATA', data)
 			console.log('ORDERS ROUTE - OTHERDATA', otherData)
 
-			res.send(data);
 		})
+		res.json(data);
 	});
 });
 

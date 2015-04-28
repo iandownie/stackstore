@@ -1,22 +1,49 @@
 <div id="loginForm">
-    <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-            <div class="alert alert-danger" ng-show="error">
-                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                <span class="sr-only">Error:</span>
-                {{ error }}
-            </div>
 
-            <div class="form-group">
-                <h4>Login:</h4> <br>
-                <label for="email">Email address</label>
-                <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="login-password">Password</label>
-                <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-default">Login</button>
+<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+    <div class="form-group">
+        <h4>Login:</h4> <br>
+        <label for="email">Email address</label>
+        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default">Login</button> <br>
+    <button style="margin-top:10px;" class="waves-effect waves-light btn modal-trigger" href="#modal1"> Sign Up</button>
 
-        </div>
-    </form>  
-</div>
+</form>
+  <!-- Modal Trigger -->
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Sign-up</h4>
+      <error ng-show="signupform.firstname.$error.maxlength">First name is too long!</error>
+      <error ng-show="signupform.firstname.$touched && signupform.firstname.$error.required">First name is required!</error>
+      <error ng-show="signupform.lastname.$error.maxlength">Last name is too long!</error>
+      <error ng-show="signupform.lastname.$touched && signupform.lastname.$error.required">Last name is required!</error>
+      <error ng-show="signupform.email.$touched && signupform.email.$error.required">Email is required!</error>
+      <error ng-show="signupform.password.$touched && signupform.password.$error.required">Password is required!</error>
+      <form name="signupform" ng-submit="signupform.$valid && signUp(newUser)">
+          <label>First Name:</label>
+          <input name="firstname" ng-maxlength="10" type="text" ng-model="newUser.firstName" required><br/>
+          <label>Last Name:</label>
+          <input name="lastname" ng-maxlength="15" type="text" ng-model="newUser.lastName" required><br/>
+          <label>Email:</label>
+          <input name="email" type="text" ng-model="newUser.email" required><br/>
+          <label>Password:</label>
+          <input name="password" type="password" ng-model="newUser.password" required>
+          <button class="close-modal"> Sign Up</button>
+      </form>    
+    </div>
+  </div>
+<script>
+    $(document).ready(function(){
+      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+      $('.modal-trigger').leanModal();
+      $('.close-modal').on('click', function(){
+        $("#modal1").closeModal();
+      })
+    });
+</script>
