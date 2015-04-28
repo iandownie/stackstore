@@ -19,7 +19,7 @@ var schema = new mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true
     },
-    orders:[{
+    lineitem:[{
         type: mongoose.Schema.Types.ObjectId, ref: 'LineItem'
     }]
 });
@@ -30,11 +30,12 @@ schema.post('save', function(doc, next){
     next();
 });
 
+var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
+
 schema.statics.findAndPopulate = function (){
-    var populateQuery = [{path: 'user', select: 'firstName lastName email store'}];
     return this.find({})
         .populate('products')
-        .populate(populateQuery)
+        .populate(userQuery)
         .exec(function (err, stores){
             if (err) console.error(err);
             return stores;
@@ -42,7 +43,6 @@ schema.statics.findAndPopulate = function (){
 };
 
 schema.statics.findByIdAndCategory = function (id, query){
-    var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
     var productCategoryQuery = [{path: 'products',
                                 match: query}];
     return this.findById(id)
@@ -55,7 +55,6 @@ schema.statics.findByIdAndCategory = function (id, query){
 };
 
 schema.statics.findOneAndCategory = function (url, query){
-    var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
     var productCategoryQuery = [{path: 'products',
                                 match: query}];
     return this.findOne({url : url})

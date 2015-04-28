@@ -7,7 +7,6 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
-            localStorageService.set('testKey', 'testVal')
 
             scope.items = [
                 { label: 'Home', state: 'home' },
@@ -19,14 +18,16 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
 
             scope.user = null;
             scope.linkToAdmin = function(){
-                $state.go("admin")
-            }
+                $state.go("admin");
+            };
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
             };
 
             scope.logout = function () {
                 AuthService.logout().then(function () {
+                    //Once the user logsout they shoudl have the order key removed
+                    localStorageService.remove('order');
                    $state.go('home');
                 });
             };
