@@ -1,19 +1,39 @@
 #stores{
+	.main-container{
+		display: flex;
+		justify-content: space-around;
+		border: 2px solid rgb(96, 9, 17);
+	}
 	.left-col{
+		a{
+			color: rgb(96, 9, 17);
+		}
+		a:hover{
+			color: rgb(96, 9, 17);
+			text-shadow: 0px 0px 14px red;
+		}
+
 		min-width: 438px;
 		max-width: 438px;
 		.hovering{
 			
 			.details{
+				display: flex;
+				width: 50%;
+				justify-content: space-around;
+				position: fixed;
+				top: 100%;
+				left: 25%;
 				font-size: 10px;
 				font-weight: bold;
 				opacity: 0;
-				transition: transform 1s, opacity 1s, margin-bottom 2s;
+				transition: All 1s;
 				img{
 					width: 0px;
 					height: auto;
 					transition: width 1s;
 				}
+
 				p{
 					margin-top: -25px;
 					transition: margin 1s;
@@ -25,6 +45,12 @@
 		}
 		.hovering:hover{
 			.details{
+				box-shadow: 1px 1px 14px rgb(96, 9, 17),
+			 		3px 3px 14px rgb(96, 9, 17),
+			 		-3px -3px 14px rgb(96, 9, 17); 
+			 	border-radius: 20px;
+			 	background: white;
+				transform: translateY(-300px);
 				opacity: 1;
 				margin-bottom: 300px;
 				img{
@@ -41,6 +67,11 @@
 			}
 		}
 	}	
+	#content-col{
+		img{ 
+			max-width: 300px;
+		}
+	}
 }
 
 #storepage{
