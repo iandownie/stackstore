@@ -15,24 +15,22 @@
 
                 <!--mobile hamburger bar-->
                 <ul class="side-nav" id="mobile-demo">
+                    <li ng-show="user">Welcome, {{ user.email }}!</li>
                     <li ui-sref="home">The Imp's Bazaar</li>
                     <li ui-sref="stores">Stores</li>
                     <li ui-sref="productsList">Products</li>
                     <li ng-show="isLoggedIn()" ui-sref="profile">Profile</li>
                     <li ui-sref="cart">Cart</li>
-                    <li ng-show="!user" ui-sref="login" ui-sref-active="active">Login</li>
+                    <li ng-show="!user" ui-sref="login" ui-sref-active="active">Log In/Sign Up</li>
                     <li ng-show="user._type === 'Admin'" ng-click="linkToAdmin()">Admin</li>
-                    <li ng-show="!user" ui-sref="register">Register</li>
-                    <li ng-show="user">Welcome, {{ user.email }}!</li>
                     <li ng-show="user" ng-click="logout()">Logout</li>
                 </ul>
 
             <!--login/logout/search buttons-->
                 <ul class="right hide-on-med-and-down">
                     <li ng-click="select('cart')" ng-class="{activepage: selected === 'cart'}" ui-sref="cart">Cart</li>
-                    <li ng-show="!user" ui-sref="login" ui-sref-active="active">Login</li>
+                    <li ng-click="select('login')" ng-class="{activepage: selected === 'login'}" ng-show="!user" ui-sref="login">Log In/Sign Up</li>
                     <li ng-show="user._type === 'Admin'" ng-click="linkToAdmin()">Admin</li>
-                    <li ng-show="!user" ui-sref="register">Register</li>
                     <li ng-show="user">Welcome, {{ user.email }}!</li>
                     <li ng-show="user" ng-click="logout()">Logout</li>
                 </ul>
