@@ -43,11 +43,11 @@ app.factory('CartFactory', function ($http, localStorageService) {
 				});
 		},
 
-		updateQuantity: function (productId, quantity){
-			var order = localStorageService.get('order');
-
-			var config = {product : productId, quantity: quantity};
-			return $http.put('api/cart/' + order, config)
+		updateQuantity: function (lineItemId, quantity){
+			var config = {
+				quantity: quantity
+			};
+			return $http.put('api/cart/' + lineItemId, config)
 				.then( function (response){
 					return response.data;
 				});

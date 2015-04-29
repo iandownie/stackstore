@@ -99,8 +99,9 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
     };
 
     $scope.updateQuantity = function (id, quantity){
-        CartFactory.updateQuantity(id, quantity).then( function(response){
-            $state.go('cart', null, {reload: true});
+        CartFactory.updateQuantity(id, quantity).then( function(cart){
+            $scope.cart.products = cart;
+            $scope.showModifyOptions();
         });
     };
 
