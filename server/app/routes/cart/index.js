@@ -26,6 +26,14 @@ router.post('/', function(req, res, next){
 
 });
 
+router.put('/:lineItemId', function(req, res, next){
+    LineItem.updateLineItem(req.params.lineItemId, req.body, function(err, order){
+        if(err) return next(err);
+        res.json(order);
+    });
+
+});
+
 router.delete('/:id', function(req, res, next){
     LineItem.findByIdAndRemove(req.params.id, function(err, data){
         if(err) return next(err);
@@ -36,22 +44,6 @@ router.delete('/:id', function(req, res, next){
                     res.json(data);
                 });
     });
-
-});
-
-router.put('/:orderId', function(req, res, next){
-    var orderQuery = {order : req.params.orderId, product : req.body.product};
-
-    LineItem.findOne(orderQuery, function(err,data){
-        if(err) return next(err);
-        console.log(data);
-    });
-
-    // LineItem.findOneAndUpdate(orderQuery, {quantity: req.body.quantity}, {new: true}, function(err, data){
-    //     if(err) return next(err);
-    //     console.log('this is the body', orderQuery, 'this is the data', data);
-    //     res.json(data);
-    // });
 
 });
 
