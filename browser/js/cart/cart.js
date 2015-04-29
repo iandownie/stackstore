@@ -60,7 +60,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
 
     $scope.calcTotalPrice = function (){
         $scope.cart.total = 0;
-        cartInfo.forEach(function (item){
+        $scope.cart.products.forEach(function (item){
             $scope.cart.total +=  item.product.price * item.quantity;
         });
     };
@@ -105,8 +105,9 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
     };
 
     $scope.removeFromCart = function(lineItemID){
-        CartFactory.removeFromCart(lineItemID).then( function(){
-            angular.element('#'+lineItemID).remove(); //remove elem from DOM
+        CartFactory.removeFromCart(lineItemID).then( function(newCart){
+            $scope.cart.products = newCart;
+            $scope.calcTotalPrice();
         });
     };
 
