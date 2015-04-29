@@ -5,6 +5,11 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/login/login.html',
         controller: 'LoginCtrl'
     });
+    $stateProvider.state('fb', {
+        url: '/auth/facebook',
+        templateUrl: 'js/login/login.html',
+        controller: 'LoginCtrl'
+    });
 
 });
 
