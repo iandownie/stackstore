@@ -23,7 +23,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     //proof of concept of adding categories
     $scope.categoryName = '';
     $scope.currentUser = null;
-    console.log($scope.categoryList);
+    console.log($scope.currentStore);
     $scope.product = {
         name: undefined,
         price: undefined,
@@ -34,7 +34,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         images : undefined
     };
 
-    $scope.selectedProduct=$scope.currentStore.products[0];
+    $scope.selectedProduct = $scope.currentStore.products[0];
     $scope.sortType     = 'name'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
 
@@ -71,13 +71,13 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     };
     $scope.searchStore=function(storeUrl, result){
         NavFactory.loader=false;
+
         StoresFactory.loadStoreFrontByResult(storeUrl, result).then(function(data){
-            console.log("data: ",data);
             $scope.currentStore=data;
             NavFactory.loader=true;
-        })
+        });
 
-    }
+    };
     $scope.loadStoreFront = function(storeUrl, categories){
         NavFactory.loader=false;
         StoresFactory.loadStoreFrontByUrl(storeUrl, categories).then(function(data){
@@ -101,6 +101,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         });
     };
     $scope.searchProductByStore = function(query, storeID){
+        console.log()
         SearchFactory.searchProductByStore(query, storeID).then(function(data){
             $scope.currentStore.products = data;
         });

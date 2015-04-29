@@ -413,6 +413,7 @@ connectToDb.then(function () {
             throw new Error(err);
         });
     }).then(function(productArray){
+        console.log(productArray);
         var productIDArray = productArray.map(function(el){
             return el._id;
         });

@@ -59,7 +59,6 @@ app.factory('ProfileFactory', function ($http) {
     return {
         createStore: function (store) {
             return $http.post('/api/stores', store).then(function(response){
-                    console.log(response.data);
                     return response.data;
             });
         },
