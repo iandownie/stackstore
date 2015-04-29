@@ -8,7 +8,6 @@ app.factory('SearchFactory', function ($http) {
 				params : {term : query}
 			};
 			return $http.get('/api/search/' + storeID, config).then(function(response){
-				console.log(response.data);
 				return response.data;
 			});
 		},
@@ -17,7 +16,6 @@ app.factory('SearchFactory', function ($http) {
 				params : {term : query}
 			};
 			return $http.get('/api/search', config).then(function(response){
-				console.log(response.data);
 				return response.data;
 			});
 		}

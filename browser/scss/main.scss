@@ -58,6 +58,12 @@ select{
   -webkit-appearance: menulist;
   background: black;
 }
+a{
+  color:#bb0911;
+}
+a:hover{
+  text-shadow: 0 0 14px red;
+}
 body{
 
 color: black;

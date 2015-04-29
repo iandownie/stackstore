@@ -114,6 +114,16 @@ app.factory('StoresFactory', function ($http) {
                     return response.data;
                 });
         },
+        loadStoreFrontByResult: function(storeUrl, result){
+            var config = {
+                params : {result : result}
+            };
+            return $http.get('/api/stores' + storeUrl , config)
+                .then(function(response){
+                    response.data.store.products = response.data.products;
+                    return response.data.store;
+                });
+        },
         loadStoreFrontByUrl: function(storeUrl, categories){
             var config = {
                 params : {categories: categories}
