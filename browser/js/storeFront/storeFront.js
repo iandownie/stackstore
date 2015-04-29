@@ -16,7 +16,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreByUrl, categoryList, CategoryFactory, experimentalFactory, ProductFactory) {
+app.controller('StoreFrontController', function ($state, $scope, $http, AuthService, NavFactory, StoresFactory, getStoreByUrl, categoryList, CategoryFactory, experimentalFactory, ProductFactory, SearchFactory) {
     $scope.currentStore = getStoreByUrl;
 
     $scope.categoryList = categoryList;
@@ -69,7 +69,15 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
            NavFactory.loader=true;
         });
     };
+    $scope.searchStore=function(storeUrl, result){
+        NavFactory.loader=false;
+        StoresFactory.loadStoreFrontByResult(storeUrl, result).then(function(data){
+            console.log("data: ",data);
+            $scope.currentStore=data;
+            NavFactory.loader=true;
+        })
 
+    }
     $scope.loadStoreFront = function(storeUrl, categories){
         NavFactory.loader=false;
         StoresFactory.loadStoreFrontByUrl(storeUrl, categories).then(function(data){
@@ -90,6 +98,11 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         experimentalFactory.writeAFile(properties).then(function(){
             $state.go('storeFront', {id:$scope.currentStore._id},{reload:true});
         NavFactory.loader=true;
+        });
+    };
+    $scope.searchProductByStore = function(query, storeID){
+        SearchFactory.searchProductByStore(query, storeID).then(function(data){
+            $scope.currentStore.products = data;
         });
     };
 });

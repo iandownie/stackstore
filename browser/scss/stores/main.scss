@@ -79,6 +79,18 @@
 		margin-top: 5px;
 		height: 400px;
 		border-bottom: solid black 3px;
+		input{
+			position: fixed;
+			height: 30px;
+			background: white;
+			width: 240px;
+			transition: All 1s;
+		}
+		button{
+			top: 99px;
+			position: fixed;
+			width: 240px;
+		}
 		ul#category-nav {
 			background-color: rgb(96, 9, 17);
 			position:fixed;
@@ -86,6 +98,7 @@
 			width: 241px;
 			float: left;
 			left: -1px;
+			top: 135px;
 			margin-top: 0;
 			li{
 				color: white;
@@ -131,7 +144,6 @@
 			position: flex;
 			border-bottom: solid black 3px;
 			img{
-				width: 300px;
 				height: 230px;
 				margin-bottom: -6px;
 			}

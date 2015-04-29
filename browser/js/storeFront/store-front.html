@@ -1,8 +1,14 @@
 <link rel="stylesheet" type="text/css" href="/{{currentStore._id}}.css" />
 <section id="storepage">
 	<div id="top">
+	<div>
+		<form ng-submit='searchProductByStore(query, currentStore._id)'>
+			<input placeholder='Enter Query' ng-model='query'>
+			<button class='btn waves-effect waves-light' ng-click="currentStore.products=results">Search Store</button>
+		</form>
+	</div>
 		<ul id="category-nav" class="collection">
-			<li class="collection-item">All Categories</li>
+			<li class="collection-item">All Categories </li>
 			<li ng-repeat="category in categoryList" ng-click="loadStoreFront(currentStore.url, category._id)" class="collection-item">{{category.name}}</li>
 		</ul>
 		<div id="main-window">
