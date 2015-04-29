@@ -34,7 +34,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
     $scope.newQuantity = null;
 
     $scope.cart = {
-        id: localStorageService.get('order'),
+        _id: localStorageService.get('order'),
         products: cartInfo,
         user: null,
         total: 0,
@@ -112,7 +112,10 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
     };
 
    $scope.submitOrder = function(newOrder){
-    NavFactory.loader=false;
+        NavFactory.loader=false;
+        //update order to processing
+        newOrder.status = 'Processing';
+        //alerts server to update order from Created to Processing
         CartFactory.submitOrder(newOrder).then(function(data){
             $scope.orderId = data._id;
             $state.go('cart.orderComplete');
@@ -120,7 +123,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
         }).catch(function(err){
             $state.go('error');
         });
-   };
+    };
 
     $scope.checkout = function (user) {
         if (user) $state.go('cart.addressInfo');

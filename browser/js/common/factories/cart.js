@@ -59,7 +59,7 @@ app.factory('CartFactory', function ($http, localStorageService) {
 				el.product = el.product._id;
 				return el;
 			});
-			return $http.post('api/orders', newOrder).then(function(response){
+			return $http.post('api/orders/' + newOrder._id, newOrder).then(function(response){
 				localStorageService.remove('order');
 				return response.data;
 			});
