@@ -18,16 +18,20 @@ module.exports = function (app) {
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
         UserModel.findOne({ 'facebook.id': profile.id }, function (err, user) {
-
+            console.log(profile)
             if (err) return done(err);
-
             if (user) {
                 done(null, user);
             } else {
+                console.log("Err: ", err)
+                console.log("user: ", user)
                 UserModel.create({
                     facebook: {
-                        id: profile.id
-                    }
+                        id: profile.id,
+                    },
+                    firstName: profile.name.givenName,
+                    lastName: profile.name.familyName
+                    
                 }).then(function (user) {
                     done(null, user);
                 }, function (err) {

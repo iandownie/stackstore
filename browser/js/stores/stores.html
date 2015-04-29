@@ -5,7 +5,7 @@
 		    	<h4>Store: {{ store.name }}</h4>
 		    	<h5>Owner: {{ store.user.firstName }} {{ store.user.lastName }}</h5>
 	    	</a>
-	    	<h6>Products:</h6>
+	    	<!-- <h6>Products:</h6> -->
 	    	<div ng-repeat="product in store.products">
 	    		<div ng-hide="hovered" class="hovering">
 	    			<a ng-href="products/{{product._id}}">

@@ -1,6 +1,12 @@
 <link rel="stylesheet" type="text/css" href="/{{currentStore._id}}.css" />
 <section id="storepage">
 	<div id="top">
+	<div>
+		<form ng-submit='searchProductByStore(query, currentStore._id)'>
+			<input placeholder='Enter Query' ng-model='query'>
+			<button class='btn waves-effect waves-light' ng-click="currentStore.products=results">Search Store</button>
+		</form>
+	</div>
 		<ul id="category-nav" class="collection">
 			<li class="collection-item" ng-click='loadStoreFront(currentStore.url)'>All Categories</li>
 			<li ng-repeat="category in categoryList" ng-click="loadStoreFront(currentStore.url, category._id)" class="collection-item">{{category.name}}</li>
@@ -10,8 +16,8 @@
 				<img src="{{currentStore.logo}}"/>
 			</div>
 			<div>
-				<h5 ng-hide="currentUser._id==currentStore.user._id">{{currentStore.name}}</h5>
-				<h5 class="main-container" ng-show="currentUser._id==currentStore.user._id">Your Store.</h5>
+				<h5 ng-hide="currentUser._id==currentStore.user">{{currentStore.name}}</h5>
+				<h5 class="main-container" ng-show="currentUser._id==currentStore.user">Your Store.</h5>
 				<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
 			</div>
 			<div class="main-container" >
@@ -24,7 +30,7 @@
 	
 		
 	</div>
-	<div ng-class="editOn" ng-show="currentUser._id==currentStore.user._id" id="editor">
+	<div ng-class="editOn" ng-show="currentUser._id==currentStore.user" id="editor">
 			<button id="opener" class="btn" ng-click="editOn='editing'">Editor</button>
 			<button id="opened" class="btn" ng-click="editOn='not'">Close</button>
 			<div id="store-editor">
@@ -112,8 +118,6 @@
 					<input ng-model="properties.fontcolortwo" type="color"/>
 					<h6>Text Shadow Color:</h6>
 					<input ng-model="properties.fontshadow" type="color"/>
-					<h6>Store Description:</h6>
-					<textarea placeholder="Drag Bottom Right to Expand" ng-model="properties.description"></textarea>
 				</div>
 				<div class="modal-footer">	
 					<button class="waves-effect waves-light btn">Save Changes</button>

@@ -5,10 +5,10 @@
 	box-shadow:inset 1px 0px 18px #ffffff;
 }
 section#profile{
-	text-shadow: 0px 0px 1px #600911, 
-			1px -1px 1px #600911, 
-			2px -2px 1px #600911, 
-			3px -3px 1px #600911;
+	text-shadow: 0px 0px 0px #600911, 
+			-1px 1px 0px #600911, 
+			-2px 2px 0px #600911, 
+			-3px 3px 0px #600911;
 	page-title{
 		text-align: center;
 		h1{
@@ -23,7 +23,10 @@ section#profile{
 		
 	}
 	.main-container{
-			color: white;
+		color: #600911;
+		text-shadow:-1px 1px 0px black, 
+			-2px 2px 0px black, 
+			-3px 3px 0px black;
 
 		justify-content: space-around;
 		display: flex;

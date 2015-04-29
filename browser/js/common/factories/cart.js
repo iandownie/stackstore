@@ -54,7 +54,6 @@ app.factory('CartFactory', function ($http, localStorageService) {
 		},
 
 		submitOrder: function(newOrder){
-			console.log(newOrder);
 			newOrder.products = newOrder.products.map(function(el){
 				el.paidUnitPrice = el.product.price;
 				el.product = el.product._id;
@@ -62,6 +61,7 @@ app.factory('CartFactory', function ($http, localStorageService) {
 			});
 			return $http.post('api/orders', newOrder).then(function(response){
 				localStorageService.remove('order');
+				console.log('CART FACT RESP.DATA', response.data)
 				return response.data;
 			});
 		}

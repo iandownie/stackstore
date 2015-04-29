@@ -19,8 +19,8 @@ router.post('/', function(req, res, next){
 
 		Product.updateQuantities(req.body, function (err, otherData){
 			if(err) return next(err);
-			res.json(data);
 		});
+		res.json(data);
 	});
 });
 

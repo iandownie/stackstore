@@ -11,9 +11,16 @@
         <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
     </div>
     <button type="submit" class="btn btn-default">Login</button> <br>
+    
+
     <button style="margin-top:10px;" class="waves-effect waves-light btn modal-trigger" href="#modal1"> Sign Up</button>
+   <br>
+
 
 </form>
+<a href="/auth/facebook/callback" target="_self">
+<button style="margin-top:10px;" class="waves-effect waves-light btn  fb">Sign Up With Facebook</button>
+ </a>
   <!-- Modal Trigger -->
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
@@ -34,7 +41,7 @@
           <input name="email" type="text" ng-model="newUser.email" required><br/>
           <label>Password:</label>
           <input name="password" type="password" ng-model="newUser.password" required>
-          <button class="close-modal"> Sign Up</button>
+          <button class="waves-effect waves-light btn modal-trigger close-modal"> Sign Up</button>
       </form>    
     </div>
   </div>
