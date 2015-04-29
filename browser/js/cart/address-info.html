@@ -33,11 +33,8 @@
                     <input id="city" name="city" type="text" ng-model="cart.shippingAddress.city" required></input><br/>
                     <label for="city">City</label>
                 </div>
-                <!--<div class="input-field col s12">-->
-                <!--<state-selector></state-selector>-->
-                <!--</div>-->
                 <div class="input-field">
-                    <input id="state" name="state" type="text" ng-maxlength="2" ng-minlength="2" ng-model="cart.shippingAddress.state"></input><br/>
+                    <input id="state" name="state" type="text" ng-maxlength="2" ng-minlength="2" ng-model="cart.shippingAddress.state" required></input><br/>
                     <label for="state">State</label>
                 </div>
                 <div class="input-field">
@@ -52,37 +49,37 @@
                 <div class="row">
                     <div class="input-field" ng-hide="billingIsSame">
                         <input id="billing_first_name" name="first" type="text" ng-maxlength="15" ng-model="cart.billingAddress.firstName" required></input><br/>
-                        <label for="billing_first_name">First Name</label>
+                        <label ng-class="{'active': setActive}" for="billing_first_name">First Name</label>
                     </div>
                     <div class="input-field" ng-hide="billingIsSame">
                         <input id="billing_last_name" name="last" type="text" ng-maxlength="15" ng-model="cart.billingAddress.lastName" required></input><br/>
-                        <label for="billing_last_name">Last Name</label>
+                        <label ng-class="{'active': setActive}" for="billing_last_name">Last Name</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field" ng-hide="billingIsSame">
                         <input id="billing_street" name="street" type="text" ng-maxlength="15" ng-model="cart.billingAddress.street" required></input><br/>
-                        <label for="billing_street">Street</label>
+                        <label ng-class="{'active': setActive}" for="billing_street">Street</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field" ng-hide="billingIsSame">
                         <input id="billing_street_2" name="street2" type="text" ng-maxlength="15" ng-model="cart.billingAddress.street2" required></input><br/>
-                        <label for="billing_street_2">Street 2</label>
+                        <label ng-class="{'active': setActive}" for="billing_street_2">Street 2</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field" ng-hide="billingIsSame">
                         <input id="billing_city" name="city" type="text" ng-model="cart.billingAddress.city" required></input><br/>
-                        <label for="billing_city">City</label>
+                        <label ng-class="{'active': setActive}" for="billing_city">City</label>
                     </div>
                     <div class="input-field" ng-hide="billingIsSame">
-                        <input id="billing_state" name="billing_state" type="text" ng-maxlength="2" ng-minlength="2" ng-model="cart.billingAddress.state"></input><br/>
-                        <label for="billing_state">State</label>
+                        <input id="billing_state" name="billing_state" type="text" ng-maxlength="2" ng-minlength="2" ng-model="cart.billingAddress.state" required></input><br/>
+                        <label ng-class="{'active': setActive}" for="billing_state">State</label>
                     </div>
                     <div class="input-field" ng-hide="billingIsSame">
                         <input id="billing_zip" name="zip" ng-maxlength="5" ng-minlength="5" ng-model="cart.billingAddress.zip" required></input><br/>
-                        <label for="billing_zip">Zip</label>
+                        <label ng-class="{'active': setActive}" for="billing_zip">Zip</label>
                     </div><br/>
                 </div>
             </div>

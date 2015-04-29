@@ -20,13 +20,12 @@
                 <td>{{ product.product.name }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.product.price | currency }}</td>
-                <td ng-init="itemTotal = product.product.price * product.quantity; cart.total = cart.total + itemTotal">{{itemTotal | currency}}</td>
+                <td>{{ product.quantity * product.product.price | currency }}</td>
                 <td>
                     <button class="btn waves-effect waves-light wave" ng-click="showModifyOptions()" ng-hide="showModify">Modify</button>
                     <button class="btn waves-effect waves-light wave" ng-click="showUpdateField()" ng-show="showModify">Update Quantity</button>
                     <form ng-show="showUpdate" ng-submit="updateQuantity(product._id, newQuantity)">
                         <input type="number" placeholder="{{product.quantity}}" ng-model="newQuantity">
-                        <button class="btn waves-effect waves-light wave">Go</button>
                     </form>
                     <button class="btn waves-effect waves-light wave" ng-click="removeLineItem(product._id)" ng-show="showModify">Remove</button>
                     <button class="btn waves-effect waves-light wave" ng-click="showModifyOptions()" ng-show="showModify">Done</button>
