@@ -3,9 +3,8 @@
 	<button class='btn btn-primary'>Search</button>
 </form>
 
-<form ng-submit='searchProductByStore(query, storeID)'>
+<form ng-submit='searchProductByStore(query, currentStore._id)'>
 	<input placeholder='Enter Query' ng-model='query'>
-	<input placeholder='Enter Store ID'ng-model='storeID'>
 	<button class='btn btn-primary'>Search Product in Store</button>
 </form>
 

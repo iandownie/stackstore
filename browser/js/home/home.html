@@ -5,7 +5,9 @@
 	
 		</div>
 		<h4 class="new-products"> New Wares</h4>
+
 		<div id="home-product-owl">
+
 			<div class="item" ng-repeat="product in productsList">
 				<div class="title-wrap"> <a href="/products/{{product._id}}"> {{product.name}}</a></div>
 			 	<img src="{{product.images[0]}}" /> <br>
