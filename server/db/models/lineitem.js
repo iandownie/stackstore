@@ -127,6 +127,7 @@ schema.statics.findOneOrderWithItems = function(orderID){
                 return this.find({order: orderID})
                             .populate(productQuery)
                             .exec(function(err, lineItemData){
+                                if (err) throw new Error(err);
                                 return {
                                     order : orderData,
                                     lineItem : lineItemData

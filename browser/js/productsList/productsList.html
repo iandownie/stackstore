@@ -16,7 +16,7 @@
 	 <div class="row">
 	 	<div class="col s12 m2 lg3" ng-repeat="product in productsList">
 			<!-- <pre>{{product | json}}</pre> -->
-			<h5 class="productName"><a href="/products/{{product._id}}"> {{product.name}} </a></h5>
+			<h5 class="productName"><a ng-href="/products/{{product._id}}"> {{product.name}} </a></h5>
 				<div class="main-container">
 					<div class="image-wrapper">
 						<img class="store-img" src="{{product.images[0]}}"></img>
@@ -24,7 +24,7 @@
 				</div>
 				<h5 class="productPrice"> Seller's Price: ${{product.price}}</h5>
 				<h5 class="productDescription">{{product.description  | cut:true:90:'...'}}</h5>
-				<a href="/stores/{{product.store._id}}">
+				<a ng-href="/stores/{{product.store.url}}">
 					<h5>Visit this product's store.</h5>
 				</a>
 				<h5>Reviews:</h5>

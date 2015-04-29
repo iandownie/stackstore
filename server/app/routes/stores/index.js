@@ -8,7 +8,7 @@ var Product = mongoose.model('Product');
 
 router.get('/', function (req, res, next) {
     if(req.query.id){
-        Store.findByIdAndCategory(req.query.id,{})
+        Product.findStoreByIdCategory(req.query.id,{})
             .then(function(stores){
                 res.json(stores);
             }).then(null, function(err){
@@ -49,7 +49,6 @@ router.get('/:url', function (req, res, next) {
 
     Product.findStoreProductsByCategory(req.params.url, req.query, function(err, data){
         if(err) return next(err);
-        console.log(data);
         res.json(data);
     });
 });

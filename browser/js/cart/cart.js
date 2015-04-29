@@ -25,7 +25,7 @@ app.config(function ($stateProvider) {
         })
         .state('cart.orderComplete', {
             templateUrl: 'js/cart/order-complete.html'
-        })
+        });
 });
 
 app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFactory, AuthService, $state, CartFactory, cartInfo) {
@@ -87,7 +87,6 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
 
     $scope.updateQuantity = function (id, quantity){
         CartFactory.updateQuantity(id, quantity).then( function(response){
-            // $window.location.reload();
             $state.go($state.current, {}, {reload: true});
         });
     };

@@ -34,23 +34,10 @@ var userQuery = [{path: 'user', select: 'firstName lastName email store'}];
 
 schema.statics.findAndPopulate = function (){
     return this.find({})
-        .populate('products')
         .populate(userQuery)
         .exec(function (err, stores){
             if (err) console.error(err);
             return stores;
-        });
-};
-
-schema.statics.findOneAndCategory = function (url, query){
-    var productCategoryQuery = [{path: 'products',
-                                match: query}];
-    return this.findOne({url : url})
-        .populate(productCategoryQuery)
-        .populate(userQuery)
-        .exec(function (err, store){
-            if (err) throw new Error(err);
-            return store;
         });
 };
 

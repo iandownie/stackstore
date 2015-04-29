@@ -137,23 +137,27 @@ var seedStores = function(userIDArray){
         user: userIDArray[0], //user Trash Miner
         name : 'Trashy',
         url : 'trashy',
+        description: 'Where my trash is another person\'s treasure',
         logo : 'http://www.melissa-popp.com/wp-content/uploads/2014/11/pro-disposal-review.jpg'
     },
     {
         user : userIDArray[1], //user Black Hat
         name : 'Mother Lode',
         url : 'motherlode',
+        description: 'We strive to make the unattainable attainable',
         logo : 'http://motherlode.com.au/wp-content/uploads/2014/03/motherlode-logo-black-code-on-trans-landscape.png'
     },
     {
         user : userIDArray[2], //user Tyrion Lannister
         name: 'Tyrion\'s Armory',
+        description: 'What',
         logo: 'http://dailycampus.com/wp-content/uploads/2015/03/03-30-2015-Armory-logo.jpg'
     },
     {
         user: userIDArray[5], //user Trash Miner
         name : "Cheese Monger\'s Hollow",
         url : 'madness',
+        description: 'Me so cheesy',
         logo : 'http://www.ufunk.net/wp-content/uploads/2014/03/David-Szakaly-animated-GIFs-4.gif'
     }];
 
@@ -167,7 +171,7 @@ var seedProducts = function (storeIDArray, categoriesIDArray) {
             name : 'Dozen of Hand Teared Candy Wrapper',
             price : 29.99,
             quantity : 5,
-            description : 'Personally teared candy wrappers while watching TV, lying on my bed, sitting in the bathroom',
+            description : 'Hand teared candy wrappers while watching TV, lying on my bed, sitting in the bathroom',
             categories : [categoriesIDArray[0]],
             store: storeIDArray[0],
             images : ['http://thesingingnurse.com/wp-content/uploads/2012/02/16-x-15-papers-IMG_0051_1282.jpg', 'http://texturetaddka.com/wp-content/uploads/2012/10/Golden_chocolate_candy_wrapper_texture_1.jpg']
@@ -193,25 +197,25 @@ var seedProducts = function (storeIDArray, categoriesIDArray) {
         {
             name: 'joedotjs\'s Codewar Account',
             price: "89.99",
-            description: 'You know you want it.',
+            description: '[3 kyu] Honor: 252, Leader Position #2097',
             quantity: 1,
             categories : [categoriesIDArray[1]],
             store: storeIDArray[1],
-            images: ['http://joselcontreras.com/wp-content/uploads/2014/06/codewars.jpg']
+            images: ['https://avatars0.githubusercontent.com/u/3117977?v=3&s=460','http://joselcontreras.com/wp-content/uploads/2014/06/codewars.jpg']
         },
         {
             name: 'gtelljohann\'s Codewar Account',
             price: "99.99",
-            description: 'You know you want it.',
+            description: '[3 kyu] Honor 330, Leader Position #1106',
             quantity: 1,
             categories : [categoriesIDArray[1]],
             store: storeIDArray[1],
-            images: ['http://joselcontreras.com/wp-content/uploads/2014/06/codewars.jpg']
+            images: ['https://avatars1.githubusercontent.com/u/8798097?v=3&s=460', 'http://joselcontreras.com/wp-content/uploads/2014/06/codewars.jpg']
         },
         {
             name: 'heythisisdave\'s Codewar Account',
             price: "109.99",
-            description: 'You know you want it.',
+            description: '[3 kyu] Honor 368, Leader Position #878',
             quantity: 1,
             categories : [categoriesIDArray[1]],
             store: storeIDArray[1],
