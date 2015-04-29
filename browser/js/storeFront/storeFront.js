@@ -50,7 +50,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     };
     $scope.editProduct=function(data){
         NavFactory.loader=false;
-        ProductFactory.editProduct(data).then(function (respeonse){
+        ProductFactory.editProduct(data).then(function (response){
             $state.go('storeFront', {url: $scope.currentStore.url }, {reload: true});
             NavFactory.loader=true;
         });
