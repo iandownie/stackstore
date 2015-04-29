@@ -16,13 +16,13 @@
 				<img src="{{currentStore.logo}}"/>
 			</div>
 			<div>
-				<h5 ng-hide="currentUser._id==currentStore.user._id">{{currentStore.name}}</h5>
-				<h5 class="main-container" ng-show="currentUser._id==currentStore.user._id">Your Store.</h5>
+				<h5 ng-hide="currentUser._id==currentStore.user">{{currentStore.name}}</h5>
+				<h5 class="main-container" ng-show="currentUser._id==currentStore.user">Your Store.</h5>
 				<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
 			</div>
 			<div class="main-container" >
-				<h6 class="main-container" ng-show="currentUser._id==currentStore.user._id">You can customize your store's appearance or add/delete/edit your products from this page.</h6>
-				<h6 class="main-container" ng-hide="currentUser._id==currentStore.user._id">store.description</h6>
+				<h6 class="main-container" ng-show="currentUser._id==currentStore.user">You can customize your store's appearance or add/delete/edit your products from this page.</h6>
+				<h6 class="main-container" ng-hide="currentUser._id==currentStore.user">store.description</h6>
 		</div>
 		</div>
 	</div>
@@ -30,7 +30,7 @@
 	
 		
 	</div>
-	<div ng-class="editOn" ng-show="currentUser._id==currentStore.user._id" id="editor">
+	<div ng-class="editOn" ng-show="currentUser._id==currentStore.user" id="editor">
 			<button id="opener" class="btn" ng-click="editOn='editing'">Editor</button>
 			<button id="opened" class="btn" ng-click="editOn='not'">Close</button>
 			<div id="store-editor">
@@ -118,8 +118,6 @@
 					<input ng-model="properties.fontcolortwo" type="color"/>
 					<h6>Text Shadow Color:</h6>
 					<input ng-model="properties.fontshadow" type="color"/>
-					<h6>Store Description:</h6>
-					<textarea placeholder="Drag Bottom Right to Expand" ng-model="properties.description"></textarea>
 				</div>
 				<div class="modal-footer">	
 					<button class="waves-effect waves-light btn">Save Changes</button>
