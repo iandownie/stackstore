@@ -36,8 +36,8 @@ app.factory('CartFactory', function ($http, localStorageService) {
 			}
 		},
 
-		removeLineItem: function(lineItemID){
-			return $http.delete('api/cart' + lineItemID)
+		removeFromCart: function(lineItemID){
+			return $http.delete('api/cart/' + lineItemID)
 				.then( function (response){
 					return response.data;
 				});
@@ -61,7 +61,6 @@ app.factory('CartFactory', function ($http, localStorageService) {
 			});
 			return $http.post('api/orders', newOrder).then(function(response){
 				localStorageService.remove('order');
-				console.log('CART FACT RESP.DATA', response.data)
 				return response.data;
 			});
 		}

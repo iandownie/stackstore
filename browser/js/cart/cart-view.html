@@ -27,7 +27,7 @@
                     <form ng-show="showUpdate" ng-submit="updateQuantity(product._id, newQuantity)">
                         <input type="number" placeholder="{{product.quantity}}" ng-model="newQuantity">
                     </form>
-                    <button class="btn waves-effect waves-light wave" ng-click="removeLineItem(product._id)" ng-show="showModify">Remove</button>
+                    <button class="btn waves-effect waves-light wave" ng-click="removeFromCart(product._id)" ng-show="showModify">Remove</button>
                     <button class="btn waves-effect waves-light wave" ng-click="showModifyOptions()" ng-show="showModify">Done</button>
                 </td>
             </tr>

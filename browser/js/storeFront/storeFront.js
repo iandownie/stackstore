@@ -23,7 +23,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     //proof of concept of adding categories
     $scope.categoryName = '';
     $scope.currentUser = null;
-    console.log($scope.currentStore);
+
     $scope.product = {
         name: undefined,
         price: undefined,
@@ -101,7 +101,7 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
         });
     };
     $scope.searchProductByStore = function(query, storeID){
-        console.log()
+        console.log(query, storeID);
         SearchFactory.searchProductByStore(query, storeID).then(function(data){
             $scope.currentStore.products = data;
         });
