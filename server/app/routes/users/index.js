@@ -28,6 +28,7 @@ router.post('/user', function (req, res, next) {
 
 router.get('/user', function (req, res, next) {
     User.getProperLoginType( req.session._id, function(err, whateverUser){
+        console.log(whateverUser);
         res.json(whateverUser);
     });
     // User.findById(req.session._id, function (err, user){

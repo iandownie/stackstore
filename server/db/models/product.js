@@ -40,7 +40,7 @@ schema.pre('save', function (next) {
   next();
 });
 
-var storeQuery = [{path: 'store', select: 'name logo'}];
+var storeQuery = [{path: 'store', select: 'name url logo'}];
 
 schema.statics.createProduct = function(product){
 	return this.create(product).then(function(productData){
@@ -121,6 +121,7 @@ schema.statics.getProductsByQuery = function(query){
 				.populate(storeQuery)
 				.exec(function(err, dataArr){
 					if(err) throw new Error(err);
+					console.log(dataArr);
 					return dataArr;
 				}
 	);
@@ -129,6 +130,21 @@ schema.statics.getProductsByQuery = function(query){
 schema.statics.findStoreProductsByCategory = function (storeUrl, query, cb){
     var self = this;
     Store.findOne({url: storeUrl}, function(err, storeData){
+					    			if(err) throw new Error(err);
+					    			query.store = storeData._id;
+					    			self.find(query, function(err, data){
+					    				var obj = {
+					    					store : storeData,
+					    					products : data
+					    				};
+					    				cb(err, obj);
+					    			});
+				});
+};
+
+schema.statics.findStoreByIdCategory = function (storeId, query, cb){
+    var self = this;
+    Store.findById(storeId, function(err, storeData){
 					    			if(err) throw new Error(err);
 					    			query.store = storeData._id;
 					    			self.find(query, function(err, data){

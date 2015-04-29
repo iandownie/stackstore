@@ -8,12 +8,12 @@
 	    	<!-- <h6>Products:</h6> -->
 	    	<div ng-repeat="product in store.products">
 	    		<div ng-hide="hovered" class="hovering">
-	    			<a href="products/{{product._id}}">
+	    			<a ng-href="products/{{product._id}}">
 	    				<h7>{{product.name}}</h7>
 	    			</a> 
 	    			<div class="details main-container">
 	    				<div >
-		    				<a href="products/{{product._id}}">
+		    				<a ng-href="products/{{product._id}}">
 		    					<img src="{{product.images[0]}}"></img>
 		    				</a>	
 		    			</div>

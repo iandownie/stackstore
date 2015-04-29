@@ -36,16 +36,18 @@ app.factory('CartFactory', function ($http, localStorageService) {
 			}
 		},
 
-		removeLineItem: function(lineItemID){
-			return $http.delete('api/cart' + lineItemID)
+		removeFromCart: function(lineItemID){
+			return $http.delete('api/cart/' + lineItemID)
 				.then( function (response){
 					return response.data;
 				});
 		},
 
-		updateQuantity: function (id, quantity){
-			var config = {id : id, quantity: quantity};
-			return $http.put('api/cart', config)
+		updateQuantity: function (productId, quantity){
+			var order = localStorageService.get('order');
+
+			var config = {product : productId, quantity: quantity};
+			return $http.put('api/cart/' + order, config)
 				.then( function (response){
 					return response.data;
 				});
@@ -59,7 +61,6 @@ app.factory('CartFactory', function ($http, localStorageService) {
 			});
 			return $http.post('api/orders', newOrder).then(function(response){
 				localStorageService.remove('order');
-				console.log('CART FACT RESP.DATA', response.data)
 				return response.data;
 			});
 		}

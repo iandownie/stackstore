@@ -11,6 +11,7 @@ app.config(function ($stateProvider) {
             getUserInfo: function(AuthService){
                 return AuthService.getLoggedInUser()
                     .then(function (user) {
+                        console.log(user);
                     return user;
                 });
             }
@@ -21,21 +22,13 @@ app.config(function ($stateProvider) {
 
 app.controller('ProfileController', function ($scope, $state, NavFactory, AuthService, ProfileFactory, StoresFactory, getUserInfo) {
     $scope.user = getUserInfo;
-    console.log($scope.user)
+
     $scope.store =  getUserInfo.store || {
         name: undefined,
         url: undefined,
         logo: undefined,
         user: $scope.user._id
     };
-
-    if($scope.user.store){
-        StoresFactory.loadStoreFrontById($scope.user.store).then(function (store){
-            console.log("store: ",store)
-            $scope.store = store;
-            console.log("$scope.store",$scope.store)
-        });
-    }
 
     $scope.createStore = function (store){
         NavFactory.loader=false;
@@ -66,7 +59,6 @@ app.factory('ProfileFactory', function ($http) {
     return {
         createStore: function (store) {
             return $http.post('/api/stores', store).then(function(response){
-                    console.log(response.data);
                     return response.data;
             });
         },

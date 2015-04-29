@@ -11,6 +11,7 @@ module.exports = function (app) {
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
         UserModel.findOne({ email: email }, function (err, user) {
+            console.log(user);
             if (err) return done(err);
             // user.correctPassword is a method from our UserModel schema.
             if (!user || !user.correctPassword(password)) return done(null, false);

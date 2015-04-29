@@ -34,11 +34,19 @@ router.delete('/:id', function(req, res, next){
 
 });
 
-router.put('/', function(req, res, next){
-    LineItem.findByIdAndUpdate(req.body.id, {quantity: req.body.quantity},function(err, data){
+router.put('/:orderId', function(req, res, next){
+    var orderQuery = {order : req.params.orderId, product : req.body.product};
+
+    LineItem.findOne(orderQuery, function(err,data){
         if(err) return next(err);
-        res.json(data);
+        console.log(data);
     });
+
+    // LineItem.findOneAndUpdate(orderQuery, {quantity: req.body.quantity}, {new: true}, function(err, data){
+    //     if(err) return next(err);
+    //     console.log('this is the body', orderQuery, 'this is the data', data);
+    //     res.json(data);
+    // });
 
 });
 

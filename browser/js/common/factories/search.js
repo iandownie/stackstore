@@ -7,7 +7,9 @@ app.factory('SearchFactory', function ($http) {
 			var config = {
 				params : {term : query}
 			};
+			console.log(query,storeID);
 			return $http.get('/api/search/' + storeID, config).then(function(response){
+				console.log('this is search', response.data);
 				return response.data;
 			});
 		},

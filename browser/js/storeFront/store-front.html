@@ -4,11 +4,11 @@
 	<div>
 		<form ng-submit='searchProductByStore(query, currentStore._id)'>
 			<input placeholder='Enter Query' ng-model='query'>
-			<button class='btn waves-effect waves-light' ng-click="currentStore.products=results">Search Store</button>
+			<button class='btn waves-effect'>Search Store</button>
 		</form>
 	</div>
 		<ul id="category-nav" class="collection">
-			<li class="collection-item">All Categories </li>
+			<li class="collection-item" ng-click='loadStoreFront(currentStore.url)'>All Categories</li>
 			<li ng-repeat="category in categoryList" ng-click="loadStoreFront(currentStore.url, category._id)" class="collection-item">{{category.name}}</li>
 		</ul>
 		<div id="main-window">
@@ -21,8 +21,8 @@
 				<!-- <button ng-click="imp=!imp">Return to the Imp's Bazaar</button> -->
 			</div>
 			<div class="main-container" >
-				<h6 class="main-container" ng-show="currentUser._id==currentStore.user">You can customize your store's appearance or add/delete/edit your products from this page.</h6>
-				<h6 class="main-container" ng-hide="currentUser._id==currentStore.user">store.description</h6>
+				<h6 class="main-container" ng-show="currentUser._id==currentStore.user._id">You can customize your store's appearance or add/delete/edit your products from this page.</h6>
+				<h6 class="main-container" ng-hide="currentUser._id==currentStore.user._id">{{currentStore.description}}</h6>
 		</div>
 		</div>
 	</div>

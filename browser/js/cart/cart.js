@@ -25,9 +25,8 @@ app.config(function ($stateProvider) {
             templateUrl: 'js/cart/finalize-order.html'
         })
         .state('cart.orderComplete', {
-            templateUrl: 'js/cart/order-complete.html',
-            controller: 'CartCtrl'
-        })
+            templateUrl: 'js/cart/order-complete.html'
+        });
 });
 
 app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFactory, AuthService, $state, CartFactory, cartInfo) {
@@ -101,7 +100,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
 
     $scope.updateQuantity = function (id, quantity){
         CartFactory.updateQuantity(id, quantity).then( function(response){
-            $state.go($state.current, {}, {reload: true});
+            $state.go('cart', null, {reload: true});
         });
     };
 
@@ -123,7 +122,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
    };
 
     $scope.checkout = function (user) {
-        if (user) $state.go('cart.addressInfo')
-        else $state.go('cart.userOrGuest')
-    }
+        if (user) $state.go('cart.addressInfo');
+        else $state.go('cart.userOrGuest');
+    };
 });

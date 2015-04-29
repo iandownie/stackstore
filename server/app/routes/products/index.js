@@ -20,8 +20,9 @@ router.get('/', function(req, res, next){
 			query = {categories : {$in : req.query.categories}};
 		}
 	}
-
+	console.log(query);
 	Product.getProductsByQuery(query).then(function(data){
+		console.log(data);
 		res.json(data);
 	}).then(null, function(err){
 		return next(err);
@@ -62,11 +63,6 @@ router.put('/:id', function(req, res, next){
 	}).then(null, function(err){
 		return next(err);
 	});
-
-	// Product.findByIdAndUpdate(req.params.id, req.body).populate('store').exec(function(err, data){
-	// 	if(err) return next(err);
-	// 	res.json(data);
-	// });
 });
 
 module.exports = router;

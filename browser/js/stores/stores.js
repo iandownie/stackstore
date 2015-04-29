@@ -40,8 +40,10 @@ app.controller('StoreFrontController', function ($state, $scope, $http, AuthServ
     $scope.sortReverse  = false;  // set the default sort order
 
     AuthService.getLoggedInUser().then(function (user) {
-        $scope.currentUser = user;
-        $scope.product.store = user.store;
+        if(user){
+            $scope.currentUser = user;
+            $scope.product.store = user.store;
+        }
 
     });
 
