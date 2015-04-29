@@ -97,16 +97,15 @@ schema.statics.updateLineItem = function(lineItemID, statusChange){
     });
 };
 
-schema.statics.updateOrder = function(orderID, statusChange){
+schema.statics.updateOrder = function(orderID, statusChange, cb){
     if(statusChange.status === 'Created') throw new Error('Cannot revert an Order status back to Created');
     // if order status changes, line item status would also have to change
-    return this.update({order : orderID}, statusChange, {multi: true}, function(err, data){
+    this.update({order : orderID}, {status: statusChange.status}, {multi: true}, function(err, data){
         if(err) throw new Error(err);
-        return Order.findByIdAndUpdate(orderID, statusChange, {new: true}, function(err, orderData){
-            if(err) throw new Error(err);
-            return orderData;
+        Order.findByIdAndUpdate(orderID, statusChange, {new: true}, function(err, orderData){
+            cb(err, orderData);
         });
-    }).exec();
+    });
 };
 
 schema.statics.findByCriteria = function (query) {

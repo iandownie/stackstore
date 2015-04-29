@@ -8,27 +8,26 @@ var Product = mongoose.model('Product');
 var router = require('express').Router();
 
 
-router.post('/', function(req, res, next){
-
-	//update order status to processing
-	req.body.status = 'Processing';
-
+router.post('/:id', function(req, res, next){
 	//submit an order by finding open order by id
-	Order.findByIdAndUpdate(req.body.id, req.body, function(err, data){
-		if(err) return next(err);
-
-		Product.updateQuantities(req.body, function (err, otherData){
-			if(err) return next(err);
-		});
+	LineItem.updateOrder(req.params.id, req.body, function(err, data){
+		if (err) return next(err);
 		res.json(data);
 	});
+	// Order.findByIdAndUpdate(req.body.id, req.body, function(err, data){
+	// 	if(err) return next(err);
+
+	// 	Product.updateQuantities(req.body, function (err, otherData){
+	// 		if(err) return next(err);
+	// 	});
+	// 	res.json(data);
+	// });
 });
 
 router.get('/:id', function(req, res, next){
 	//see an order
 	Order.findById(req.params.id)
 			.populate('user')
-			.populate('product')
 			.exec(function(err,data){
 				if (err) return next(err);
 				res.json(data);
@@ -36,9 +35,9 @@ router.get('/:id', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next){
-	//update an order
-	Order.findByIdAndUpdate(req.params.id, req.body, function(err, data){
-		if(err) return next(err);
+	//update an order status or information
+	LineItem.updateOrder(req.params.id, req.body, function(err, data){
+		if (err) return next(err);
 		res.json(data);
 	});
 });
