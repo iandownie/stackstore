@@ -59,6 +59,15 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
         }
     };
 
+    $scope.calcTotalPrice = function (){
+        $scope.cart.total = 0;
+        cartInfo.forEach(function (item){
+            $scope.cart.total +=  item.product.price * item.quantity;
+        });
+    };
+
+    $scope.calcTotalPrice();
+
     AuthService.getLoggedInUser().then(function (user) {
         if(user) {
             $scope.user = user;
@@ -70,6 +79,7 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
         if ($scope.billingIsSame) {
             $scope.cart.billingAddress = $scope.cart.shippingAddress;
             $scope.billingIsSame = false;
+            $scope.setActive = true;
         } else {
             $scope.billingIsSame = true;
         }
@@ -84,7 +94,6 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
         }
     };
 
-
     $scope.showUpdateField = function () {
         if ($scope.showUpdate) $scope.showUpdate = false;
         else $scope.showUpdate = true;
@@ -92,7 +101,6 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
 
     $scope.updateQuantity = function (id, quantity){
         CartFactory.updateQuantity(id, quantity).then( function(response){
-            // $window.location.reload();
             $state.go($state.current, {}, {reload: true});
         });
     };
@@ -106,8 +114,6 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
    $scope.submitOrder = function(newOrder){
     NavFactory.loader=false;
         CartFactory.submitOrder(newOrder).then(function(data){
-            //$window.location.reload();
-            console.log('ORDER RETURN DATA', data)
             $scope.orderId = data._id;
             $state.go('cart.orderComplete');
             NavFactory.loader=true;
@@ -120,5 +126,4 @@ app.controller('CartCtrl', function ($scope, localStorageService, $window, NavFa
         if (user) $state.go('cart.addressInfo')
         else $state.go('cart.userOrGuest')
     }
-
 });
